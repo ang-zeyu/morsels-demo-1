@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js morsels-theme">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Search UI - Morsels Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/morsels-theme.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "morsels-theme";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('morsels-theme')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html" class="active"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Morsels Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ang-zeyu/morsels" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="/morsels/morsels_assets/search-ui-light.css">
+<style>.light .morsels-root,
+.rust .morsels-root,
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-box-shadow: none;
+    --morsels-border: 3px solid var(--table-header-bg);
+    --morsels-bg: var(--bg);
+    --morsels-triangle-bg: var(--table-header-bg);
+    --morsels-item-box-shadow: 0 1px 5px rgba(196, 192, 187, 0.8);
+    --morsels-item-sub-border: 0;
+    --morsels-title-fg: var(--fg);
+    --morsels-title-bg: var(--table-header-bg);
+    --morsels-title-hover-fg: var(--fg);
+    --morsels-title-hover-bg: var(--table-header-bg);
+    --morsels-heading-fg: var(--fg);
+    --morsels-heading-bg: var(--table-alternate-bg);
+    --morsels-heading-hover-fg: var(--fg);
+    --morsels-heading-hover-bg: var(--table-header-bg);
+    --morsels-body-fg: var(--fg);
+    --morsels-body-bg: var(--bg);
+    --morsels-body-hover-fg: var(--fg);
+    --morsels-body-hover-bg: var(--table-alternate-bg);
+    --morsels-highlight: var(--search-mark-bg);
+    --morsels-highlight-bg: none;
+    --morsels-error-fg: var(--fg);
+    --morsels-fine-print-fg: var(--fg);
+    --morsels-loading-bg: var(--fg);
+    --morsels-loading-secondary-bg: var(--fg);
+    --morsels-scrollbar-bg: var(--sidebar-bg);
+    --morsels-scrollbar-thumb-bg: var(--sidebar-non-existant);
+    --morsels-fs-button-input-fg: var(--searchbar-shadow-color);
+    --morsels-fs-border: 3px solid var(--sidebar-bg);
+    --morsels-fs-box-shadow: none;
+    --morsels-fs-header-bg: var(--sidebar-bg);
+    --morsels-fs-header-border-bottom: none;
+    --morsels-fs-header-close-fg: var(--sidebar-fg);
+    --morsels-fs-header-close-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-bg: var(--table-header-bg);
+    --morsels-fs-header-close-hover-fg: var(--fg);
+    --morsels-fs-header-close-active-bg: var(--table-header-bg);
+    --morsels-fs-header-close-active-fg: var(--fg);
+    --morsels-tip-bg: var(--sidebar-bg);
+    --morsels-tip-fg: var(--sidebar-fg);
+    --morsels-tip-code-fg: var(--inline-code-color);
+    --morsels-tip-code-bg: transparent;
+    --morsels-tip-icon-bg: rgb(230, 230, 230);
+    --morsels-tip-icon-fg: rgb(80, 80, 80);
+}
+
+.ayu .morsels-root,
+.rust .morsels-root {
+    --morsels-fs-header-close-hover-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-fg: white;
+    --morsels-fs-header-close-active-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-active-fg: white;
+    --morsels-tip-code-fg: var(--search-mark-bg) !important;
+    --morsels-tip-icon-bg: rgb(200, 200, 200);
+    --morsels-tip-icon-fg: rgb(50, 50, 50);
+}
+
+.morsels-theme .morsels-root .morsels-tip-item code,
+.rust .morsels-root .morsels-tip-item code {
+    color: var(--morsels-tip-code-fg) !important;;
+}
+
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-item-box-shadow: 0 1px 5px rgb(50, 50, 50);
+}
+
+#morsels-search {
+    width: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 0.5em 0.75em;
+    outline: 2px solid var(--searchbar-border-color);
+    border: none;
+    background: var(--searchbar-bg);
+    color: var(--searchbar-fg);
+}
+
+#morsels-search.morsels-button-input {
+    width: 100px;
+}
+
+#morsels-search.morsels-button-input::placeholder {
+    position: relative;
+    left: 7px;
+}
+
+#morsels-search.morsels-button-input:hover {
+    transition: 0.3s ease-out;
+    background: var(--morsels-fs-button-input-bg) !important;
+    outline: 2px solid var(--morsels-fs-button-input-bg);
+}
+
+#morsels-search.morsels-button-input:hover::placeholder {
+    color: var(--morsels-fs-button-input-fg) !important;
+}
+
+@media print {
+    #morsels-search {
+        display: none;
+    }
+}
+
+#morsels-mdbook-target {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+</style>
+<p><input
+    type="search"
+    id="morsels-search"
+    placeholder="Search"
+/></p>
+<p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
+<ul class="morsels-root" id="morsels-mdbook-target"></ul>
+<h1 id="search-configuration"><a class="header" href="#search-configuration">Search Configuration</a></h1>
+<p>All search related options can be provided through the <code>initMorsels</code> function, exposed by the search bundle.</p>
+<p>There are 2 categories of options, the first related to the user interface, and the latter search functionalities.</p>
+<h2 id="search-ui-options"><a class="header" href="#search-ui-options">Search UI Options</a></h2>
+<p>Search UI options are organised under the <code>uiOptions</code> key:</p>
+<pre><code class="language-ts">initMorsels({
+    uiOptions: {
+        // ... options go here ...
+    }
+})
+</code></pre>
+<p>For brevity, this page covers only a subset of the most important options.</p>
+<p>The subsequent <a href="./search_configuration_renderers.html">sub-chapter</a> provides a few more APIs to customise the HTML output. If you have a configuration use case that cannot be achieved without these APIs, and you think should be included as a simpler configuration option here, feel free to raise a feature request!</p>
+<h4 id="input-element"><a class="header" href="#input-element">Input Element</a></h4>
+<table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>input</code></td><td><code>'morsels-search'</code></td><td><code>id</code> of the input element or a HTML element reference</td></tr>
+<tr><td><code>inputDebounce</code></td><td><code>100</code></td><td>debounce time of keystrokes to the input element</td></tr>
+<tr><td><code>preprocessQuery</code></td><td><code>(q) =&gt; q</code></td><td>any function for preprocessing the query. Can be used to add a <a href="./search_features.html#field-search">field filter</a> for example.</td></tr>
+</tbody></table>
+<p>The <code>input</code> element is the most important option, and is required in most cases. Its purpose varies depending on the <code>mode</code> specified below.</p>
+<h4 id="ui-mode"><a class="header" href="#ui-mode">UI Mode</a></h4>
+<p>The search UI provides 4 main different behaviours.</p>
+<p>To try the different modes out, head on over to the <a href="./getting_started_mdbook.html#preview">mdbook plugin</a> page, which provides various buttons for switching the modes in this documentation.</p>
+<table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>&quot;auto&quot;</code></td><td>This option is the <strong>default</strong>, and combines the <code>dropdown</code> and <code>fullscreen</code> options below. If a mobile device is <a href="#changing-the-mobile-device-detection-method">detected</a>, the <code>fullscreen</code> mode is used. Otherwise, the <code>dropdown</code> mode is used.<br><br>An event handler is also attached that reruns this adjustment whenever the window is resized.</td></tr>
+<tr><td><code>&quot;dropdown&quot;</code></td><td>This wraps the specified <code>input</code> element with a root container. Search results are placed in a <code>&lt;ul&gt;</code> container next to the input element.</td></tr>
+<tr><td><code>&quot;fullscreen&quot;</code></td><td>This option creates a completely distinct root container (complete with its own input element, backdrop, close button, …), and attaches it to the <code>&lt;body&gt;</code> element.<br><br>Under the default stylesheet, the user interface is fullscreen under <code>max-width: 1025px</code>, and takes up roughly 50% of the screen estate otherwise.<br><br>If the <code>input</code> element is specified, the interface is also shown whenever the <code>input</code> is focused. For keyboard accessibility, some minimal, but overidable <a href="./search_configuration_styling.html#input-element">styling</a> is applied to the input element in this case.<br><br>Alternatively, the <code>showFullscreen</code> and <code>hideFullscreen</code> functions returned by the <code>initMorsels</code> call can be used to toggle the UI programatically. This is also <em>the only use case you would not need to specify the <code>input</code> element</em>.</td></tr>
+<tr><td><code>&quot;target&quot;</code></td><td>This option is the most flexible, and is used by the mdbook plugin (by default) and this documentation. The <code>input</code> element must be specified, where keystroke event listeners are attached. No dom manipulation is performed unlike the <code>dropdown</code> or <code>auto</code> modes.<br><br>The search results are output to a custom <code>target</code> element of choice.</td></tr>
+</tbody></table>
+<h4 id="ui-mode-specific-options"><a class="header" href="#ui-mode-specific-options">UI Mode Specific Options</a></h4>
+<p>There are also several options specific to each mode. Note that <code>dropdown</code> and <code>fullscreen</code> options are both applicable to the <code>auto</code> mode.</p>
+<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>auto</code></td><td><code>fsInputButtonText</code></td><td><code>undefined</code></td><td>Placeholder override when the fullscreen UI is in use (i.e. when the input functions like a button). By default, Morsels uses the original placeholder you’ve configured, but makes some minimal <a href="./search_configuration_styling.html#input-element-as-a-button">styling</a> changes to ensure keyboard accessibility.</td></tr>
+<tr><td><code>dropdown</code></td><td><code>dropdownAlignment</code></td><td><code>'bottom-end'</code></td><td><code>'bottom'</code> or <code>'bottom-start'</code> or <code>'bottom-end'</code>.<br><br>This is the side of the input element to align the dropdown results container and dropdown seperator against.<br><br>The alignment of the dropdown container will also be automatically flipped horizontally to ensure the most optimal placement (see <a href="https://floating-ui.com/docs/size#using-with-flip">floating-ui’s</a> docs for a demonstration).</td></tr>
+<tr><td><code>fullscreen</code></td><td><code>fsInputLabel</code></td><td><code>'Search'</code></td><td>Accessibility label for the original input element, when the fullscreen UI is in use.</td></tr>
+<tr><td><code>fullscreen</code></td><td><code>fsContainer</code></td><td><code>&lt;body&gt;</code> element</td><td><code>id</code> of the element, or an element reference to attach the separate root container to.</td></tr>
+<tr><td><code>fullscreen</code></td><td><code>fsPlaceholder</code></td><td><code>'Search this site...'</code></td><td>Placeholder of the input element in the fullscreen UI.</td></tr>
+<tr><td>all except <code>target</code></td><td><code>tip</code></td><td><code>true</code></td><td>Whether to show the tip icon. When hovered over, this shows advanced usage information (e.g. how to perform phrase queries).</td></tr>
+<tr><td><code>target</code></td><td><code>target</code></td><td><code>undefined</code></td><td><code>id</code> of the element, or an element reference to attach results to.<br><br>Required if using <code>mode='target'</code>.</td></tr>
+</tbody></table>
+<h4 id="general-options"><a class="header" href="#general-options">General Options</a></h4>
+<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td>all</td><td><code>label</code></td><td><code>'Search this site'</code></td><td>Accessibility label for the fullscreen UI input.</td></tr>
+<tr><td>all</td><td><code>resultsLabel</code></td><td><code>'Site results'</code></td><td>Accessibility label for result <code>listbox</code>es.</td></tr>
+</tbody></table>
+<h4 id="manually-showing--hiding-the-fullscreen-ui"><a class="header" href="#manually-showing--hiding-the-fullscreen-ui">Manually Showing / Hiding the Fullscreen UI</a></h4>
+<pre><code class="language-ts">const { showFullscreen, hideFullscreen } = initMorsels({ ... });
+</code></pre>
+<p>You may call the <code>showFullscreen()</code> function returned by the initMorsels call to programatically show the fullscreen search UI.</p>
+<p>Correspondingly, the <code>hideFullscreen()</code> method hides the fullscreen interface, although, this shouldn’t be needed since a close button is available by default (the <kbd>Esc</kbd> key works too).</p>
+<p>These methods can also be used under <code>mode=&quot;auto&quot;</code>.</p>
+<h4 id="results-per-page"><a class="header" href="#results-per-page">Results Per Page</a></h4>
+<p><code>resultsPerPage = 8</code></p>
+<p>In all UI modes, an infinite scrolling intersection observer is attached to the last search result. When triggered, search result previews are fetched and generated for the next <code>resultsPerPage</code> number of results.</p>
+<h4 id="changing-the-mobile-device-detection-method"><a class="header" href="#changing-the-mobile-device-detection-method">Changing The Mobile Device Detection Method</a></h4>
+<p>Some options are (by default) tuned based on whether the client is a “mobile device”:</p>
+<ul>
+<li>Query term proximity ranking is disabled</li>
+<li>The fullscreen version of the user interface is used for <code>mode='auto'</code></li>
+</ul>
+<p>The mobile device check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query at initialisation time, which may be inadequate for your use case.</p>
+<p>An override may be provided through the <code>isMobileDevice</code> option shown below.</p>
+<pre><code class="language-js">initMorsels({
+    uiOptions: {
+        // Any function returning a boolean
+        isMobileDevice: () =&gt; true,
+    }
+})
+</code></pre>
+<h2 id="search-functionality-options"><a class="header" href="#search-functionality-options">Search Functionality Options</a></h2>
+<p>The options for the search library are rather brief, and can be summarised in this snippet:</p>
+<pre><code class="language-js">initMorsels({
+    // Options belonging to @morsels/search-lib, the search library package
+    searcherOptions: {
+        // Base url of output directory that the cli tool generated
+        url: 'http://192.168.10.132:3000/output/',
+        
+        // Maximum number of terms for query term expansion
+        numberOfExpandedTerms: 3,
+        
+        // Override for using query term proximity ranking or not.
+        // Disabled for mobile devices by default
+        useQueryTermProximity: true,
+
+        // Whether to retrieve all field stores on initialisation
+        // (see chapter &quot;Fields&quot; for more details)
+        cacheAllFieldStores: true,
+
+        // The maximum number of results to retrieve (unlimited if null).
+        resultLimit: null,
+    },
+});
+</code></pre>
+<h4 id="automatic-term-expansion"><a class="header" href="#automatic-term-expansion">Automatic Term Expansion</a></h4>
+<p><code>numberOfExpandedTerms = 3</code></p>
+<p>Stemming is turned off in the default <a href="./indexer/language.html#ascii-tokenizer">language module</a>. This does mean a bigger dictionary (but not too much usually), and lower recall, but much more precise searches.</p>
+<p>To provide a compromise for recall, query terms that are similar to the searched term are added to the query, although with a lower weight.</p>
+<p>For all <a href="./indexer/language.html">language modules</a> available currently, this is only applied for the last query term, and if the query string does not end with a whitespace. An implicit wildcard (suffix) search is performed on this term. (similar to Algolia Docsearch’s behaviour)</p>
+<h4 id="term-proximity-ranking"><a class="header" href="#term-proximity-ranking">Term Proximity Ranking</a></h4>
+<p><code>useQueryTermProximity = !isMobileDevice()</code></p>
+<p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other.
+This may be costly for mobile devices however, and is disabled by default in such cases.</p>
+<script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+const base_url = '/morsels/';
+const mode = (function () {
+                // This IIFE is documentation specific, for demoing the different modes.
+                // It would be the string mode (e.g. 'target') normally
+                const params = new URLSearchParams(window.location.search);
+                return params.get('mode') || 'target';
+            })();
+initMorsels({
+  searcherOptions: {
+    url: base_url + 'morsels_output/',
+  },
+  uiOptions: {
+    mode,
+    dropdownAlignment: 'bottom-start',
+    target: document.getElementById('morsels-mdbook-target'),
+    sourceFilesUrl: base_url,
+    resultsRenderOpts: {
+      addSearchedTerms: 'search',
+    },
+  },
+});
+
+document.getElementById('morsels-search').addEventListener('keydown', (ev) => {
+  if (['ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+    ev.stopPropagation(); // used in global listener to change pages
+    return;
+  }
+});
+
+if (window.location.search) {
+  // Adapted from the original searcher.js for mdbook
+  // https://github.com/rust-lang/mdBook/blob/master/src/theme/searcher/searcher.js
+  const target = document.getElementById('content');
+  const marker = new Mark(target);
+
+  function doSearchOrMarkFromUrl() {
+    // Check current URL for search request
+    var url = new URL(window.location.href);
+    var urlParams = new URLSearchParams(url.search);
+
+    if (urlParams.has('search')) {
+      var words = JSON.parse(decodeURIComponent(urlParams.get('search')));
+      marker.mark(words);
+
+      var markers = document.querySelectorAll('mark');
+      function hide() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].classList.add('fade-out');
+          window.setTimeout(function () { marker.unmark(); }, 300);
+        }
+      }
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].addEventListener('click', hide);
+      }
+    }
+  }
+  doSearchOrMarkFromUrl();
+}
+</script>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="getting_started_others.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="search_configuration_styling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="getting_started_others.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="search_configuration_styling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="src/morsels-theme.js"></script>
+
+
+    </body>
+</html>

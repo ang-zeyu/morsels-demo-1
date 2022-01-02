@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js morsels-theme">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Indexing - Morsels Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../src/morsels-theme.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "morsels-theme";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('morsels-theme')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="../getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="../search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="../indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="../indexer/indexing.html" class="active"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="../search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="../incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Morsels Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ang-zeyu/morsels" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="/morsels/morsels_assets/search-ui-light.css">
+<style>.light .morsels-root,
+.rust .morsels-root,
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-box-shadow: none;
+    --morsels-border: 3px solid var(--table-header-bg);
+    --morsels-bg: var(--bg);
+    --morsels-triangle-bg: var(--table-header-bg);
+    --morsels-item-box-shadow: 0 1px 5px rgba(196, 192, 187, 0.8);
+    --morsels-item-sub-border: 0;
+    --morsels-title-fg: var(--fg);
+    --morsels-title-bg: var(--table-header-bg);
+    --morsels-title-hover-fg: var(--fg);
+    --morsels-title-hover-bg: var(--table-header-bg);
+    --morsels-heading-fg: var(--fg);
+    --morsels-heading-bg: var(--table-alternate-bg);
+    --morsels-heading-hover-fg: var(--fg);
+    --morsels-heading-hover-bg: var(--table-header-bg);
+    --morsels-body-fg: var(--fg);
+    --morsels-body-bg: var(--bg);
+    --morsels-body-hover-fg: var(--fg);
+    --morsels-body-hover-bg: var(--table-alternate-bg);
+    --morsels-highlight: var(--search-mark-bg);
+    --morsels-highlight-bg: none;
+    --morsels-error-fg: var(--fg);
+    --morsels-fine-print-fg: var(--fg);
+    --morsels-loading-bg: var(--fg);
+    --morsels-loading-secondary-bg: var(--fg);
+    --morsels-scrollbar-bg: var(--sidebar-bg);
+    --morsels-scrollbar-thumb-bg: var(--sidebar-non-existant);
+    --morsels-fs-button-input-fg: var(--searchbar-shadow-color);
+    --morsels-fs-border: 3px solid var(--sidebar-bg);
+    --morsels-fs-box-shadow: none;
+    --morsels-fs-header-bg: var(--sidebar-bg);
+    --morsels-fs-header-border-bottom: none;
+    --morsels-fs-header-close-fg: var(--sidebar-fg);
+    --morsels-fs-header-close-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-bg: var(--table-header-bg);
+    --morsels-fs-header-close-hover-fg: var(--fg);
+    --morsels-fs-header-close-active-bg: var(--table-header-bg);
+    --morsels-fs-header-close-active-fg: var(--fg);
+    --morsels-tip-bg: var(--sidebar-bg);
+    --morsels-tip-fg: var(--sidebar-fg);
+    --morsels-tip-code-fg: var(--inline-code-color);
+    --morsels-tip-code-bg: transparent;
+    --morsels-tip-icon-bg: rgb(230, 230, 230);
+    --morsels-tip-icon-fg: rgb(80, 80, 80);
+}
+
+.ayu .morsels-root,
+.rust .morsels-root {
+    --morsels-fs-header-close-hover-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-fg: white;
+    --morsels-fs-header-close-active-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-active-fg: white;
+    --morsels-tip-code-fg: var(--search-mark-bg) !important;
+    --morsels-tip-icon-bg: rgb(200, 200, 200);
+    --morsels-tip-icon-fg: rgb(50, 50, 50);
+}
+
+.morsels-theme .morsels-root .morsels-tip-item code,
+.rust .morsels-root .morsels-tip-item code {
+    color: var(--morsels-tip-code-fg) !important;;
+}
+
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-item-box-shadow: 0 1px 5px rgb(50, 50, 50);
+}
+
+#morsels-search {
+    width: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 0.5em 0.75em;
+    outline: 2px solid var(--searchbar-border-color);
+    border: none;
+    background: var(--searchbar-bg);
+    color: var(--searchbar-fg);
+}
+
+#morsels-search.morsels-button-input {
+    width: 100px;
+}
+
+#morsels-search.morsels-button-input::placeholder {
+    position: relative;
+    left: 7px;
+}
+
+#morsels-search.morsels-button-input:hover {
+    transition: 0.3s ease-out;
+    background: var(--morsels-fs-button-input-bg) !important;
+    outline: 2px solid var(--morsels-fs-button-input-bg);
+}
+
+#morsels-search.morsels-button-input:hover::placeholder {
+    color: var(--morsels-fs-button-input-fg) !important;
+}
+
+@media print {
+    #morsels-search {
+        display: none;
+    }
+}
+
+#morsels-mdbook-target {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+</style>
+<p><input
+    type="search"
+    id="morsels-search"
+    placeholder="Search"
+/></p>
+<p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
+<ul class="morsels-root" id="morsels-mdbook-target"></ul>
+<h1 id="indexing-configuration"><a class="header" href="#indexing-configuration">Indexing Configuration</a></h1>
+<p>The configurations in this section mainly specify <strong>how (mapping file contents to fields)</strong> and <strong>which</strong> files to index.</p>
+<p>All configurations are optional, save for the <code>loader_configs</code> key. The cli tool will <em>do nothing</em> if the <code>loader_configs</code> dictionary is empty.</p>
+<p>The snippet below shows the default values:</p>
+<pre><code class="language-json">{
+  &quot;indexing_config&quot;: {
+    &quot;num_threads&quot;: &lt;number of physical cpus&gt; - 1,
+
+    &quot;num_docs_per_block&quot;: 1000,
+
+    &quot;exclude&quot;: [
+      &quot;morsels_config.json&quot;
+    ],
+
+    &quot;loader_configs&quot;: {
+      &quot;HtmlLoader&quot;: {}
+    },
+    
+    &quot;pl_limit&quot;: 4294967295,
+
+    &quot;pl_cache_threshold&quot;: 0,
+
+    &quot;num_pls_per_dir&quot;: 1000,
+
+    &quot;with_positions&quot;: false
+  }
+}
+</code></pre>
+<h2 id="mapping-file-data-to-fields"><a class="header" href="#mapping-file-data-to-fields">Mapping File Data to Fields</a></h2>
+<p>The indexer is able to handle data from HTML, JSON, CSV, TXT, or PDF files. Support for each file type is provided by a “Loader” abstraction.</p>
+<p>You may configure loaders by <strong>including them under the <code>loader_configs</code> key</strong>, with any applicable options.</p>
+<h4 id="html-files-loader_configshtmlloader"><a class="header" href="#html-files-loader_configshtmlloader">HTML Files: <strong><code>loader_configs.HtmlLoader</code></strong></a></h4>
+<pre><code class="language-json">&quot;loader_configs&quot;: {
+  &quot;HtmlLoader&quot;: {
+    // list of selectors to exclude from indexing
+    &quot;exclude_selectors&quot;: [
+      &quot;script,style,pre&quot;
+    ],
+    &quot;selectors&quot;: [
+      {
+        &quot;attr_map&quot;: {},
+        &quot;field_name&quot;: &quot;title&quot;,
+        &quot;selector&quot;: &quot;title&quot;
+      },
+      {
+        &quot;attr_map&quot;: {},
+        &quot;field_name&quot;: &quot;body&quot;,
+        &quot;selector&quot;: &quot;body&quot;
+      },
+      {
+        &quot;attr_map&quot;: {
+          &quot;id&quot;: &quot;headingLink&quot; // &quot;store the id attribute under headingLink&quot;
+        },
+        &quot;field_name&quot;: &quot;heading&quot;,
+        &quot;selector&quot;: &quot;h1,h2,h3,h4,h5,h6&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<p>The HTML loader traverses the document depth-first, in the order text nodes and attributes appear.</p>
+<p>At each element, it checks if any of the selectors under the <code>selectors.selector</code> key matches the element. If so, all descendants (elements, text) of that element will then be indexed under the specified <code>field_name</code>, if any.</p>
+<p>This process repeats as the document is traversed — if another of the element’s descendants matched a different selector, the field mapping is overwritten for that descendant’s descendants.</p>
+<p>The <code>attr_map</code> option allows indexing attributes of specific elements under fields as well.</p>
+<blockquote>
+<p>If needed, you can also index HTML fragments. To match the entire fragment, use the <code>body</code> selector.</p>
+</blockquote>
+<h4 id="json-files-loader_configsjsonloader"><a class="header" href="#json-files-loader_configsjsonloader">JSON Files: <strong><code>loader_configs.JsonLoader</code></strong></a></h4>
+<pre><code class="language-json">&quot;loader_configs&quot;: {
+  &quot;JsonLoader&quot;: {
+    &quot;field_map&quot;: {
+      &quot;chapter_text&quot;: &quot;body&quot;,
+      &quot;book_link&quot;: &quot;link&quot;,
+      &quot;chapter_title&quot;: &quot;title&quot;
+    },
+    // Order in which to index the keys of the json {} document
+    &quot;field_order&quot;: [
+      &quot;book_link&quot;,
+      &quot;chapter_title&quot;,
+      &quot;chapter_text&quot;
+    ]
+  }
+}
+</code></pre>
+<p>Json files can also be indexed. The <code>field_map</code> key must be specified, which contains a mapping of <strong>json key -&gt; field name</strong>.
+The <code>field_order</code> array controls the order in which these fields are indexed, which can have a minor influence on <a href="../search_features.html#ranking-specifics">query term proximity ranking</a>, if positions are indexed.</p>
+<p>The json file can be either:</p>
+<ol>
+<li>An object, following the schema set out in <code>field_map</code></li>
+<li>An array of objects following the schema set out in <code>field_map</code></li>
+</ol>
+<h4 id="csv-files-loader_configscsvloader"><a class="header" href="#csv-files-loader_configscsvloader">CSV Files: <strong><code>loader_configs.CsvLoader</code></strong></a></h4>
+<pre><code class="language-json">&quot;loader_configs&quot;: {
+  &quot;CsvLoader&quot;: {
+    // ---------------------
+    // Map data using csv headers
+    &quot;use_headers&quot;: false,
+    &quot;header_field_map&quot;: {},
+    &quot;header_field_order&quot;: [],
+    // ---------------------
+    // Or simply csv header indices
+    &quot;index_field_map&quot;: {
+      &quot;0&quot;: &quot;link&quot;,
+      &quot;1&quot;: &quot;title&quot;,
+      &quot;2&quot;: &quot;body&quot;,
+      &quot;4&quot;: &quot;heading&quot;
+    },
+    &quot;index_field_order&quot;: [
+      1,
+      4,
+      2,
+      0
+    ],
+    // ---------------------
+    // Options for csv parsing, from the Rust &quot;csv&quot; crate
+    &quot;parse_options&quot;: {
+      &quot;comment&quot;: null,
+      &quot;delimiter&quot;: 44,
+      &quot;double_quote&quot;: true,
+      &quot;escape&quot;: null,
+      &quot;has_headers&quot;: true,
+      &quot;quote&quot;: 34
+    }
+  }
+}
+</code></pre>
+<p>Field mappings for CSV files can be configured using one of the <code>field_map / field_order</code> key pairs. The <code>use_headers</code> parameter specifies which of the two pairs of settings to use.</p>
+<p>The <code>parse_options</code> key specifies options for parsing the csv file. In particular, note that the <code>has_headers</code> key is distinct from and does not influence the <code>use_headers</code> parameter.</p>
+<h4 id="pdf-files-loader_configspdfloader"><a class="header" href="#pdf-files-loader_configspdfloader">PDF Files: <strong><code>loader_configs.PdfLoader</code></strong></a></h4>
+<pre><code class="language-json">&quot;loader_configs&quot;: {
+  &quot;PdfLoader&quot;: {
+    &quot;field&quot;: &quot;body&quot;,
+  }
+}
+</code></pre>
+<p>This loader indexes all content into a single field “body” by default.</p>
+<p>The search result title would appear as <code>&lt;...pdf file path breadcrumb...&gt; (PDF)</code>, and when clicked upon will open the pdf in the browser.</p>
+<h4 id="text-files-loader_configstxtloader"><a class="header" href="#text-files-loader_configstxtloader">Text Files: <strong><code>loader_configs.TxtLoader</code></strong></a></h4>
+<pre><code class="language-json">&quot;loader_configs&quot;: {
+  &quot;TxtLoader&quot;: {
+    &quot;field&quot;: &quot;field_name&quot;,
+  }
+}
+</code></pre>
+<p>This loader simply reads <code>.txt</code> files and indexes all its contents into a single field. This is not particularly useful without the <code>_add_files</code> feature <a href="#indexing-multiple-files-under-one-document">below</a>.</p>
+<h2 id="miscellaneous-options"><a class="header" href="#miscellaneous-options">Miscellaneous Options</a></h2>
+<h4 id="file-exclusions-exclude--morsels_configjson"><a class="header" href="#file-exclusions-exclude--morsels_configjson">File Exclusions: <strong><code>exclude = [&quot;morsels_config.json&quot;]</code></strong></a></h4>
+<p>Global file exclusions can be specified in this parameter, which is simply an array of file globs.</p>
+<h4 id="adding-positions-with_positions--false"><a class="header" href="#adding-positions-with_positions--false">Adding Positions: <strong><code>with_positions = false</code></strong></a></h4>
+<p>This option controls whether positions will be stored.</p>
+<p>Features such as phrase queries that require positional information will not work if this is disabled.</p>
+<p>Turning this off for very large collections (~&gt; 1GB) can increase the tool’s scalability, at the cost of such features.</p>
+<h2 id="indexing-multiple-files-under-one-document"><a class="header" href="#indexing-multiple-files-under-one-document">Indexing Multiple Files Under One Document</a></h2>
+<p>You can <strong>index multiple files</strong> together <strong>into a single document</strong> / result using the reserved field <a href="./fields.html#reserved-fields"><code>_add_files</code></a>. This can be particularly useful for overriding data on a case-by-case basis.</p>
+<p>For example, suppose you have the following files:</p>
+<pre><code>folder
+|-- main.html
+|-- overrides.json
+</code></pre>
+<p>To index <code>main.html</code>, but to override its title, you might have a configuration like so:</p>
+<p>Inside <code>overrides.json</code>,</p>
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Title Override&quot;,
+  &quot;_add_files&quot;: &quot;./main.html&quot;
+}
+</code></pre>
+<p>And inside your configuration file:</p>
+<pre><code class="language-json">{
+  &quot;exclude&quot;: [&quot;main.html&quot;]
+}
+</code></pre>
+<p>This avoids indexing <code>main.html</code> directly, but through a reference in <code>overrides.json</code>. As the user interface uses the first title it sees, the title is overwritten.</p>
+<p>Another example use case might be to redirect to another domain using the <a href="./fields.html#default-field-configuration"><code>link</code> field</a>:</p>
+<pre><code class="language-json">{
+  &quot;link&quot;: &quot;https://morsels-search.com&quot;,
+  &quot;_add_files&quot;: &quot;./main.html&quot;
+}
+</code></pre>
+<blockquote>
+<p>Overrides can only be provided via JSON, CSV, or HTML files, since text and PDF files provide no reliable way of indicating the <code>_add_files</code> field. In addition, you will need to manually map the CSV and HTML file data to the <code>_add_files</code> field. This is automatically done for JSON files.</p>
+</blockquote>
+<h2 id="indexer-performance"><a class="header" href="#indexer-performance">Indexer Performance</a></h2>
+<h4 id="number-of-threads-num_threads"><a class="header" href="#number-of-threads-num_threads">Number of Threads: <strong><code>num_threads</code></strong></a></h4>
+<p>This is the number of threads to use, excluding the main thread. When unspecified, this is <code>max(min(num physical cores, num logical cores) - 1, 1)</code>.</p>
+<h4 id="memory-usage-num_docs_per_block"><a class="header" href="#memory-usage-num_docs_per_block">Memory Usage: <strong><code>num_docs_per_block</code></strong></a></h4>
+<p>This parameter roughly controls the memory usage of the indexer; You may think of it as “how many documents to keep in memory before flushing results”.</p>
+<p>If your documents are very small, increasing this <em>may</em> help improve indexing performance.</p>
+<blockquote>
+<p>⚠️ Ensure <a href="./fields.html#field-store-granularity-field_store_block_size-num_stores_per_dir"><code>field_store_block_size</code></a> is a clean multiple or divisor of this parameter.</p>
+</blockquote>
+<h2 id="indexing-and-search-scaling-advanced"><a class="header" href="#indexing-and-search-scaling-advanced">Indexing and Search Scaling (advanced)</a></h2>
+<p>Prefer the in-built <a href="./presets.html">scaling presets</a> option for configuring the tool’s scalability. Where needed, the following options are available for finer control.</p>
+<h4 id="index-shard-size-pl_limit"><a class="header" href="#index-shard-size-pl_limit">Index Shard Size: <strong><code>pl_limit</code></strong></a></h4>
+<p>This is the main threshold parameter (in bytes) at which to “cut” index (<strong>pl</strong> meaning <a href="https://en.wikipedia.org/wiki/Inverted_index">postings list</a>) files.</p>
+<p>Increasing this value produces less but bigger files (which may take longer to retrieve), and vice versa.</p>
+<p>Increasing the value may also be useful for caching when used in conjunction with <code>pl_cache_threshold</code> below, since fewer index files will be produced.</p>
+<br>
+<h4 id="index-caching-pl_cache_threshold"><a class="header" href="#index-caching-pl_cache_threshold">Index Caching: <strong><code>pl_cache_threshold</code></strong></a></h4>
+<p>Index files that exceed this number will be cached by the search library at initilisation.</p>
+<p>It can be used to configure morsels for response time (over scalability) for some use cases. This is discussed in more detail in <a href="./presets.html">Larger Collections</a>.</p>
+<h4 id="index-shards-per-directory-num_pls_per_dir"><a class="header" href="#index-shards-per-directory-num_pls_per_dir">Index Shards per Directory: <strong><code>num_pls_per_dir</code></strong></a></h4>
+<p>This parameter simply controls how many index files you want to store in a single directory.</p>
+<p>While the default value should serve sufficiently for most use cases, some file systems are less efficient at handling large amounts of files in one directory. Tuning this parameter may help to improve performance when looking up a particular index file.</p>
+<script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+const base_url = '/morsels/';
+const mode = (function () {
+                // This IIFE is documentation specific, for demoing the different modes.
+                // It would be the string mode (e.g. 'target') normally
+                const params = new URLSearchParams(window.location.search);
+                return params.get('mode') || 'target';
+            })();
+initMorsels({
+  searcherOptions: {
+    url: base_url + 'morsels_output/',
+  },
+  uiOptions: {
+    mode,
+    dropdownAlignment: 'bottom-start',
+    target: document.getElementById('morsels-mdbook-target'),
+    sourceFilesUrl: base_url,
+    resultsRenderOpts: {
+      addSearchedTerms: 'search',
+    },
+  },
+});
+
+document.getElementById('morsels-search').addEventListener('keydown', (ev) => {
+  if (['ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+    ev.stopPropagation(); // used in global listener to change pages
+    return;
+  }
+});
+
+if (window.location.search) {
+  // Adapted from the original searcher.js for mdbook
+  // https://github.com/rust-lang/mdBook/blob/master/src/theme/searcher/searcher.js
+  const target = document.getElementById('content');
+  const marker = new Mark(target);
+
+  function doSearchOrMarkFromUrl() {
+    // Check current URL for search request
+    var url = new URL(window.location.href);
+    var urlParams = new URLSearchParams(url.search);
+
+    if (urlParams.has('search')) {
+      var words = JSON.parse(decodeURIComponent(urlParams.get('search')));
+      marker.mark(words);
+
+      var markers = document.querySelectorAll('mark');
+      function hide() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].classList.add('fade-out');
+          window.setTimeout(function () { marker.unmark(); }, 300);
+        }
+      }
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].addEventListener('click', hide);
+      }
+    }
+  }
+  doSearchOrMarkFromUrl();
+}
+</script>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../indexer/language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../search_configuration_advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../indexer/language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../search_configuration_advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../src/morsels-theme.js"></script>
+
+
+    </body>
+</html>

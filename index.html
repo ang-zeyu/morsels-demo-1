@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Morsels Demo</title>
+    <link href="favicon.ico" rel="icon" />
+    <link href="./assets/fa/css/all.min.css" rel="stylesheet">
+    <link href="./assets/bootstrap.min.css" rel="stylesheet" />
+    <link href="./dist/search-ui-light.css" rel="stylesheet" />
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="./dist/search-ui.bundle.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <nav class="navbar navbar-expand-lg navbar-dark app-navbar position-fixed bg-dark">
+        <ul class="navbar-nav d-flex flex-row">
+          <li class="nav-item mx-2 flex-grow-1">
+            <a class="nav-link active" href="/">
+              Demo
+            </span>
+            </a>
+          </li>
+          <li class="nav-item mx-2 flex-grow-1">
+            <a class="nav-link" href="https://github.com/ang-zeyu/morsels">
+              Github<i class="ms-1 fa-brands fa-github"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-2 flex-grow-1">
+            <a class="nav-link" href="https://github.com/ang-zeyu/morsels/releases">
+              Releases<i class="ms-1 fa-solid fa-cube"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-2 flex-grow-1">
+            <a class="nav-link" href="/morsels">
+              Documentation<i class="ms-1 fa-solid fa-book"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div
+        class="w-100 bg-light rounded d-flex flex-column align-items-center justify-content-center jumbotron position-relative"
+      >
+        <h1 class="app-heading">Morsels</h1>
+        <div class="mb-4 text-muted" style="font-size: 14px">Powerful, efficient, and accessible static site search</div>
+        <form class="d-flex justify-content-end mx-auto">
+          <input class="morsels-search" id="morsels-search" type="search" placeholder="🔎 Search" />
+        </form>
+        <div class="mt-2 text-muted" style="font-size: 12px">Search the Gutenberg Collection!</div>
+        <script>
+          let isUsingDark = false;
+          function toggleDarkTheme(ev) {
+            const links = Array.from(document.getElementsByTagName('link'));
+            const bootswatchLink = links.find((link) => /bootstrap/.test(link.href));
+            if (isUsingDark) {
+              bootswatchLink.href = './assets/bootstrap.min.css';
+            } else {
+              bootswatchLink.href = './assets/bootstrap.lux.min.css';
+            }
+
+            const styleLink = links.find((link) => /search-ui-[a-z]+\.css/.test(link.href));
+            if (isUsingDark) {
+              document.documentElement.style.setProperty('--fg', 'black');
+              document.documentElement.style.setProperty('--bg', 'white');
+              document.documentElement.style.setProperty('--bg-secondary', '#212529');
+              document.documentElement.style.setProperty('--input-bg', 'white');
+              document.documentElement.style.setProperty('--input-border', '2px solid rgb(240, 240, 240)');
+
+              styleLink.href = 'dist/search-ui-light.css';
+            } else {
+              document.documentElement.style.setProperty('--fg', '#e4f1f0');
+              document.documentElement.style.setProperty('--bg', '#27292a');
+              document.documentElement.style.setProperty('--bg-secondary', '#27292a');
+              document.documentElement.style.setProperty('--input-bg', '#171919');
+              document.documentElement.style.setProperty('--input-border', '2px solid rgba(200,200,200,0.3)');
+
+              styleLink.href = 'dist/search-ui-dark.css';
+            }
+            isUsingDark = !isUsingDark;
+          }
+        </script>
+        <button class="btn btn-outline-dark position-absolute" style="right: 10px; bottom: 10px;" onclick="toggleDarkTheme(event)">Toggle<i class="ms-1 fa-solid fa-lightbulb"></i></button>
+
+      </div>
+      <div class="px-5 mt-5 filler-text">
+        <h3 class="mb-3">Collection Details</h2>
+        <p>
+          For a more <strong>typical use case</strong>, please take a look at the <a href="/morsels/">user guide</a>!
+        </p>
+        <p>
+This is a rather extreme demo (coupled with the settings below), featuring a 520MB subcorpus of the gutenberg collection, obtained <a href="https://www.kaggle.com/mateibejan/15000-gutenberg-books">here</a>.
+About the first ~1/5 of books are taken, which are further split into 10KB chunks, totalling 52003 documents.
+		    </p>
+        <p>
+          The collection is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
+        </p>
+        <h3 class="mb-3">Settings for this Demo</h2>
+        Every single feature is enabled, namely:
+        <ul class="mt-2">
+          <li class="mt-1">
+            The <a href="/morsels/presets.html">large scaling</a> preset used here.
+            <br>That is, each search takes 2 round trips of requests.
+            <br>Your experience here will vary as such depending on your latency with Github Pages at the moment.
+          </li>
+          <li class="mt-1">Positions and stop words are kept</li>
+          <li class="mt-1">Automatic prefix search</li>
+          <li class="mt-1">Terms are not stemmed (more than 1000000 dictionary terms here!)</li>
+          <li class="mt-1">
+            The <a href="/morsels/search_configuration.html#ui-mode">UI mode</a> used is "Auto".
+            <br>If you're viewing this site on a desktop device, minimize the window and click on the input to open up the fullscreen UI.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    initMorsels({
+      searcherOptions: {
+        url: '/output/',
+      },
+      uiOptions: {
+        sourceFilesUrl: '/source/',
+        inputDebounce: 125,
+        dropdownAlignment: 'bottom'
+      }
+    });
+  </script>
+</html>

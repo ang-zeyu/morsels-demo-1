@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js morsels-theme">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tradeoffs - Morsels Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/morsels-theme.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "morsels-theme";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('morsels-theme')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html" class="active"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title">Morsels Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ang-zeyu/morsels" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="/morsels/morsels_assets/search-ui-light.css">
+<style>.light .morsels-root,
+.rust .morsels-root,
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-box-shadow: none;
+    --morsels-border: 3px solid var(--table-header-bg);
+    --morsels-bg: var(--bg);
+    --morsels-triangle-bg: var(--table-header-bg);
+    --morsels-item-box-shadow: 0 1px 5px rgba(196, 192, 187, 0.8);
+    --morsels-item-sub-border: 0;
+    --morsels-title-fg: var(--fg);
+    --morsels-title-bg: var(--table-header-bg);
+    --morsels-title-hover-fg: var(--fg);
+    --morsels-title-hover-bg: var(--table-header-bg);
+    --morsels-heading-fg: var(--fg);
+    --morsels-heading-bg: var(--table-alternate-bg);
+    --morsels-heading-hover-fg: var(--fg);
+    --morsels-heading-hover-bg: var(--table-header-bg);
+    --morsels-body-fg: var(--fg);
+    --morsels-body-bg: var(--bg);
+    --morsels-body-hover-fg: var(--fg);
+    --morsels-body-hover-bg: var(--table-alternate-bg);
+    --morsels-highlight: var(--search-mark-bg);
+    --morsels-highlight-bg: none;
+    --morsels-error-fg: var(--fg);
+    --morsels-fine-print-fg: var(--fg);
+    --morsels-loading-bg: var(--fg);
+    --morsels-loading-secondary-bg: var(--fg);
+    --morsels-scrollbar-bg: var(--sidebar-bg);
+    --morsels-scrollbar-thumb-bg: var(--sidebar-non-existant);
+    --morsels-fs-button-input-fg: var(--searchbar-shadow-color);
+    --morsels-fs-border: 3px solid var(--sidebar-bg);
+    --morsels-fs-box-shadow: none;
+    --morsels-fs-header-bg: var(--sidebar-bg);
+    --morsels-fs-header-border-bottom: none;
+    --morsels-fs-header-close-fg: var(--sidebar-fg);
+    --morsels-fs-header-close-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-bg: var(--table-header-bg);
+    --morsels-fs-header-close-hover-fg: var(--fg);
+    --morsels-fs-header-close-active-bg: var(--table-header-bg);
+    --morsels-fs-header-close-active-fg: var(--fg);
+    --morsels-tip-bg: var(--sidebar-bg);
+    --morsels-tip-fg: var(--sidebar-fg);
+    --morsels-tip-code-fg: var(--inline-code-color);
+    --morsels-tip-code-bg: transparent;
+    --morsels-tip-icon-bg: rgb(230, 230, 230);
+    --morsels-tip-icon-fg: rgb(80, 80, 80);
+}
+
+.ayu .morsels-root,
+.rust .morsels-root {
+    --morsels-fs-header-close-hover-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-hover-fg: white;
+    --morsels-fs-header-close-active-bg: var(--sidebar-bg);
+    --morsels-fs-header-close-active-fg: white;
+    --morsels-tip-code-fg: var(--search-mark-bg) !important;
+    --morsels-tip-icon-bg: rgb(200, 200, 200);
+    --morsels-tip-icon-fg: rgb(50, 50, 50);
+}
+
+.morsels-theme .morsels-root .morsels-tip-item code,
+.rust .morsels-root .morsels-tip-item code {
+    color: var(--morsels-tip-code-fg) !important;;
+}
+
+.coal .morsels-root,
+.navy .morsels-root,
+.ayu .morsels-root {
+    --morsels-item-box-shadow: 0 1px 5px rgb(50, 50, 50);
+}
+
+#morsels-search {
+    width: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 0.5em 0.75em;
+    outline: 2px solid var(--searchbar-border-color);
+    border: none;
+    background: var(--searchbar-bg);
+    color: var(--searchbar-fg);
+}
+
+#morsels-search.morsels-button-input {
+    width: 100px;
+}
+
+#morsels-search.morsels-button-input::placeholder {
+    position: relative;
+    left: 7px;
+}
+
+#morsels-search.morsels-button-input:hover {
+    transition: 0.3s ease-out;
+    background: var(--morsels-fs-button-input-bg) !important;
+    outline: 2px solid var(--morsels-fs-button-input-bg);
+}
+
+#morsels-search.morsels-button-input:hover::placeholder {
+    color: var(--morsels-fs-button-input-fg) !important;
+}
+
+@media print {
+    #morsels-search {
+        display: none;
+    }
+}
+
+#morsels-mdbook-target {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+</style>
+<p><input
+    type="search"
+    id="morsels-search"
+    placeholder="Search"
+/></p>
+<p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
+<ul class="morsels-root" id="morsels-mdbook-target"></ul>
+<h1 id="tradeoffs"><a class="header" href="#tradeoffs">Tradeoffs</a></h1>
+<blockquote>
+<p>This page goes <em>into detail</em> on how the various indexer presets (<code>small</code>, <code>medium</code>, …) are configured, what tradeoffs they make, and is a (mostly) optional read, especially if your collection isn’t too large.</p>
+</blockquote>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Each preset largely makes a tradeoff between your document collection size and the number of rounds of network requests to make. File bloat is also discussed, if it is of concern.</p>
+<blockquote>
+<p>The last column, <code>RTT=3</code>, is included only for hypothetical discussion but not present in any of the presets!</p>
+</blockquote>
+<p>The possible tradeoffs are marked with ✔️. Those that are likely impossible are marked ❌ (or in other words, you likely need a search server / SaaS for these options). Options that are possible but are relatively undesirable (for which better equivalent options exist) are marked ⚪. The default tradeoff is marked ⭐. Some roughly equivalent / adjacent options are marked ✔️ as it would depend on your collection, use case and some other factors elaborated below.</p>
+<p>Latency is labelled in terms of <code>RTT</code> (round trip time), the maximum of which is <code>3</code>. Also note that the labelled <code>RTT</code> times are <strong>maximums</strong>. (e.g. if files are served from cache instead)</p>
+<table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
+<tr><td>Fair Scalability,<br><span style="color: green">Little</span> File bloat</td><td>⭐</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Fair Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Fair Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>❌</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Beyond Excellent Scalability<br>(consider running a<br>search server / SaaS)</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+</tbody></table>
+<h3 id="monolithic-index"><a class="header" href="#monolithic-index">Monolithic Index</a></h3>
+<p>Of particular note, the only possible option under <code>RTT=0</code> is equivalent to using some other existing client side search library and generating a monolithic prebuilt index <strong>and</strong> document/field store (used for generating result previews).</p>
+<p>You may still want to use morsels since it packages a search UI, or, if you prefer the simplicity of a cli indexer tool (e.g. for CI build tools).</p>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<blockquote>
+<p>This section assumes some knowledge on the options listed below in chapters 4 (barring 4.1) and 5, which will be discussed in briefer detail here:</p>
+</blockquote>
+<ul>
+<li>Search Configuration: 
+<ul>
+<li>⭐⭐ The method of <a href="search_configuration_advanced.html#default-rendering-output--purpose">result preview generation</a></li>
+<li><a href="search_configuration.html#search-functionality-options"><code>cacheAllFieldStores</code></a></li>
+</ul>
+</li>
+<li>Indexing Configuration:
+<ul>
+<li>what <a href="./indexer/fields.html">fields</a> are stored (<code>do_store</code>)</li>
+<li><a href="./indexer/fields.html"><code>field_store_block_size</code></a></li>
+<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_limit</code></a></li>
+<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_cache_threshold</code></a></li>
+</ul>
+</li>
+</ul>
+<p>The following sections discusses some combinations of options that generate the tradeoff results in the table above.</p>
+<h3 id="1-rtt0-fair-scalability-little-file-bloat"><a class="header" href="#1-rtt0-fair-scalability-little-file-bloat">1. <code>RTT=0</code>, Fair Scalability, Little File Bloat</a></h3>
+<p>To achieve this result, you will need to ensure <strong>everything</strong> that is potentially needed is retrieved up front.</p>
+<ol>
+<li>Set <code>pl_limit</code> to an arbitrarily large number. This compresses the inverted index into just one or a few files.</li>
+<li>Ensure <code>pl_cache_threshold</code> is set to a very low number (or, at least smaller than the generated inverted index file size), so that all postings lists are loaded up front and cached in memory.</li>
+<li>You would also want to set <code>field_store_block_size</code> to a fairly high number, and correspondingly set <code>cacheAllFieldStores</code> to <code>true</code>. This allows morsels to load the few field stores during initilisation and persistently cache them.</li>
+</ol>
+<blockquote>
+<p>⭐ This is what’s being used by this documentation, since it is fairly small.<br><br>Nevertheless, <code>RTT=1/2</code> are still very acceptable settings under good network conditions. <code>RTT=3</code> may be slightly slow (<code>~600ms</code> assuming decent network conditions), but still quite acceptable depending on your use case since it reduces file bloat.<br><br></p>
+</blockquote>
+<h3 id="2-rtt12-good-scalability-moderate--heavy-file-bloat"><a class="header" href="#2-rtt12-good-scalability-moderate--heavy-file-bloat">2. <code>RTT=1/2</code>, Good Scalability, Moderate / Heavy File Bloat</a></h3>
+<p>The impacts of the two options here are discussed under the 2 main methods of result preview generation in the <a href="search_configuration_advanced.html">earlier chapter</a>.</p>
+<h4 id="21-generating-result-previews-from-source-files"><a class="header" href="#21-generating-result-previews-from-source-files">2.1. Generating Result Previews from Source Files</a></h4>
+<p>(<code>RTT=2</code>, Little-Moderate file bloat, Good scalability)</p>
+<p>Generating result previews from source files greatly reduces file bloat, but it does mean that an extra round (<code>RTT</code>) of network requests has to be made to retrieve said source files.</p>
+<p>However, it is also more feasible with this option to reduce a round of network requests by <strong>caching all field stores</strong> up front, as field stores here only store the <a href="indexer/fields.html#reserved-fields">relative file path / link</a> from which to retrieve the source files, and are therefore fairly small.</p>
+<blockquote>
+<p>For example, assuming each link takes an average of <code>25</code> bytes to encode (including json fluff), and <code>3MB</code> (ungzipped) is your comfort zone, you can store up to <code>120000</code> document links in a single, cached field store!</p>
+</blockquote>
+<p>The relevant options here are <code>field_store_block_size</code> and <code>cacheAllFieldStores</code> (simply configure them similar to the earlier <code>RTT=0</code> case).</p>
+<h4 id="22-generating-result-previews-from-field-stores"><a class="header" href="#22-generating-result-previews-from-field-stores">2.2. Generating Result Previews from Field Stores</a></h4>
+<p>(<code>RTT=2</code>, Moderate-Heavy file bloat, Good scalability)</p>
+<p>Generating result previews directly from field stores (using the <a href="./indexer/fields.html"><code>do_store</code></a> option) avoids having to make an extra round of network requests to retrieve said source files.</p>
+<p>This however requires fragmenting the field stores, increasing file bloat.</p>
+<p>You may want to use this option over <strong>2.1</strong> nevertheless if:</p>
+<ul>
+<li>Result previews cannot be generated from source files (<code>csv</code> files)</li>
+<li>You want to increase result preview generation performance (mentioned <a href="search_configuration.html#2-from-field-stores">here</a>)</li>
+</ul>
+<blockquote>
+<p>Refer <a href="https://morsels-search.com">here</a> for a demo of what <code>RTT=2</code> is like.</p>
+</blockquote>
+<h4 id="improving-21-or-22-to-rtt1"><a class="header" href="#improving-21-or-22-to-rtt1">Improving 2.1 or 2.2 to <code>RTT=1</code></a></h4>
+<p>For moderately sized collections, we may also surmise that the <strong>size of the index</strong> (a low-level, compressed inverted index) is often far smaller than the <strong>size of field stores</strong> (which contain the raw document texts).</p>
+<p>The idea here therefore is to additionally <strong>cache the index</strong> (using <code>pl_limit</code>, <code>pl_cache_threshold</code>), removing an entire round of network requests.</p>
+<p>This corresponds to the <code>medium</code> presets in the previous page.</p>
+<h3 id="3-excellent-scalability"><a class="header" href="#3-excellent-scalability">3. Excellent Scalability</a></h3>
+<p>The presets here follow from the section directly above, disregarding the assumptions. That is,</p>
+<h4 id="31-generating-result-previews-from-source-files"><a class="header" href="#31-generating-result-previews-from-source-files">3.1. Generating Result Previews from Source Files</a></h4>
+<p>(<code>RTT=3</code>, Little-Moderate File Bloat, Excellent Scalability)</p>
+<p>Per <strong>section 2.1</strong>, The <code>RTT</code> compromise is accepted as is in this case, without performing the caching of field stores mentioned.</p>
+<p>This is because as the collection grows, we cannot guarantee that document links are at a size that can be feasibly and monolithically cached, although, this is highly unlikely even for the most extreme intended use cases of Morsels (see the earlier example calculation of <code>120000</code> documents).</p>
+<h4 id="32-generating-result-previews-from-field-stores"><a class="header" href="#32-generating-result-previews-from-field-stores">3.2. Generating Result Previews from Field Stores</a></h4>
+<p>(<code>RTT=2</code>, Heavy File Bloat, Excellent Scalability)</p>
+<p>This follows <strong>section 2.2</strong>. No changes are needed here, as both the field stores and index are fragmented.</p>
+<p>As the collection size grows however, many fragmented files will inevitably be generated, which may be of concern for your use case.</p>
+<h2 id="other-performance-considerations"><a class="header" href="#other-performance-considerations">Other Performance Considerations</a></h2>
+<p>This section discusses some other numbers regarding scaling, and is a <em>really</em> optional read.</p>
+<h3 id="gzip"><a class="header" href="#gzip">Gzip</a></h3>
+<p>Gzip can work hand in hand with the morsels’ own compression schemes.</p>
+<p>With a monolithic index, expect about 3-4x compression ratios <strong>without positions</strong> indexed.</p>
+<p>Compression ratios with positions tends to be poorer from some empircal testing, likely since the number of unique positions is fairly large.</p>
+<p>When opting to fragment the index heavily however, also note gzip would serve little to no purpose as:</p>
+<ul>
+<li>The fragmented files are already very small</li>
+<li>Compression ratios for smaller files tends to be poorer</li>
+</ul>
+<blockquote>
+<p>⭐ Morsels’ binary output files are named <code>.json</code> by default, so you shouldn’t have to manually configure the relevant settings in your server.</p>
+</blockquote>
+<h3 id="limits-of-scalability"><a class="header" href="#limits-of-scalability">Limits of Scalability</a></h3>
+<p>Scaling the tool requires splitting the index into many chunks. Some of these chunks may however exceed the index fragment size limit (<code>pl_limit</code>), especially when the chunk contains a very common term (e.g. a stop word like “the”). While the information for this term could be further split into multiple chunks, this would be almost pointless as all such chunks would still have to be retrieved when the term is searched.</p>
+<p>This impacts (depending on the configuration):</p>
+<ul>
+<li>The total size of index chunks retrieved upfront and persistently cached, which exceed the defined <code>pl_cache_threshold</code>.</li>
+<li>The total size of the index chunks that need to be retrieved for the query, which is relevant when <code>pl_cache_threshold</code> is fairly high (such that no files are cached).</li>
+</ul>
+<h4 id="some-data--estimations"><a class="header" href="#some-data--estimations">Some Data &amp; Estimations</a></h4>
+<p>As a rough estimate from testing, this library should be able to handle text collections &lt; <code>800MB</code> with positional indexing and stop words kept.</p>
+<p>The following distribution of index chunk file sizes (before gzip) under the default <code>pl_limit</code> was produced with:</p>
+<ul>
+<li>A <code>380MB</code> <strong>csv</strong> corpus (no HTML soup!)</li>
+<li>Duplicated once to total about <code>760MB</code>, and 19088 documents</li>
+</ul>
+<pre><code># Counts
+[7335  219   76   13    7    14    4     1     1     1     0     0     0     1]
+# (Left) Bin Edges, in KB
+[0     100   250  500   750  1000  2000  3000  4000  5000  6000  7000  8000  9000]
+</code></pre>
+<p>Most of the index chunks are well below the default <code>pl_cache_threshold</code> of <code>1048576</code> bytes, while the select few above it totals roughly <code>45MB</code>. Therefore, on startup, <code>45MB</code> of index chunks are fetched and cached. The remaining bulk of index chunks are retrieved on-demand.</p>
+<h5 id="disabling-positions"><a class="header" href="#disabling-positions">Disabling Positions</a></h5>
+<p>Without positional indexing, the index shrinks <strong>3-4 fold</strong>, making it potentially possible to index collections <code>~2gb</code> in size, or even more.</p>
+<p>In addition, large postings lists are all but removed in this case:</p>
+<pre><code># Counts with positional information removed
+[4350    0    0    0    0    0    0    0    0    0    0    0    0    0]
+</code></pre>
+<h5 id="removing-stop-words"><a class="header" href="#removing-stop-words">Removing Stop Words</a></h5>
+<p>If disabling caching via setting a very high <code>pl_cache_threshold</code>, <a href="./indexer/language.html#note-on-stop-words">removing stop words</a> when indexing would have little to no effect as such terms are already separated into different postings lists and never retrieved unless necessary.</p>
+<p>On the other hand, removing stop words with a lower <code>pl_cache_threshold</code> would help to avoid caching the “outliers” on the right of the distribution up front, if initial network usage is a concern.</p>
+<pre><code># Counts with stop words removed
+[7234  209   65   11    5    1    0    0    0    0    0    0    0    0]
+</code></pre>
+<script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
+<script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+const base_url = '/morsels/';
+const mode = (function () {
+                // This IIFE is documentation specific, for demoing the different modes.
+                // It would be the string mode (e.g. 'target') normally
+                const params = new URLSearchParams(window.location.search);
+                return params.get('mode') || 'target';
+            })();
+initMorsels({
+  searcherOptions: {
+    url: base_url + 'morsels_output/',
+  },
+  uiOptions: {
+    mode,
+    dropdownAlignment: 'bottom-start',
+    target: document.getElementById('morsels-mdbook-target'),
+    sourceFilesUrl: base_url,
+    resultsRenderOpts: {
+      addSearchedTerms: 'search',
+    },
+  },
+});
+
+document.getElementById('morsels-search').addEventListener('keydown', (ev) => {
+  if (['ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+    ev.stopPropagation(); // used in global listener to change pages
+    return;
+  }
+});
+
+if (window.location.search) {
+  // Adapted from the original searcher.js for mdbook
+  // https://github.com/rust-lang/mdBook/blob/master/src/theme/searcher/searcher.js
+  const target = document.getElementById('content');
+  const marker = new Mark(target);
+
+  function doSearchOrMarkFromUrl() {
+    // Check current URL for search request
+    var url = new URL(window.location.href);
+    var urlParams = new URLSearchParams(url.search);
+
+    if (urlParams.has('search')) {
+      var words = JSON.parse(decodeURIComponent(urlParams.get('search')));
+      marker.mark(words);
+
+      var markers = document.querySelectorAll('mark');
+      function hide() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].classList.add('fade-out');
+          window.setTimeout(function () { marker.unmark(); }, 300);
+        }
+      }
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].addEventListener('click', hide);
+      }
+    }
+  }
+  doSearchOrMarkFromUrl();
+}
+</script>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="indexer/presets.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="incremental_indexing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="indexer/presets.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="incremental_indexing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="src/morsels-theme.js"></script>
+
+
+    </body>
+</html>

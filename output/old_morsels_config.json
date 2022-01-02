@@ -1,0 +1,59 @@
+{
+  "fields_config": {
+    "cache_all_field_stores": false,
+    "field_store_block_size": 2,
+    "fields": [
+      {
+        "b": 0.15,
+        "do_store": true,
+        "k": 1.2,
+        "name": "title",
+        "weight": 1.75
+      },
+      {
+        "b": 0.3,
+        "do_store": true,
+        "k": 1.2,
+        "name": "link",
+        "weight": 0.0
+      },
+      {
+        "b": 0.75,
+        "do_store": true,
+        "k": 1.2,
+        "name": "body",
+        "weight": 1.0
+      }
+    ],
+    "num_stores_per_dir": 250
+  },
+  "indexing_config": {
+    "exclude": [
+      "morsels_config.json"
+    ],
+    "loader_configs": {
+      "JsonLoader": {
+        "field_map": {
+          "body": "body",
+          "link": "link",
+          "title": "title"
+        },
+        "field_order": [
+          "link",
+          "title",
+          "body"
+        ]
+      }
+    },
+    "num_docs_per_block": 1000,
+    "num_pls_per_dir": 250,
+    "pl_cache_threshold": 1000000,
+    "pl_limit": 65536,
+    "with_positions": true
+  },
+  "lang_config": {
+    "lang": "ascii",
+    "options": {}
+  },
+  "preset": "large"
+}
