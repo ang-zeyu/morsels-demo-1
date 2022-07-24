@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html" class="active"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html" class="active"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -270,24 +270,26 @@
 <p>For brevity, this page covers only a subset of the most important options.</p>
 <p>The subsequent <a href="./search_configuration_renderers.html">sub-chapter</a> provides a few more APIs to customise the HTML output. If you have a configuration use case that cannot be achieved without these APIs, and you think should be included as a simpler configuration option here, feel free to raise a feature request!</p>
 <h4 id="input-element"><a class="header" href="#input-element">Input Element</a></h4>
-<table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>input</code></td><td><code>'morsels-search'</code></td><td><code>id</code> of the input element or a HTML element reference</td></tr>
 <tr><td><code>inputDebounce</code></td><td><code>100</code></td><td>debounce time of keystrokes to the input element</td></tr>
 <tr><td><code>preprocessQuery</code></td><td><code>(q) =&gt; q</code></td><td>any function for preprocessing the query. Can be used to add a <a href="./search_features.html#field-search">field filter</a> for example.</td></tr>
 </tbody></table>
+</div>
 <p>The <code>input</code> element is the most important option, and is required in most cases. Its purpose varies depending on the <code>mode</code> specified below.</p>
 <h4 id="ui-mode"><a class="header" href="#ui-mode">UI Mode</a></h4>
 <p>The search UI provides 4 main different behaviours.</p>
 <p>To try the different modes out, head on over to the <a href="./getting_started_mdbook.html#preview">mdbook plugin</a> page, which provides various buttons for switching the modes in this documentation.</p>
-<table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
 <tr><td><code>&quot;auto&quot;</code></td><td>This option is the <strong>default</strong>, and combines the <code>dropdown</code> and <code>fullscreen</code> options below. If a mobile device is <a href="#changing-the-mobile-device-detection-method">detected</a>, the <code>fullscreen</code> mode is used. Otherwise, the <code>dropdown</code> mode is used.<br><br>An event handler is also attached that reruns this adjustment whenever the window is resized.</td></tr>
 <tr><td><code>&quot;dropdown&quot;</code></td><td>This wraps the specified <code>input</code> element with a root container. Search results are placed in a <code>&lt;ul&gt;</code> container next to the input element.</td></tr>
 <tr><td><code>&quot;fullscreen&quot;</code></td><td>This option creates a completely distinct root container (complete with its own input element, backdrop, close button, …), and attaches it to the <code>&lt;body&gt;</code> element.<br><br>Under the default stylesheet, the user interface is fullscreen under <code>max-width: 1025px</code>, and takes up roughly 50% of the screen estate otherwise.<br><br>If the <code>input</code> element is specified, the interface is also shown whenever the <code>input</code> is focused. For keyboard accessibility, some minimal, but overidable <a href="./search_configuration_styling.html#input-element">styling</a> is applied to the input element in this case.<br><br>Alternatively, the <code>showFullscreen</code> and <code>hideFullscreen</code> functions returned by the <code>initMorsels</code> call can be used to toggle the UI programatically. This is also <em>the only use case you would not need to specify the <code>input</code> element</em>.</td></tr>
 <tr><td><code>&quot;target&quot;</code></td><td>This option is the most flexible, and is used by the mdbook plugin (by default) and this documentation. The <code>input</code> element must be specified, where keystroke event listeners are attached. No dom manipulation is performed unlike the <code>dropdown</code> or <code>auto</code> modes.<br><br>The search results are output to a custom <code>target</code> element of choice.</td></tr>
 </tbody></table>
+</div>
 <h4 id="ui-mode-specific-options"><a class="header" href="#ui-mode-specific-options">UI Mode Specific Options</a></h4>
 <p>There are also several options specific to each mode. Note that <code>dropdown</code> and <code>fullscreen</code> options are both applicable to the <code>auto</code> mode.</p>
-<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>auto</code></td><td><code>fsInputButtonText</code></td><td><code>undefined</code></td><td>Placeholder override when the fullscreen UI is in use (i.e. when the input functions like a button). By default, Morsels uses the original placeholder you’ve configured, but makes some minimal <a href="./search_configuration_styling.html#input-element-as-a-button">styling</a> changes to ensure keyboard accessibility.</td></tr>
 <tr><td><code>dropdown</code></td><td><code>dropdownAlignment</code></td><td><code>'bottom-end'</code></td><td><code>'bottom'</code> or <code>'bottom-start'</code> or <code>'bottom-end'</code>.<br><br>This is the side of the input element to align the dropdown results container and dropdown seperator against.<br><br>The alignment of the dropdown container will also be automatically flipped horizontally to ensure the most optimal placement (see <a href="https://floating-ui.com/docs/size#using-with-flip">floating-ui’s</a> docs for a demonstration).</td></tr>
 <tr><td><code>fullscreen</code></td><td><code>fsInputLabel</code></td><td><code>'Search'</code></td><td>Accessibility label for the original input element, when the fullscreen UI is in use.</td></tr>
@@ -296,11 +298,13 @@
 <tr><td>all except <code>target</code></td><td><code>tip</code></td><td><code>true</code></td><td>Whether to show the tip icon. When hovered over, this shows advanced usage information (e.g. how to perform phrase queries).</td></tr>
 <tr><td><code>target</code></td><td><code>target</code></td><td><code>undefined</code></td><td><code>id</code> of the element, or an element reference to attach results to.<br><br>Required if using <code>mode='target'</code>.</td></tr>
 </tbody></table>
+</div>
 <h4 id="general-options"><a class="header" href="#general-options">General Options</a></h4>
-<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
 <tr><td>all</td><td><code>label</code></td><td><code>'Search this site'</code></td><td>Accessibility label for the fullscreen UI input.</td></tr>
 <tr><td>all</td><td><code>resultsLabel</code></td><td><code>'Site results'</code></td><td>Accessibility label for result <code>listbox</code>es.</td></tr>
 </tbody></table>
+</div>
 <h4 id="manually-showing--hiding-the-fullscreen-ui"><a class="header" href="#manually-showing--hiding-the-fullscreen-ui">Manually Showing / Hiding the Fullscreen UI</a></h4>
 <pre><code class="language-ts">const { showFullscreen, hideFullscreen } = initMorsels({ ... });
 </code></pre>
@@ -311,13 +315,9 @@
 <p><code>resultsPerPage = 8</code></p>
 <p>In all UI modes, an infinite scrolling intersection observer is attached to the last search result. When triggered, search result previews are fetched and generated for the next <code>resultsPerPage</code> number of results.</p>
 <h4 id="changing-the-mobile-device-detection-method"><a class="header" href="#changing-the-mobile-device-detection-method">Changing The Mobile Device Detection Method</a></h4>
-<p>Some options are (by default) tuned based on whether the client is a “mobile device”:</p>
-<ul>
-<li>Query term proximity ranking is disabled</li>
-<li>The fullscreen version of the user interface is used for <code>mode='auto'</code></li>
-</ul>
-<p>The mobile device check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query at initialisation time, which may be inadequate for your use case.</p>
-<p>An override may be provided through the <code>isMobileDevice</code> option shown below.</p>
+<p>If the client is a “mobile device”, the fullscreen version of the user interface is used for <code>mode='auto'</code>.</p>
+<p>This check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query, which may be inadequate for your use case.</p>
+<p>Use the <code>isMobileDevice</code> option to the override this check:</p>
 <pre><code class="language-js">initMorsels({
     uiOptions: {
         // Any function returning a boolean
@@ -326,23 +326,28 @@
 })
 </code></pre>
 <h2 id="search-functionality-options"><a class="header" href="#search-functionality-options">Search Functionality Options</a></h2>
-<p>The options for the search library are rather brief, and can be summarised in this snippet:</p>
+<p>The options regarding search functionalities itself are rather brief, its defaults are summarised in this snippet:</p>
 <pre><code class="language-js">initMorsels({
-    // Options belonging to @morsels/search-lib, the search library package
     searcherOptions: {
         // Base url of output directory that the cli tool generated
         url: 'http://192.168.10.132:3000/output/',
         
-        // Maximum number of terms for query term expansion
+        // Maximum number of terms for query term expansion (see below for more info)
         numberOfExpandedTerms: 3,
         
-        // Override for using query term proximity ranking or not.
-        // Disabled for mobile devices by default
+        // Override for using query term proximity ranking or not. (see below for more info)
         useQueryTermProximity: true,
 
-        // Whether to retrieve all field stores on initialisation
-        // (see chapter &quot;Fields&quot; for more details)
-        cacheAllFieldStores: true,
+        // ---------------------------------------------------------------
+        // Caching Options
+        // Whether to cache **all** field stores on initialisation
+        // defaults to the same setting in the indexer configuration file
+        cacheAllFieldStores: undefined,
+
+        // Any index file &gt;= this size requested before will be persistently cached
+        // This option does not affect field stores.
+        plLazyCacheThreshold: 0,
+        // ---------------------------------------------------------------
 
         // The maximum number of results to retrieve (unlimited if null).
         resultLimit: null,
@@ -355,9 +360,10 @@
 <p>To provide a compromise for recall, query terms that are similar to the searched term are added to the query, although with a lower weight.</p>
 <p>For all <a href="./indexer/language.html">language modules</a> available currently, this is only applied for the last query term, and if the query string does not end with a whitespace. An implicit wildcard (suffix) search is performed on this term. (similar to Algolia Docsearch’s behaviour)</p>
 <h4 id="term-proximity-ranking"><a class="header" href="#term-proximity-ranking">Term Proximity Ranking</a></h4>
-<p><code>useQueryTermProximity = !isMobileDevice()</code></p>
-<p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other.
-This may be costly for mobile devices however, and is disabled by default in such cases.</p>
+<p><code>useQueryTermProximity = true</code></p>
+<p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other. This is the more time consuming part of Morsels’ document ranking algorithm, but still incredibly fast.</p>
+<h4 id="caching-options-advanced"><a class="header" href="#caching-options-advanced">Caching Options (Advanced)</a></h4>
+<p>This is discussed more in the chapter on <a href="./indexer/larger_collections.html">larger collections</a>.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>

@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -514,7 +514,7 @@ lorem AND NOT (ipsum dolor) - documents with &quot;lorem&quot; but not (&quot;ip
 <p>Phrase queries are also supported by enclosing the relevant terms in <code>&quot;...&quot;</code>.</p>
 <pre><code>&quot;lorem ipsum&quot; - documents containing &quot;lorem&quot; and &quot;ipsum&quot; appearing one after the other
 </code></pre>
-<p>You will need to enable the <a href="./indexer/indexing.html#miscellaneous-options"><code>withPositions</code></a> index feature for this to work.</p>
+<p>The <a href="./indexer/indexing.html#miscellaneous-options"><code>withPositions</code></a> index feature needs to be enabled for this to work (by default it is).</p>
 <h2 id="field-search"><a class="header" href="#field-search">Field Search</a></h2>
 <p>Field queries are supported via the following syntax <code>field_name:</code>, following the same syntax rules as the <code>NOT</code> operator.</p>
 <pre><code>title:lorem             - documents containing &quot;lorem&quot; in the field &quot;title&quot;
@@ -534,19 +534,22 @@ title\:lorem
 <h2 id="non-user-facing-features"><a class="header" href="#non-user-facing-features">Non User-Facing Features</a></h2>
 <h3 id="webworker-built-in"><a class="header" href="#webworker-built-in">WebWorker Built-in</a></h3>
 <p>Most of the search library operates on a WebWorker where it matters (e.g. setup, query ranking), so you don’t have to worry about blocking the UI thread.</p>
+<details>
+<summary>Exceptions</summary>
 <p>Retrieval of stored document fields (the raw document text for generating result previews and highlighting) is however done on the main thread, as copying many large documents to-and-fro WebWorker interfaces incurs substantial overhead.</p>
 <p>Search UI related functionalities, for example result preview generation, is also done on the main thread.
 The main rationale is that there is simply no way of parsing HTML faster than implementations provided by the browser. (the original HTML document can be used as an alternative to storing document fields for result preview generation)</p>
+</details>
 <h3 id="low-level-inverted-index-format"><a class="header" href="#low-level-inverted-index-format">Low-Level Inverted Index Format</a></h3>
-<p>Some basic, but high-return compression schemes are also employed:</p>
+<p>Some efficient, high-return compression schemes are also employed, so you get all these features without much penalty.</p>
 <ul>
 <li>Gap encoding for document ids, positions</li>
-<li>Bytewise variable integer encoding</li>
+<li>Byte-and-bit-wise variable integer encoding</li>
 </ul>
 <p>To facilitate decompression efficiency of such a low-level format, most of the search library is powered by WebAssembly (Rust) as such.</p>
 <h3 id="ranking-specifics"><a class="header" href="#ranking-specifics">Ranking Specifics</a></h3>
-<p>Most query expressions (e.g. free text queries like <code>lorem ipsum</code>) are ranked using the BM25 model, while <code>AND</code> and <code>()</code> operators sum the respective BM25 scores of their operands. A soft disjunctive maximum is calculated across a document’s field scores.</p>
-<p>A simple form of <strong>query term proximity ranking</strong> is also supported and enabled by default for top-level expressions when the <code>with_positions</code> index <a href="./indexer/indexing.html#miscellaneous-options">feature</a> is enabled. Results are scaled in an inverse logarithmic manner according to how close disjunctive search expressions are to one another.</p>
+<p>Most query expressions (e.g. free text queries like <code>lorem ipsum</code>) are ranked using the BM25 model, while <code>AND</code> and <code>()</code> operators sum the respective BM25 scores of their operands. A soft disjunctive maximum of document’s field scores is calculated.</p>
+<p><strong>Query term proximity ranking</strong> is also supported and enabled by default for top-level expressions, when the <code>with_positions</code> index <a href="./indexer/indexing.html#miscellaneous-options">feature</a> is enabled. Results are scaled according to how close search expressions are to one another.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -736,16 +739,19 @@ if (window.location.search) {
 <ul>
 <li>You have some HTML files you want to index.</li>
 <li>These HTML files are served in a static file server, and are linkable to.</li>
-<li>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.</li>
-<li>For mobile devices, a fullscreen UI will show instead when this input element is focused.<br><br>
-This documentation uses an alternative interface (try the search function!), which is covered <a href="./search_configuration.html#ui-mode">later</a>.
-To preview the defaults, head on over <a href="./search_configuration_styling.html">here</a>.</li>
+<li>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.<details>
+<summary><em>For mobile devices</em></summary>
+A fullscreen UI will show instead when the input element is focused.<br><br>
+This documentation uses an alternative interface (try the search function!), which is covered [later](./search_configuration.md#ui-mode).
+To preview the defaults, head on over [here](./search_configuration_styling.html).
+</details>
+</li>
 </ul>
 <p>If you require more (e.g. indexing custom json files), have a look through here first, then head on over to the subsequent configuration pages.</p>
 <h2 id="installing-the-indexer"><a class="header" href="#installing-the-indexer">Installing the indexer</a></h2>
 <p>There are two options here:</p>
 <ul>
-<li>If you have the rust / cargo toolchains setup, simply run <code>cargo install morsels_indexer --vers 0.2.0</code>.</li>
+<li>If you have the rust / cargo toolchains setup, simply run <code>cargo install morsels_indexer --vers 0.2.1</code>.</li>
 <li>Alternatively, the cli binaries are also available <a href="https://github.com/ang-zeyu/morsels/releases">here</a>.</li>
 </ul>
 <h2 id="running-the-indexer"><a class="header" href="#running-the-indexer">Running the indexer</a></h2>
@@ -756,19 +762,19 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 <h3 id="other-cli-options"><a class="header" href="#other-cli-options">Other Cli Options</a></h3>
 <ul>
 <li><code>-c &lt;config-file-path&gt;</code>: You may also change the config file location (relative to the <code>source-folder-path</code>) using the <code>-c &lt;config-file-path&gt;</code> option.</li>
-<li><code>--preserve-output-folder</code>: All existing contents in the output folder are also removed when running a full index. Specify this option to avoid this.</li>
+<li><code>--preserve-output-folder</code>: All existing contents in the output folder are removed before starting. Specify this option to avoid this.</li>
 </ul>
 <h2 id="installing-the-search-ui"><a class="header" href="#installing-the-search-ui">Installing the search UI</a></h2>
 <h3 id="installation-via-cdn"><a class="header" href="#installation-via-cdn">Installation via CDN</a></h3>
-<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.0&quot; as appropriate --&gt;
+<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.1&quot; as appropriate --&gt;
 
 &lt;!--  Search UI script --&gt;
-&lt;script src=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui.bundle.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui.bundle.js&quot;&gt;&lt;/script&gt;
 &lt;!-- Search UI css, this provides some basic styling for the search dropdown, and can be omitted if desired --&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
 </code></pre>
 <blockquote>
-<p>⚠️ Ensure the versions here <strong>tally with the indexer version</strong> used.</p>
+<p>⚠️ Ensure the versions here <strong>match the indexer version</strong> used exactly.</p>
 </blockquote>
 <h3 id="hosting-the-files"><a class="header" href="#hosting-the-files">Hosting the Files</a></h3>
 <p>If you wish to serve the files locally instead, you can find the necessary files in the release packages <a href="https://github.com/ang-zeyu/morsels/releases">here</a>. The following files inside <code>search.morsels.zip</code> are required:</p>
@@ -776,7 +782,7 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 <li><code>search-ui.bundle.js</code></li>
 <li>Either <code>search-ui-light.css</code> / <code>search-ui-dark.css</code>
 <ul>
-<li>unless you are designing your own stylesheet from scratch</li>
+<li>unless you want to design your own stylesheet from scratch!</li>
 </ul>
 </li>
 <li>A pair of language-specific bundles which are requested as necessary at runtime.
@@ -791,7 +797,7 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 </blockquote>
 <h3 id="ui-initialisation"><a class="header" href="#ui-initialisation">UI Initialisation</a></h3>
 <p>Once you have loaded the bundles, to initialise morsels, simply call the <code>initMorsels</code> function in your page.</p>
-<p>This <strong>requires an input element</strong> with an id of <code>morsels-search</code> to be present in the page by default, which can be configured via <code>uiOptions.input</code>.</p>
+<p>This requires an input element with an <code>id=morsels-search</code> to be present in the page by default. The <code>id</code>can be configured via <code>uiOptions.input</code>.</p>
 <pre><code class="language-ts">initMorsels({
   searcherOptions: {
     // Output folder url specified as the second parameter in the cli command
@@ -800,12 +806,13 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
   uiOptions: {
     // Input / source folder url, specified as the first parameter in the cli command
     sourceFilesUrl: 'http://192.168.10.132:3000/source/',
+    input: 'morsels-search',
   }
 });
 </code></pre>
 <h2 id="whats-next"><a class="header" href="#whats-next">What’s Next</a></h2>
-<p>That’s it! Head on over to the search configuration chapter to learn more about configuring the UI behaviours / outputs.
-The indexer configuration chapters covers a wide range of topics such as adding additional fields to index, mapping file contents to fields, and language configurations.</p>
+<p>Head on over to the search configuration chapter to learn more about configuring the UI behaviours / outputs.</p>
+<p>The indexer configuration chapters covers a wide range of topics such as adding additional fields to index, mapping file contents to fields, and language configurations.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -1476,24 +1483,26 @@ if (window.location.search) {
 <p>For brevity, this page covers only a subset of the most important options.</p>
 <p>The subsequent <a href="./search_configuration_renderers.html">sub-chapter</a> provides a few more APIs to customise the HTML output. If you have a configuration use case that cannot be achieved without these APIs, and you think should be included as a simpler configuration option here, feel free to raise a feature request!</p>
 <h4 id="input-element"><a class="header" href="#input-element">Input Element</a></h4>
-<table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>input</code></td><td><code>'morsels-search'</code></td><td><code>id</code> of the input element or a HTML element reference</td></tr>
 <tr><td><code>inputDebounce</code></td><td><code>100</code></td><td>debounce time of keystrokes to the input element</td></tr>
 <tr><td><code>preprocessQuery</code></td><td><code>(q) =&gt; q</code></td><td>any function for preprocessing the query. Can be used to add a <a href="./search_features.html#field-search">field filter</a> for example.</td></tr>
 </tbody></table>
+</div>
 <p>The <code>input</code> element is the most important option, and is required in most cases. Its purpose varies depending on the <code>mode</code> specified below.</p>
 <h4 id="ui-mode"><a class="header" href="#ui-mode">UI Mode</a></h4>
 <p>The search UI provides 4 main different behaviours.</p>
 <p>To try the different modes out, head on over to the <a href="./getting_started_mdbook.html#preview">mdbook plugin</a> page, which provides various buttons for switching the modes in this documentation.</p>
-<table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
 <tr><td><code>&quot;auto&quot;</code></td><td>This option is the <strong>default</strong>, and combines the <code>dropdown</code> and <code>fullscreen</code> options below. If a mobile device is <a href="search_configuration.html#changing-the-mobile-device-detection-method">detected</a>, the <code>fullscreen</code> mode is used. Otherwise, the <code>dropdown</code> mode is used.<br><br>An event handler is also attached that reruns this adjustment whenever the window is resized.</td></tr>
 <tr><td><code>&quot;dropdown&quot;</code></td><td>This wraps the specified <code>input</code> element with a root container. Search results are placed in a <code>&lt;ul&gt;</code> container next to the input element.</td></tr>
 <tr><td><code>&quot;fullscreen&quot;</code></td><td>This option creates a completely distinct root container (complete with its own input element, backdrop, close button, …), and attaches it to the <code>&lt;body&gt;</code> element.<br><br>Under the default stylesheet, the user interface is fullscreen under <code>max-width: 1025px</code>, and takes up roughly 50% of the screen estate otherwise.<br><br>If the <code>input</code> element is specified, the interface is also shown whenever the <code>input</code> is focused. For keyboard accessibility, some minimal, but overidable <a href="./search_configuration_styling.html#input-element">styling</a> is applied to the input element in this case.<br><br>Alternatively, the <code>showFullscreen</code> and <code>hideFullscreen</code> functions returned by the <code>initMorsels</code> call can be used to toggle the UI programatically. This is also <em>the only use case you would not need to specify the <code>input</code> element</em>.</td></tr>
 <tr><td><code>&quot;target&quot;</code></td><td>This option is the most flexible, and is used by the mdbook plugin (by default) and this documentation. The <code>input</code> element must be specified, where keystroke event listeners are attached. No dom manipulation is performed unlike the <code>dropdown</code> or <code>auto</code> modes.<br><br>The search results are output to a custom <code>target</code> element of choice.</td></tr>
 </tbody></table>
+</div>
 <h4 id="ui-mode-specific-options"><a class="header" href="#ui-mode-specific-options">UI Mode Specific Options</a></h4>
 <p>There are also several options specific to each mode. Note that <code>dropdown</code> and <code>fullscreen</code> options are both applicable to the <code>auto</code> mode.</p>
-<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>auto</code></td><td><code>fsInputButtonText</code></td><td><code>undefined</code></td><td>Placeholder override when the fullscreen UI is in use (i.e. when the input functions like a button). By default, Morsels uses the original placeholder you’ve configured, but makes some minimal <a href="./search_configuration_styling.html#input-element-as-a-button">styling</a> changes to ensure keyboard accessibility.</td></tr>
 <tr><td><code>dropdown</code></td><td><code>dropdownAlignment</code></td><td><code>'bottom-end'</code></td><td><code>'bottom'</code> or <code>'bottom-start'</code> or <code>'bottom-end'</code>.<br><br>This is the side of the input element to align the dropdown results container and dropdown seperator against.<br><br>The alignment of the dropdown container will also be automatically flipped horizontally to ensure the most optimal placement (see <a href="https://floating-ui.com/docs/size#using-with-flip">floating-ui’s</a> docs for a demonstration).</td></tr>
 <tr><td><code>fullscreen</code></td><td><code>fsInputLabel</code></td><td><code>'Search'</code></td><td>Accessibility label for the original input element, when the fullscreen UI is in use.</td></tr>
@@ -1502,11 +1511,13 @@ if (window.location.search) {
 <tr><td>all except <code>target</code></td><td><code>tip</code></td><td><code>true</code></td><td>Whether to show the tip icon. When hovered over, this shows advanced usage information (e.g. how to perform phrase queries).</td></tr>
 <tr><td><code>target</code></td><td><code>target</code></td><td><code>undefined</code></td><td><code>id</code> of the element, or an element reference to attach results to.<br><br>Required if using <code>mode='target'</code>.</td></tr>
 </tbody></table>
+</div>
 <h4 id="general-options"><a class="header" href="#general-options">General Options</a></h4>
-<table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
 <tr><td>all</td><td><code>label</code></td><td><code>'Search this site'</code></td><td>Accessibility label for the fullscreen UI input.</td></tr>
 <tr><td>all</td><td><code>resultsLabel</code></td><td><code>'Site results'</code></td><td>Accessibility label for result <code>listbox</code>es.</td></tr>
 </tbody></table>
+</div>
 <h4 id="manually-showing--hiding-the-fullscreen-ui"><a class="header" href="#manually-showing--hiding-the-fullscreen-ui">Manually Showing / Hiding the Fullscreen UI</a></h4>
 <pre><code class="language-ts">const { showFullscreen, hideFullscreen } = initMorsels({ ... });
 </code></pre>
@@ -1517,13 +1528,9 @@ if (window.location.search) {
 <p><code>resultsPerPage = 8</code></p>
 <p>In all UI modes, an infinite scrolling intersection observer is attached to the last search result. When triggered, search result previews are fetched and generated for the next <code>resultsPerPage</code> number of results.</p>
 <h4 id="changing-the-mobile-device-detection-method"><a class="header" href="#changing-the-mobile-device-detection-method">Changing The Mobile Device Detection Method</a></h4>
-<p>Some options are (by default) tuned based on whether the client is a “mobile device”:</p>
-<ul>
-<li>Query term proximity ranking is disabled</li>
-<li>The fullscreen version of the user interface is used for <code>mode='auto'</code></li>
-</ul>
-<p>The mobile device check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query at initialisation time, which may be inadequate for your use case.</p>
-<p>An override may be provided through the <code>isMobileDevice</code> option shown below.</p>
+<p>If the client is a “mobile device”, the fullscreen version of the user interface is used for <code>mode='auto'</code>.</p>
+<p>This check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query, which may be inadequate for your use case.</p>
+<p>Use the <code>isMobileDevice</code> option to the override this check:</p>
 <pre><code class="language-js">initMorsels({
     uiOptions: {
         // Any function returning a boolean
@@ -1532,23 +1539,28 @@ if (window.location.search) {
 })
 </code></pre>
 <h2 id="search-functionality-options"><a class="header" href="#search-functionality-options">Search Functionality Options</a></h2>
-<p>The options for the search library are rather brief, and can be summarised in this snippet:</p>
+<p>The options regarding search functionalities itself are rather brief, its defaults are summarised in this snippet:</p>
 <pre><code class="language-js">initMorsels({
-    // Options belonging to @morsels/search-lib, the search library package
     searcherOptions: {
         // Base url of output directory that the cli tool generated
         url: 'http://192.168.10.132:3000/output/',
         
-        // Maximum number of terms for query term expansion
+        // Maximum number of terms for query term expansion (see below for more info)
         numberOfExpandedTerms: 3,
         
-        // Override for using query term proximity ranking or not.
-        // Disabled for mobile devices by default
+        // Override for using query term proximity ranking or not. (see below for more info)
         useQueryTermProximity: true,
 
-        // Whether to retrieve all field stores on initialisation
-        // (see chapter &quot;Fields&quot; for more details)
-        cacheAllFieldStores: true,
+        // ---------------------------------------------------------------
+        // Caching Options
+        // Whether to cache **all** field stores on initialisation
+        // defaults to the same setting in the indexer configuration file
+        cacheAllFieldStores: undefined,
+
+        // Any index file &gt;= this size requested before will be persistently cached
+        // This option does not affect field stores.
+        plLazyCacheThreshold: 0,
+        // ---------------------------------------------------------------
 
         // The maximum number of results to retrieve (unlimited if null).
         resultLimit: null,
@@ -1561,9 +1573,10 @@ if (window.location.search) {
 <p>To provide a compromise for recall, query terms that are similar to the searched term are added to the query, although with a lower weight.</p>
 <p>For all <a href="./indexer/language.html">language modules</a> available currently, this is only applied for the last query term, and if the query string does not end with a whitespace. An implicit wildcard (suffix) search is performed on this term. (similar to Algolia Docsearch’s behaviour)</p>
 <h4 id="term-proximity-ranking"><a class="header" href="#term-proximity-ranking">Term Proximity Ranking</a></h4>
-<p><code>useQueryTermProximity = !isMobileDevice()</code></p>
-<p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other.
-This may be costly for mobile devices however, and is disabled by default in such cases.</p>
+<p><code>useQueryTermProximity = true</code></p>
+<p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other. This is the more time consuming part of Morsels’ document ranking algorithm, but still incredibly fast.</p>
+<h4 id="caching-options-advanced"><a class="header" href="#caching-options-advanced">Caching Options (Advanced)</a></h4>
+<p>This is discussed more in the chapter on <a href="./indexer/larger_collections.html">larger collections</a>.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -1755,8 +1768,8 @@ if (window.location.search) {
 <p>Head on over to the demo site <a href="https://morsels-search.com">here</a> to try them out!</p>
 <h3 id="light"><a class="header" href="#light">Light</a></h3>
 <h4 id="cdn-link"><a class="header" href="#cdn-link">CDN link</a></h4>
-<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.0&quot; as appropriate --&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
+<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.1&quot; as appropriate --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
 </code></pre>
 <h4 id="preview-1"><a class="header" href="#preview-1">Preview</a></h4>
 <style>
@@ -1796,8 +1809,8 @@ if (window.location.search) {
 </div>
 <h3 id="dark"><a class="header" href="#dark">Dark</a></h3>
 <h4 id="cdn-link-1"><a class="header" href="#cdn-link-1">CDN link</a></h4>
-<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.0&quot; as appropriate --&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui-dark.css&quot; /&gt;
+<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.1&quot; as appropriate --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui-dark.css&quot; /&gt;
 </code></pre>
 <h4 id="preview-2"><a class="header" href="#preview-2">Preview</a></h4>
 <div class="image-container">
@@ -2286,7 +2299,7 @@ At search time, these fields are retrieved for result preview generation.</p>
 <p><strong><code>k</code> &amp; <code>b</code></strong></p>
 <p>These are Okapi BM25 model parameters. The following <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/pluggable-similarites.html#bm25-tunability">article</a> provides a good overview on how to configure these if the defaults are unsuitable for your use case.</p>
 <h2 id="miscellaneous-parameters-advanced"><a class="header" href="#miscellaneous-parameters-advanced">Miscellaneous Parameters (advanced)</a></h2>
-<p>The 3 parameters below allow you to adjust response times, caching, and file bloat individually. However, you should mostly be well-served by the preconfigured <a href="indexer/./presets.html">scaling presets</a> for such purposes.</p>
+<p>The 3 parameters below allow you to adjust response times, caching, and file bloat individually. However, you should mostly be well-served by the preconfigured <a href="indexer/./larger_collections.html">scaling presets</a> for such purposes.</p>
 <h4 id="field-store-granularity-field_store_block_size-num_stores_per_dir"><a class="header" href="#field-store-granularity-field_store_block_size-num_stores_per_dir">Field Store Granularity: <strong><code>field_store_block_size</code>, <code>num_stores_per_dir</code></strong></a></h4>
 <p>The <code>field_store_block_size</code> parameter controls how many documents to store in one json file. Batching multiple files together if the fields stored are small can lead to less files and better browser caching. The <code>num_stores_per_dir</code> parameter controls how many json files should be stored together in one directory.</p>
 <blockquote>
@@ -2298,7 +2311,7 @@ but should work well enough for most use cases.</p>
 <p>This is the same option as the one under <a href="indexer/../search_configuration.html#search-functionality-options">search functionality options</a>.
 If both are specified, the value specified in the <code>initMorsels</code> call will take priority.</p>
 <p>All fields specified with <code>do_store=true</code> would be cached up front on initialisation of the search library.</p>
-<p>Its usage alongside other options is discussed in more detail under the chapter <a href="indexer/presets.html">Larger Collections</a>.</p>
+<p>Its usage alongside other options is discussed in more detail under the chapter <a href="indexer/larger_collections.html">Larger Collections</a>.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -2762,7 +2775,7 @@ if (window.location.search) {
 
     &quot;num_pls_per_dir&quot;: 1000,
 
-    &quot;with_positions&quot;: false
+    &quot;with_positions&quot;: true
   }
 }
 </code></pre>
@@ -2886,7 +2899,7 @@ The <code>field_order</code> array controls the order in which these fields are 
 <h2 id="miscellaneous-options"><a class="header" href="#miscellaneous-options">Miscellaneous Options</a></h2>
 <h4 id="file-exclusions-exclude--morsels_configjson"><a class="header" href="#file-exclusions-exclude--morsels_configjson">File Exclusions: <strong><code>exclude = [&quot;morsels_config.json&quot;]</code></strong></a></h4>
 <p>Global file exclusions can be specified in this parameter, which is simply an array of file globs.</p>
-<h4 id="adding-positions-with_positions--false"><a class="header" href="#adding-positions-with_positions--false">Adding Positions: <strong><code>with_positions = false</code></strong></a></h4>
+<h4 id="adding-positions-with_positions--true"><a class="header" href="#adding-positions-with_positions--true">Adding Positions: <strong><code>with_positions = true</code></strong></a></h4>
 <p>This option controls whether positions will be stored.</p>
 <p>Features such as phrase queries that require positional information will not work if this is disabled.</p>
 <p>Turning this off for very large collections (~&gt; 1GB) can increase the tool’s scalability, at the cost of such features.</p>
@@ -2929,7 +2942,7 @@ The <code>field_order</code> array controls the order in which these fields are 
 <p>⚠️ Ensure <a href="indexer/./fields.html#field-store-granularity-field_store_block_size-num_stores_per_dir"><code>field_store_block_size</code></a> is a clean multiple or divisor of this parameter.</p>
 </blockquote>
 <h2 id="indexing-and-search-scaling-advanced"><a class="header" href="#indexing-and-search-scaling-advanced">Indexing and Search Scaling (advanced)</a></h2>
-<p>Prefer the in-built <a href="indexer/./presets.html">scaling presets</a> option for configuring the tool’s scalability. Where needed, the following options are available for finer control.</p>
+<p>Prefer the in-built <a href="indexer/./larger_collections.html">scaling presets</a> option for configuring the tool’s scalability. Where needed, the following options are available for finer control.</p>
 <h4 id="index-shard-size-pl_limit"><a class="header" href="#index-shard-size-pl_limit">Index Shard Size: <strong><code>pl_limit</code></strong></a></h4>
 <p>This is the main threshold parameter (in bytes) at which to “cut” index (<strong>pl</strong> meaning <a href="https://en.wikipedia.org/wiki/Inverted_index">postings list</a>) files.</p>
 <p>Increasing this value produces less but bigger files (which may take longer to retrieve), and vice versa.</p>
@@ -2937,7 +2950,7 @@ The <code>field_order</code> array controls the order in which these fields are 
 <br>
 <h4 id="index-caching-pl_cache_threshold"><a class="header" href="#index-caching-pl_cache_threshold">Index Caching: <strong><code>pl_cache_threshold</code></strong></a></h4>
 <p>Index files that exceed this number will be cached by the search library at initilisation.</p>
-<p>It can be used to configure morsels for response time (over scalability) for some use cases. This is discussed in more detail in <a href="indexer/./presets.html">Larger Collections</a>.</p>
+<p>It can be used to configure morsels for response time (over scalability) for some use cases. This is discussed in more detail in <a href="indexer/./larger_collections.html">Larger Collections</a>.</p>
 <h4 id="index-shards-per-directory-num_pls_per_dir"><a class="header" href="#index-shards-per-directory-num_pls_per_dir">Index Shards per Directory: <strong><code>num_pls_per_dir</code></strong></a></h4>
 <p>This parameter simply controls how many index files you want to store in a single directory.</p>
 <p>While the default value should serve sufficiently for most use cases, some file systems are less efficient at handling large amounts of files in one directory. Tuning this parameter may help to improve performance when looking up a particular index file.</p>
@@ -3134,7 +3147,7 @@ if (window.location.search) {
 </ul>
 <p>You should have at least read the chapter on fields, on the <a href="./indexer/fields.html#default-field-configuration">default field configurations</a> in particular.</p>
 <h2 id="options-for-generating-result-previews"><a class="header" href="#options-for-generating-result-previews">Options for Generating Result Previews</a></h2>
-<p>There are 3 available ways of generating result previews, and some <a href="./indexer/presets.html">presets</a> are available to help with switching between options 1 and 2 easily. How these presets are configured individually are also covered under <a href="./indexer/presets.html">larger collections</a>, as the rationale for using alternative methods links closely to your collection size. (except option 3)</p>
+<p>There are 3 available ways of generating result previews, and some <a href="./indexer/larger_collections.html">presets</a> are available to help with switching between options 1 and 2 easily. How these presets are configured individually are also covered under <a href="./indexer/larger_collections.html">larger collections</a>, as the rationale for using alternative methods links closely to your collection size. (except option 3)</p>
 <h4 id="1-from-source-documents"><a class="header" href="#1-from-source-documents">1. From Source Documents</a></h4>
 <p>When the required fields (<code>heading</code> / <code>body</code> / <code>title</code>) are not found in Morsels’ field stores, an attempt will be made to retrieve and reparse the source document and its fields in order to generate result previews.</p>
 <p>Note that this option is only applicable for indexed HTML and JSON files at this time.</p>
@@ -3401,13 +3414,14 @@ if (window.location.search) {
 <p>If you need to include some custom options (e.g. an API base url), you can use the <code>otherOptions</code> key, which is guaranteed to be untouched by morsels.</p>
 <h2 id="changing-supporting-parts-of-the-ui"><a class="header" href="#changing-supporting-parts-of-the-ui">Changing Supporting Parts of the UI</a></h2>
 <p>The options here are intended for changing small, supporting parts of the output (e.g. error messages), which can be especially useful for localizing the UI.</p>
-<table><thead><tr><th>Function</th><th>Return</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Return</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>errorRender(h, opts)</code></td><td><code>HTMLElement</code></td><td>Renders the element attached under the <code>listContainer</code> (or the target element when using <code>mode = 'target'</code>) when an unexpected error occurs.</td></tr>
 <tr><td><code>noResultsRender(h, opts)</code></td><td><code>HTMLElement</code></td><td>This API renders the element attached under the <code>listContainer</code> (or the target element when using <code>mode = 'target'</code>) when there are no results found for a given query.                                                                                     </td></tr>
 <tr><td><code>loadingIndicatorRender(h, opts, isInitialising: boolean, wasResultsBlank: boolean)</code></td><td><code>HTMLElement</code></td><td>This API renders the loading indicator attached under the <code>listContainer</code> when running a query.<br><br>While the search library is doing initialising work, the <code>isInitialising</code> parameter will be <code>true</code>. <br><br>The <code>wasResultsBlank</code> boolean is <code>true</code> when there are no results yet. You may use this parameter to change the look of the indicator in subsequent queries. In the default design, this corresponds to the spinning indicator on the top right of the search box.</td></tr>
 <tr><td><code>termInfoRender(h, opts, queryParts: QueryPart[])</code></td><td><code>HTMLElement[]</code></td><td>This API renders element(s) attached under the <code>listContainer</code> related to the searched terms, and is blank by default.<br><br>This can be used to render messages like “<em>Did you mean <u>spelling</u>?</em> “.</td></tr>
 <tr><td><code>fsBlankRender(h, opts)</code><br><br>( <code>mode='fullscreen'</code> only )</td><td><code>HTMLElement</code></td><td>This API renders the element attached under the <code>listContainer</code> when the search box is empty for the fullscreen UI.<br><br>This contrasts with the dropdown UI which is hidden in such a case.</td></tr>
 </tbody></table>
+</div>
 <h3 id="queryparts-parameter"><a class="header" href="#queryparts-parameter"><code>queryParts</code> Parameter</a></h3>
 <p>This parameter passed to the <code>termInfoRender</code> function is the parsed structure of the input query string.</p>
 <p>Its interface is as follows:</p>
@@ -3439,12 +3453,13 @@ if (window.location.search) {
 <div style="height:1px"></div>
 <p><code>listItemRender(h, opts, fullLink, resultTitle, resultHeadingsAndTexts, fields): HTMLElement</code></p>
 <p>This API renders the result for a single document match.</p>
-<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>fullLink</code></td><td>full resource link of the document</td></tr>
 <tr><td><code>resultTitle</code></td><td>the first extracted <code>title</code> field of the document, if any</td></tr>
 <tr><td><code>resultHeadingsAndTexts</code></td><td>An array of <code>string</code> or <code>HTMLElement</code> intended to be used as the last parameter of <code>h</code>.<br><br>This contains the highlighted heading-body pair matches, or body-only matches rendered from <code>headingBodyRender</code> and <code>bodyOnlyRender</code> further below.</td></tr>
 <tr><td><code>fields</code></td><td>All stored fields for the document, as positioned <code>[fieldName, fieldValue]</code> pairs. Useful if adding additional fields.</td></tr>
 </tbody></table>
+</div>
 <p>The following example shows the default implementation, and how to add an additional field, <code>subtitle</code>, to each result.</p>
 <pre><code class="language-ts">const subTitleField = fields.find(field =&gt; field[0] === 'subtitle');
 
@@ -3519,11 +3534,12 @@ return h(
 <li>If the document has the internal <code>_relative_fp</code> field and <code>sourceFilesUrl</code> is specified, retrieve the original document (<code>.html</code> or <code>.json</code>), and transform it into the same format as that generated by the indexer.</li>
 <li>Transform and highlight the field stores using the <code>listItemRender</code> set of APIs below.</li>
 </ol>
-<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>config</code></td><td>This is the <em>indexing</em> configuration.</td></tr>
 <tr><td><code>query</code></td><td>a <code>Query</code> object. <code>query.searchedTerms</code> contains a nested array of grouped terms that were searched. Groupings contain raw terms and their spelling corrections (if any).</td></tr>
 <tr><td><code>results</code></td><td>an array of <code>Result</code> objects.<br><br>This class exposes the <code>getStorageWithFieldNames(): [string, string][]</code> method which returns an array of <code>[field name, field content]</code> pairs.</td></tr>
 </tbody></table>
+</div>
 <p>You may also refer to the default implementation <a href="https://github.com/ang-zeyu/morsels/blob/main/packages/search-ui/src/searchResultTransform.ts#L369">here</a> to get an idea of how to use the API.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
@@ -3710,8 +3726,8 @@ if (window.location.search) {
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
 <h1 id="larger-collections"><a class="header" href="#larger-collections">Larger Collections</a></h1>
-<p>5 configuration presets are designed primarily for use with Morsels’ main intended use case of supporting static site search.</p>
-<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="indexer/../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable (e.g. to reduce file bloat from additional field stores).</p>
+<p><em>Five</em> configuration presets are available for scaling this tool to larger collections. They are designed primarily for Morsels’ main intended use case of supporting static site search.</p>
+<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="indexer/../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
 <p>The default preset is <code>small</code>, which generates a monolithic index and field store, much like other client side indexing tools.</p>
 <p>Specify the <code>preset</code> key in your configuration file to change this.</p>
 <pre><code class="language-json">{
@@ -3722,16 +3738,19 @@ if (window.location.search) {
 <blockquote>
 <p><code>small</code>, <code>medium</code> and <code>large</code> corresponds to 0, 1, or 2 rounds of network requests in the table below.</p>
 </blockquote>
-<table><thead><tr><th>Preset</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Preset</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>small</code></td><td>Generates a monolithic index and field store. Identical to most other client side indexing tools.</td></tr>
-<tr><td><code>medium</code></td><td>Generates a monolithic index but sharded (on a per document basis) field store. Only field stores of documents to generate result previews for a retrieved.</td></tr>
+<tr><td><code>medium</code></td><td>Generates a monolithic index but sharded (on a per document basis) field store. Only required field stores are retrieved for generating result previews. Positions are not indexed.</td></tr>
 <tr><td><code>large</code></td><td>Generates both a sharded index and field store. Only index files that are required for the query are retrieved. Keeps <a href="indexer/./language.html#stop-words">stop words</a>. This is the preset used in the demo <a href="https://morsels-search.com">here</a>!</td></tr>
-<tr><td><code>medium_source</code></td><td>Generates a monolithic index and field store of source document links. Uses the links to retrieve source documents for result preview generation.</td></tr>
+<tr><td><code>medium_source</code></td><td>Generates a monolithic index and field store of source document links. Uses the links to retrieve source documents for result preview generation. Positions are not indexed.</td></tr>
 <tr><td><code>large_source</code></td><td>Generates a sharded index and monolithic field store of source document links. Uses the links to retrieve source documents for result preview generation. Keeps <a href="indexer/./language.html#stop-words">stop words</a>.</td></tr>
 </tbody></table>
-<blockquote>
-<p>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</p>
-</blockquote>
+</div>
+<h4 id="notes"><a class="header" href="#notes">Notes</a></h4>
+<ul>
+<li>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</li>
+<li>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</li>
+</ul>
 <h2 id="modified-properties"><a class="header" href="#modified-properties">Modified Properties</a></h2>
 <p>Presets modify the following properties:</p>
 <ul>
@@ -3751,18 +3770,23 @@ if (window.location.search) {
 <li><a href="indexer/./fields.html"><code>field_store_block_size</code></a></li>
 <li><a href="indexer/./indexing.html#indexing-and-search-scaling-advanced"><code>pl_limit</code></a></li>
 <li><a href="indexer/./indexing.html#indexing-and-search-scaling-advanced"><code>pl_cache_threshold</code></a></li>
+<li><a href="indexer/indexing.html#miscellaneous-options"><code>with_positions</code></a></li>
 </ul>
 </li>
 </ul>
 <p>Any of these values specified in the configuration file will override that of the preset’s.</p>
 <h3 id="other-options"><a class="header" href="#other-options">Other Options</a></h3>
-<p>There are 2 other options especially worth highlighting that can help reduce the index size (and hence support larger collections) in general.</p>
+<p>There are a few other options especially worth highlighting that can help reduce the index size (and hence support larger collections) or modify caching strategies.</p>
 <ul>
-<li><a href="indexer/language.html#note-on-stop-words"><code>ignore_stop_words=false</code></a></li>
-<li><a href="indexer/indexing.html#miscellaneous-options"><code>with_positions=false</code></a><br>
-Positional information takes up a considerable (up to <strong>3-4</strong> times larger) proportion of the index size!</li>
+<li>
+<p><a href="indexer/../search_configuration.html#caching-options-advanced"><code>plLazyCacheThreshold</code></a></p>
+<p>In addition to <strong>upfront</strong> caching of index files with the <code>pl_cache_threshold</code> indexing parameter, Morsels also persistently caches any index shard that was requested before, but fell short of the <code>pl_cache_threshold</code>.</p>
+</li>
+<li>
+<p><a href="indexer/language.html#note-on-stop-words"><code>ignore_stop_words=false</code></a></p>
+<p>This option is mostly only useful when using the <code>small / medium</code> presets which generate a monolithic index. Ignoring stop words in this case can reduce the overall index size.</p>
+</li>
 </ul>
-<p>If you are willing to forgo some features (e.g. phrase queries, boolean queries of stop words) in return for reducing the index size, you can enable / disable these options as appropriate.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -3958,7 +3982,7 @@ if (window.location.search) {
 </blockquote>
 <p>The possible tradeoffs are marked with ✔️. Those that are likely impossible are marked ❌ (or in other words, you likely need a search server / SaaS for these options). Options that are possible but are relatively undesirable (for which better equivalent options exist) are marked ⚪. The default tradeoff is marked ⭐. Some roughly equivalent / adjacent options are marked ✔️ as it would depend on your collection, use case and some other factors elaborated below.</p>
 <p>Latency is labelled in terms of <code>RTT</code> (round trip time), the maximum of which is <code>3</code>. Also note that the labelled <code>RTT</code> times are <strong>maximums</strong>. (e.g. if files are served from cache instead)</p>
-<table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
 <tr><td>Fair Scalability,<br><span style="color: green">Little</span> File bloat</td><td>⭐</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
 <tr><td>Fair Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
 <tr><td>Fair Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
@@ -3970,6 +3994,7 @@ if (window.location.search) {
 <tr><td>Excellent Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>❌</td><td>✔️</td><td>⚪</td></tr>
 <tr><td>Beyond Excellent Scalability<br>(consider running a<br>search server / SaaS)</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
 </tbody></table>
+</div>
 <h3 id="monolithic-index"><a class="header" href="#monolithic-index">Monolithic Index</a></h3>
 <p>Of particular note, the only possible option under <code>RTT=0</code> is equivalent to using some other existing client side search library and generating a monolithic prebuilt index <strong>and</strong> document/field store (used for generating result previews).</p>
 <p>You may still want to use morsels since it packages a search UI, or, if you prefer the simplicity of a cli indexer tool (e.g. for CI build tools).</p>

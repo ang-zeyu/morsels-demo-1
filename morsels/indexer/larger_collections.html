@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="../getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="../search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="../indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="../indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="../search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer/presets.html" class="active"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="../incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="../getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="../search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="../indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="../indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="../search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer/larger_collections.html" class="active"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="../incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -257,8 +257,8 @@
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
 <h1 id="larger-collections"><a class="header" href="#larger-collections">Larger Collections</a></h1>
-<p>5 configuration presets are designed primarily for use with Morsels’ main intended use case of supporting static site search.</p>
-<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable (e.g. to reduce file bloat from additional field stores).</p>
+<p><em>Five</em> configuration presets are available for scaling this tool to larger collections. They are designed primarily for Morsels’ main intended use case of supporting static site search.</p>
+<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
 <p>The default preset is <code>small</code>, which generates a monolithic index and field store, much like other client side indexing tools.</p>
 <p>Specify the <code>preset</code> key in your configuration file to change this.</p>
 <pre><code class="language-json">{
@@ -269,16 +269,19 @@
 <blockquote>
 <p><code>small</code>, <code>medium</code> and <code>large</code> corresponds to 0, 1, or 2 rounds of network requests in the table below.</p>
 </blockquote>
-<table><thead><tr><th>Preset</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Preset</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>small</code></td><td>Generates a monolithic index and field store. Identical to most other client side indexing tools.</td></tr>
-<tr><td><code>medium</code></td><td>Generates a monolithic index but sharded (on a per document basis) field store. Only field stores of documents to generate result previews for a retrieved.</td></tr>
+<tr><td><code>medium</code></td><td>Generates a monolithic index but sharded (on a per document basis) field store. Only required field stores are retrieved for generating result previews. Positions are not indexed.</td></tr>
 <tr><td><code>large</code></td><td>Generates both a sharded index and field store. Only index files that are required for the query are retrieved. Keeps <a href="./language.html#stop-words">stop words</a>. This is the preset used in the demo <a href="https://morsels-search.com">here</a>!</td></tr>
-<tr><td><code>medium_source</code></td><td>Generates a monolithic index and field store of source document links. Uses the links to retrieve source documents for result preview generation.</td></tr>
+<tr><td><code>medium_source</code></td><td>Generates a monolithic index and field store of source document links. Uses the links to retrieve source documents for result preview generation. Positions are not indexed.</td></tr>
 <tr><td><code>large_source</code></td><td>Generates a sharded index and monolithic field store of source document links. Uses the links to retrieve source documents for result preview generation. Keeps <a href="./language.html#stop-words">stop words</a>.</td></tr>
 </tbody></table>
-<blockquote>
-<p>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</p>
-</blockquote>
+</div>
+<h4 id="notes"><a class="header" href="#notes">Notes</a></h4>
+<ul>
+<li>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</li>
+<li>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</li>
+</ul>
 <h2 id="modified-properties"><a class="header" href="#modified-properties">Modified Properties</a></h2>
 <p>Presets modify the following properties:</p>
 <ul>
@@ -298,18 +301,23 @@
 <li><a href="./fields.html"><code>field_store_block_size</code></a></li>
 <li><a href="./indexing.html#indexing-and-search-scaling-advanced"><code>pl_limit</code></a></li>
 <li><a href="./indexing.html#indexing-and-search-scaling-advanced"><code>pl_cache_threshold</code></a></li>
+<li><a href="indexing.html#miscellaneous-options"><code>with_positions</code></a></li>
 </ul>
 </li>
 </ul>
 <p>Any of these values specified in the configuration file will override that of the preset’s.</p>
 <h3 id="other-options"><a class="header" href="#other-options">Other Options</a></h3>
-<p>There are 2 other options especially worth highlighting that can help reduce the index size (and hence support larger collections) in general.</p>
+<p>There are a few other options especially worth highlighting that can help reduce the index size (and hence support larger collections) or modify caching strategies.</p>
 <ul>
-<li><a href="language.html#note-on-stop-words"><code>ignore_stop_words=false</code></a></li>
-<li><a href="indexing.html#miscellaneous-options"><code>with_positions=false</code></a><br>
-Positional information takes up a considerable (up to <strong>3-4</strong> times larger) proportion of the index size!</li>
+<li>
+<p><a href="../search_configuration.html#caching-options-advanced"><code>plLazyCacheThreshold</code></a></p>
+<p>In addition to <strong>upfront</strong> caching of index files with the <code>pl_cache_threshold</code> indexing parameter, Morsels also persistently caches any index shard that was requested before, but fell short of the <code>pl_cache_threshold</code>.</p>
+</li>
+<li>
+<p><a href="language.html#note-on-stop-words"><code>ignore_stop_words=false</code></a></p>
+<p>This option is mostly only useful when using the <code>small / medium</code> presets which generate a monolithic index. Ignoring stop words in this case can reduce the overall index size.</p>
+</li>
 </ul>
-<p>If you are willing to forgo some features (e.g. phrase queries, boolean queries of stop words) in return for reducing the index size, you can enable / disable these options as appropriate.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>

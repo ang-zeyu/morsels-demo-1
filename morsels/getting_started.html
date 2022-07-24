@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html" class="active"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html" class="active"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -261,16 +261,19 @@
 <ul>
 <li>You have some HTML files you want to index.</li>
 <li>These HTML files are served in a static file server, and are linkable to.</li>
-<li>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.</li>
-<li>For mobile devices, a fullscreen UI will show instead when this input element is focused.<br><br>
-This documentation uses an alternative interface (try the search function!), which is covered <a href="./search_configuration.html#ui-mode">later</a>.
-To preview the defaults, head on over <a href="./search_configuration_styling.html">here</a>.</li>
+<li>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.<details>
+<summary><em>For mobile devices</em></summary>
+A fullscreen UI will show instead when the input element is focused.<br><br>
+This documentation uses an alternative interface (try the search function!), which is covered [later](./search_configuration.md#ui-mode).
+To preview the defaults, head on over [here](./search_configuration_styling.html).
+</details>
+</li>
 </ul>
 <p>If you require more (e.g. indexing custom json files), have a look through here first, then head on over to the subsequent configuration pages.</p>
 <h2 id="installing-the-indexer"><a class="header" href="#installing-the-indexer">Installing the indexer</a></h2>
 <p>There are two options here:</p>
 <ul>
-<li>If you have the rust / cargo toolchains setup, simply run <code>cargo install morsels_indexer --vers 0.2.0</code>.</li>
+<li>If you have the rust / cargo toolchains setup, simply run <code>cargo install morsels_indexer --vers 0.2.1</code>.</li>
 <li>Alternatively, the cli binaries are also available <a href="https://github.com/ang-zeyu/morsels/releases">here</a>.</li>
 </ul>
 <h2 id="running-the-indexer"><a class="header" href="#running-the-indexer">Running the indexer</a></h2>
@@ -281,19 +284,19 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 <h3 id="other-cli-options"><a class="header" href="#other-cli-options">Other Cli Options</a></h3>
 <ul>
 <li><code>-c &lt;config-file-path&gt;</code>: You may also change the config file location (relative to the <code>source-folder-path</code>) using the <code>-c &lt;config-file-path&gt;</code> option.</li>
-<li><code>--preserve-output-folder</code>: All existing contents in the output folder are also removed when running a full index. Specify this option to avoid this.</li>
+<li><code>--preserve-output-folder</code>: All existing contents in the output folder are removed before starting. Specify this option to avoid this.</li>
 </ul>
 <h2 id="installing-the-search-ui"><a class="header" href="#installing-the-search-ui">Installing the search UI</a></h2>
 <h3 id="installation-via-cdn"><a class="header" href="#installation-via-cdn">Installation via CDN</a></h3>
-<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.0&quot; as appropriate --&gt;
+<pre><code class="language-html">&lt;!-- Replace &quot;v0.2.1&quot; as appropriate --&gt;
 
 &lt;!--  Search UI script --&gt;
-&lt;script src=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui.bundle.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui.bundle.js&quot;&gt;&lt;/script&gt;
 &lt;!-- Search UI css, this provides some basic styling for the search dropdown, and can be omitted if desired --&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.0/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/ang-zeyu/morsels@v0.2.1/packages/search-ui/dist/search-ui-light.css&quot; /&gt;
 </code></pre>
 <blockquote>
-<p>⚠️ Ensure the versions here <strong>tally with the indexer version</strong> used.</p>
+<p>⚠️ Ensure the versions here <strong>match the indexer version</strong> used exactly.</p>
 </blockquote>
 <h3 id="hosting-the-files"><a class="header" href="#hosting-the-files">Hosting the Files</a></h3>
 <p>If you wish to serve the files locally instead, you can find the necessary files in the release packages <a href="https://github.com/ang-zeyu/morsels/releases">here</a>. The following files inside <code>search.morsels.zip</code> are required:</p>
@@ -301,7 +304,7 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 <li><code>search-ui.bundle.js</code></li>
 <li>Either <code>search-ui-light.css</code> / <code>search-ui-dark.css</code>
 <ul>
-<li>unless you are designing your own stylesheet from scratch</li>
+<li>unless you want to design your own stylesheet from scratch!</li>
 </ul>
 </li>
 <li>A pair of language-specific bundles which are requested as necessary at runtime.
@@ -316,7 +319,7 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
 </blockquote>
 <h3 id="ui-initialisation"><a class="header" href="#ui-initialisation">UI Initialisation</a></h3>
 <p>Once you have loaded the bundles, to initialise morsels, simply call the <code>initMorsels</code> function in your page.</p>
-<p>This <strong>requires an input element</strong> with an id of <code>morsels-search</code> to be present in the page by default, which can be configured via <code>uiOptions.input</code>.</p>
+<p>This requires an input element with an <code>id=morsels-search</code> to be present in the page by default. The <code>id</code>can be configured via <code>uiOptions.input</code>.</p>
 <pre><code class="language-ts">initMorsels({
   searcherOptions: {
     // Output folder url specified as the second parameter in the cli command
@@ -325,12 +328,13 @@ To preview the defaults, head on over <a href="./search_configuration_styling.ht
   uiOptions: {
     // Input / source folder url, specified as the first parameter in the cli command
     sourceFilesUrl: 'http://192.168.10.132:3000/source/',
+    input: 'morsels-search',
   }
 });
 </code></pre>
 <h2 id="whats-next"><a class="header" href="#whats-next">What’s Next</a></h2>
-<p>That’s it! Head on over to the search configuration chapter to learn more about configuring the UI behaviours / outputs.
-The indexer configuration chapters covers a wide range of topics such as adding additional fields to index, mapping file contents to fields, and language configurations.</p>
+<p>Head on over to the search configuration chapter to learn more about configuring the UI behaviours / outputs.</p>
+<p>The indexer configuration chapters covers a wide range of topics such as adding additional fields to index, mapping file contents to fields, and language configurations.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>

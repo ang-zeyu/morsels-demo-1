@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html" class="active"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/presets.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html" class="active"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -323,13 +323,14 @@
 <p>If you need to include some custom options (e.g. an API base url), you can use the <code>otherOptions</code> key, which is guaranteed to be untouched by morsels.</p>
 <h2 id="changing-supporting-parts-of-the-ui"><a class="header" href="#changing-supporting-parts-of-the-ui">Changing Supporting Parts of the UI</a></h2>
 <p>The options here are intended for changing small, supporting parts of the output (e.g. error messages), which can be especially useful for localizing the UI.</p>
-<table><thead><tr><th>Function</th><th>Return</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Function</th><th>Return</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>errorRender(h, opts)</code></td><td><code>HTMLElement</code></td><td>Renders the element attached under the <code>listContainer</code> (or the target element when using <code>mode = 'target'</code>) when an unexpected error occurs.</td></tr>
 <tr><td><code>noResultsRender(h, opts)</code></td><td><code>HTMLElement</code></td><td>This API renders the element attached under the <code>listContainer</code> (or the target element when using <code>mode = 'target'</code>) when there are no results found for a given query.                                                                                     </td></tr>
 <tr><td><code>loadingIndicatorRender(h, opts, isInitialising: boolean, wasResultsBlank: boolean)</code></td><td><code>HTMLElement</code></td><td>This API renders the loading indicator attached under the <code>listContainer</code> when running a query.<br><br>While the search library is doing initialising work, the <code>isInitialising</code> parameter will be <code>true</code>. <br><br>The <code>wasResultsBlank</code> boolean is <code>true</code> when there are no results yet. You may use this parameter to change the look of the indicator in subsequent queries. In the default design, this corresponds to the spinning indicator on the top right of the search box.</td></tr>
 <tr><td><code>termInfoRender(h, opts, queryParts: QueryPart[])</code></td><td><code>HTMLElement[]</code></td><td>This API renders element(s) attached under the <code>listContainer</code> related to the searched terms, and is blank by default.<br><br>This can be used to render messages like “<em>Did you mean <u>spelling</u>?</em> “.</td></tr>
 <tr><td><code>fsBlankRender(h, opts)</code><br><br>( <code>mode='fullscreen'</code> only )</td><td><code>HTMLElement</code></td><td>This API renders the element attached under the <code>listContainer</code> when the search box is empty for the fullscreen UI.<br><br>This contrasts with the dropdown UI which is hidden in such a case.</td></tr>
 </tbody></table>
+</div>
 <h3 id="queryparts-parameter"><a class="header" href="#queryparts-parameter"><code>queryParts</code> Parameter</a></h3>
 <p>This parameter passed to the <code>termInfoRender</code> function is the parsed structure of the input query string.</p>
 <p>Its interface is as follows:</p>
@@ -361,12 +362,13 @@
 <div style="height:1px"></div>
 <p><code>listItemRender(h, opts, fullLink, resultTitle, resultHeadingsAndTexts, fields): HTMLElement</code></p>
 <p>This API renders the result for a single document match.</p>
-<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>fullLink</code></td><td>full resource link of the document</td></tr>
 <tr><td><code>resultTitle</code></td><td>the first extracted <code>title</code> field of the document, if any</td></tr>
 <tr><td><code>resultHeadingsAndTexts</code></td><td>An array of <code>string</code> or <code>HTMLElement</code> intended to be used as the last parameter of <code>h</code>.<br><br>This contains the highlighted heading-body pair matches, or body-only matches rendered from <code>headingBodyRender</code> and <code>bodyOnlyRender</code> further below.</td></tr>
 <tr><td><code>fields</code></td><td>All stored fields for the document, as positioned <code>[fieldName, fieldValue]</code> pairs. Useful if adding additional fields.</td></tr>
 </tbody></table>
+</div>
 <p>The following example shows the default implementation, and how to add an additional field, <code>subtitle</code>, to each result.</p>
 <pre><code class="language-ts">const subTitleField = fields.find(field =&gt; field[0] === 'subtitle');
 
@@ -441,11 +443,12 @@ return h(
 <li>If the document has the internal <code>_relative_fp</code> field and <code>sourceFilesUrl</code> is specified, retrieve the original document (<code>.html</code> or <code>.json</code>), and transform it into the same format as that generated by the indexer.</li>
 <li>Transform and highlight the field stores using the <code>listItemRender</code> set of APIs below.</li>
 </ol>
-<table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>config</code></td><td>This is the <em>indexing</em> configuration.</td></tr>
 <tr><td><code>query</code></td><td>a <code>Query</code> object. <code>query.searchedTerms</code> contains a nested array of grouped terms that were searched. Groupings contain raw terms and their spelling corrections (if any).</td></tr>
 <tr><td><code>results</code></td><td>an array of <code>Result</code> objects.<br><br>This class exposes the <code>getStorageWithFieldNames(): [string, string][]</code> method which returns an array of <code>[field name, field content]</code> pairs.</td></tr>
 </tbody></table>
+</div>
 <p>You may also refer to the default implementation <a href="https://github.com/ang-zeyu/morsels/blob/main/packages/search-ui/src/searchResultTransform.ts#L369">here</a> to get an idea of how to use the API.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
@@ -517,7 +520,7 @@ if (window.location.search) {
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="indexer/presets.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="indexer/larger_collections.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -531,7 +534,7 @@ if (window.location.search) {
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="indexer/presets.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="indexer/larger_collections.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
