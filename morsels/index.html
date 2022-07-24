@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.1.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.2.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.1.</strong> Incremental Indexing</a></li><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.2.</strong> Tradeoffs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -286,7 +286,7 @@
 <p>You may want to use this tool if:</p>
 <ul>
 <li>You want a complete solution for static site search</li>
-<li>You have a fairly <strong>large collection</strong> of HTML, CSV, JSON, PDF or text (only these are supported for now) files that cannot be monolithically retrieved or kept in memory feasibly</li>
+<li>You have a collection of HTML, CSV, JSON, PDF or TXT (only these are supported for now) files on disk to index</li>
 <li>Running a search server / SaaS (eg. Algolia Docsearch) is not an option</li>
 </ul>
 <blockquote>
@@ -296,22 +296,16 @@ It is <strong>not possible</strong> to use morsels for <strong>client-side index
 </blockquote>
 <h2 id="how-it-works"><a class="header" href="#how-it-works">How it Works:</a></h2>
 <p><img src="./images/architecture.png" alt="Morsels’ architecture diagram" /></p>
-<h2 id="other-limitations"><a class="header" href="#other-limitations">Other Limitations</a></h2>
+<h2 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h2>
 <ol>
 <li>
-<p><strong>Latency</strong> &amp; File Bloat (<em>only if</em> fragmenting the index)</p>
-<p>Scaling this tool for larger collections necessitates fragmenting the index and <strong>retrieving only what’s needed</strong> when searched, which means extra network requests, but to a reasonable degree. (see this <a href="https://morsels-search.com">demo</a>)</p>
-<p>This tool should be able to handle <code>800MB</code> <strong>pure text</strong> (not counting things like HTML soup) collections with the full set of features enabled and some configuration tweaking.</p>
-<p>The degree of fragmentation can be <a href="https://morsels-search.com/morsels/presets.html">configured</a> to varying degrees. That is, by default, Morsels can, and does function much like other existing monolithic pre-built index options in terms of the number of network requests, and you only “pay for what you need”.</p>
-</li>
-<li>
-<p><strong>Wasm</strong> – no IE support =(</p>
+<p><strong>Wasm</strong> is used – that means no IE support =(</p>
 </li>
 <li>
 <p><strong>Not production ready!</strong></p>
 </li>
 <li>
-<p><strong>Browser Focused</strong>: For now, the focus is on providing e2e search functionalities in the browser. That means no Node.js support and such.</p>
+<p><strong>Browser Focused</strong>: For now, the focus is static site search. That means no Node.js support and such.</p>
 </li>
 </ol>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>

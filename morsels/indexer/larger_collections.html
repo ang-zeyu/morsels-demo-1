@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="../getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="../search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="../indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="../indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="../search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer/larger_collections.html" class="active"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="../incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="../getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="../search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../indexer/language.html"><strong aria-hidden="true">5.1.</strong> Language</a></li><li class="chapter-item expanded "><a href="../indexer/fields.html"><strong aria-hidden="true">5.2.</strong> Fields</a></li><li class="chapter-item expanded "><a href="../indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="../search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="../indexer/larger_collections.html" class="active"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../incremental_indexing.html"><strong aria-hidden="true">7.1.</strong> Incremental Indexing</a></li><li class="chapter-item expanded "><a href="../tradeoffs.html"><strong aria-hidden="true">7.2.</strong> Tradeoffs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -258,14 +258,15 @@
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
 <h1 id="larger-collections"><a class="header" href="#larger-collections">Larger Collections</a></h1>
 <p><em>Five</em> configuration presets are available for scaling this tool to larger collections. They are designed primarily for Morsels’ main intended use case of supporting static site search.</p>
-<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, the number of rounds of <strong>network requests</strong> (<code>RTT</code>) and the <strong>number of files</strong> generated (if file bloat is of concern). Morsels also supports generating result previews from <a href="../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
 <p>The default preset is <code>small</code>, which generates a monolithic index and field store, much like other client side indexing tools.</p>
 <p>Specify the <code>preset</code> key in your configuration file to change this.</p>
 <pre><code class="language-json">{
     &quot;preset&quot;: &quot;small&quot; | &quot;medium&quot; | &quot;large&quot; | &quot;medium_source&quot; | &quot;large_source&quot;
 }
 </code></pre>
-<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<h2 id="presets"><a class="header" href="#presets">Presets</a></h2>
 <blockquote>
 <p><code>small</code>, <code>medium</code> and <code>large</code> corresponds to 0, 1, or 2 rounds of network requests in the table below.</p>
 </blockquote>
@@ -279,8 +280,16 @@
 </div>
 <h4 id="notes"><a class="header" href="#notes">Notes</a></h4>
 <ul>
-<li>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</li>
-<li>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</li>
+<li>
+<p>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</p>
+</li>
+<li>
+<p>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</p>
+</li>
+<li>
+<p>Note that scaling this tool for larger collections dosen’t come freely, and necessitates fragmenting the index and/or field stores, <strong>retrieving only what’s needed</strong>. This means extra network requests, but to a reasonable degree.</p>
+<p>This tool should be able to handle <code>800MB</code> (not counting things like HTML tags) collections with the full set of features enabled in the <code>large</code> preset.</p>
+</li>
 </ul>
 <h2 id="modified-properties"><a class="header" href="#modified-properties">Modified Properties</a></h2>
 <p>Presets modify the following properties:</p>
@@ -388,7 +397,7 @@ if (window.location.search) {
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../tradeoffs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../incremental_indexing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -402,7 +411,7 @@ if (window.location.search) {
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../tradeoffs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../incremental_indexing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

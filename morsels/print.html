@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.1.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.2.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.1.</strong> Incremental Indexing</a></li><li class="chapter-item expanded "><a href="tradeoffs.html"><strong aria-hidden="true">7.2.</strong> Tradeoffs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -287,7 +287,7 @@
 <p>You may want to use this tool if:</p>
 <ul>
 <li>You want a complete solution for static site search</li>
-<li>You have a fairly <strong>large collection</strong> of HTML, CSV, JSON, PDF or text (only these are supported for now) files that cannot be monolithically retrieved or kept in memory feasibly</li>
+<li>You have a collection of HTML, CSV, JSON, PDF or TXT (only these are supported for now) files on disk to index</li>
 <li>Running a search server / SaaS (eg. Algolia Docsearch) is not an option</li>
 </ul>
 <blockquote>
@@ -297,22 +297,16 @@ It is <strong>not possible</strong> to use morsels for <strong>client-side index
 </blockquote>
 <h2 id="how-it-works"><a class="header" href="#how-it-works">How it Works:</a></h2>
 <p><img src="./images/architecture.png" alt="Morsels’ architecture diagram" /></p>
-<h2 id="other-limitations"><a class="header" href="#other-limitations">Other Limitations</a></h2>
+<h2 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h2>
 <ol>
 <li>
-<p><strong>Latency</strong> &amp; File Bloat (<em>only if</em> fragmenting the index)</p>
-<p>Scaling this tool for larger collections necessitates fragmenting the index and <strong>retrieving only what’s needed</strong> when searched, which means extra network requests, but to a reasonable degree. (see this <a href="https://morsels-search.com">demo</a>)</p>
-<p>This tool should be able to handle <code>800MB</code> <strong>pure text</strong> (not counting things like HTML soup) collections with the full set of features enabled and some configuration tweaking.</p>
-<p>The degree of fragmentation can be <a href="https://morsels-search.com/morsels/presets.html">configured</a> to varying degrees. That is, by default, Morsels can, and does function much like other existing monolithic pre-built index options in terms of the number of network requests, and you only “pay for what you need”.</p>
-</li>
-<li>
-<p><strong>Wasm</strong> – no IE support =(</p>
+<p><strong>Wasm</strong> is used – that means no IE support =(</p>
 </li>
 <li>
 <p><strong>Not production ready!</strong></p>
 </li>
 <li>
-<p><strong>Browser Focused</strong>: For now, the focus is on providing e2e search functionalities in the browser. That means no Node.js support and such.</p>
+<p><strong>Browser Focused</strong>: For now, the focus is static site search. That means no Node.js support and such.</p>
 </li>
 </ol>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
@@ -737,17 +731,23 @@ if (window.location.search) {
 <h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
 <p>This page assumes the use case of a <strong>static site</strong>, that is:</p>
 <ul>
-<li>You have some HTML files you want to index.</li>
-<li>These HTML files are served in a static file server, and are linkable to.</li>
-<li>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.<details>
+<li>
+<p>You have some HTML files you want to index.</p>
+</li>
+<li>
+<p>These HTML files are served in a static file server, and are linkable to.</p>
+</li>
+<li>
+<p>You have an <code>&lt;input&gt;</code> element to attach a search dropdown to.</p>
+<details>
 <summary><em>For mobile devices</em></summary>
-A fullscreen UI will show instead when the input element is focused.<br><br>
-This documentation uses an alternative interface (try the search function!), which is covered [later](./search_configuration.md#ui-mode).
-To preview the defaults, head on over [here](./search_configuration_styling.html).
+<br>A fullscreen UI will show instead when the input element is focused.
+<p>This documentation uses an alternative user interface (try the search function!), which is covered <a href="./search_configuration.html#ui-mode">later</a>.
+To preview the defaults, head on over <a href="./search_configuration_styling.html">here</a>.</p>
 </details>
 </li>
 </ul>
-<p>If you require more (e.g. indexing custom json files), have a look through here first, then head on over to the subsequent configuration pages.</p>
+<p>If you require more (e.g. indexing custom json files), have a quick look through here, then head on over to the subsequent configuration pages.</p>
 <h2 id="installing-the-indexer"><a class="header" href="#installing-the-indexer">Installing the indexer</a></h2>
 <p>There are two options here:</p>
 <ul>
@@ -796,16 +796,17 @@ To preview the defaults, head on over [here](./search_configuration_styling.html
 <p>⚠️ All files are expected to be <strong>accessible in the same folder</strong> relative to the linked <code>search-ui.bundle.js</code>.</p>
 </blockquote>
 <h3 id="ui-initialisation"><a class="header" href="#ui-initialisation">UI Initialisation</a></h3>
-<p>Once you have loaded the bundles, to initialise morsels, simply call the <code>initMorsels</code> function in your page.</p>
-<p>This requires an input element with an <code>id=morsels-search</code> to be present in the page by default. The <code>id</code>can be configured via <code>uiOptions.input</code>.</p>
+<p>Once you have loaded the bundles, simply call the <code>initMorsels</code> function in your page.</p>
+<p>This requires an input element with an <code>id=morsels-search</code> to be present in the page by default. The <code>id</code> can be configured via <code>uiOptions.input</code>.</p>
 <pre><code class="language-ts">initMorsels({
   searcherOptions: {
     // Output folder url specified as the second parameter in the cli command
-    url: 'http://192.168.10.132:3000/output/',
+    // Urls like '/output/' will work as well
+    url: 'http://&lt;your-domain&gt;/output/',
   },
   uiOptions: {
     // Input / source folder url, specified as the first parameter in the cli command
-    sourceFilesUrl: 'http://192.168.10.132:3000/source/',
+    sourceFilesUrl: 'http://&lt;your-domain&gt;/source/',
     input: 'morsels-search',
   }
 });
@@ -1480,8 +1481,6 @@ if (window.location.search) {
     }
 })
 </code></pre>
-<p>For brevity, this page covers only a subset of the most important options.</p>
-<p>The subsequent <a href="./search_configuration_renderers.html">sub-chapter</a> provides a few more APIs to customise the HTML output. If you have a configuration use case that cannot be achieved without these APIs, and you think should be included as a simpler configuration option here, feel free to raise a feature request!</p>
 <h4 id="input-element"><a class="header" href="#input-element">Input Element</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>input</code></td><td><code>'morsels-search'</code></td><td><code>id</code> of the input element or a HTML element reference</td></tr>
@@ -1496,15 +1495,43 @@ if (window.location.search) {
 <div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Details</th></tr></thead><tbody>
 <tr><td><code>&quot;auto&quot;</code></td><td>This option is the <strong>default</strong>, and combines the <code>dropdown</code> and <code>fullscreen</code> options below. If a mobile device is <a href="search_configuration.html#changing-the-mobile-device-detection-method">detected</a>, the <code>fullscreen</code> mode is used. Otherwise, the <code>dropdown</code> mode is used.<br><br>An event handler is also attached that reruns this adjustment whenever the window is resized.</td></tr>
 <tr><td><code>&quot;dropdown&quot;</code></td><td>This wraps the specified <code>input</code> element with a root container. Search results are placed in a <code>&lt;ul&gt;</code> container next to the input element.</td></tr>
-<tr><td><code>&quot;fullscreen&quot;</code></td><td>This option creates a completely distinct root container (complete with its own input element, backdrop, close button, …), and attaches it to the <code>&lt;body&gt;</code> element.<br><br>Under the default stylesheet, the user interface is fullscreen under <code>max-width: 1025px</code>, and takes up roughly 50% of the screen estate otherwise.<br><br>If the <code>input</code> element is specified, the interface is also shown whenever the <code>input</code> is focused. For keyboard accessibility, some minimal, but overidable <a href="./search_configuration_styling.html#input-element">styling</a> is applied to the input element in this case.<br><br>Alternatively, the <code>showFullscreen</code> and <code>hideFullscreen</code> functions returned by the <code>initMorsels</code> call can be used to toggle the UI programatically. This is also <em>the only use case you would not need to specify the <code>input</code> element</em>.</td></tr>
+<tr><td><code>&quot;fullscreen&quot;</code></td><td>This option creates a completely distinct root container (complete with its own input element, backdrop, close button, …), and attaches it to the <code>&lt;body&gt;</code> element.<br><br>Under the default stylesheet, the user interface is fullscreen under <code>max-width: 1025px</code>, and takes up roughly 50% of the screen estate otherwise.<br><br>If the <code>input</code> element is specified, a click handler is attached to open this UI. For accessibility, some minimal, but overidable <a href="./search_configuration_styling.html#input-element">styling</a> is applied to the input element.<br><br>This UI can also be shown/hidden <a href="search_configuration.html#manually-showing--hiding-the-fullscreen-ui">programatically</a>, which is also <em>the only case</em> you would not need to specify the <code>input</code> element.</td></tr>
 <tr><td><code>&quot;target&quot;</code></td><td>This option is the most flexible, and is used by the mdbook plugin (by default) and this documentation. The <code>input</code> element must be specified, where keystroke event listeners are attached. No dom manipulation is performed unlike the <code>dropdown</code> or <code>auto</code> modes.<br><br>The search results are output to a custom <code>target</code> element of choice.</td></tr>
 </tbody></table>
+</div>
+<p>Use the following buttons to try out the different modes. The default in this documentation is <code>target</code>.</p>
+<style>
+    .demo-btn {
+        padding: 5px 9px;
+        margin: 0 8px 8px 8px;
+        border: 2px solid var(--sidebar-bg) !important;
+        border-radius: 10px;
+        transition: all 0.15s linear;
+        color: var(--fg) !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+    }
+
+    .demo-btn:hover {
+        color: var(--sidebar-fg) !important;
+        background: var(--sidebar-bg) !important;
+    }
+
+    .demo-btn:active {
+        color: var(--sidebar-active) !important;
+    }
+</style>
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+    <a class="demo-btn" href="?mode=auto">Auto</a>
+    <a class="demo-btn" href="?mode=dropdown">Dropdown</a>
+    <a class="demo-btn" href="?mode=fullscreen">Fullscreen</a>
+    <a class="demo-btn" href="?mode=target">Target</a>
 </div>
 <h4 id="ui-mode-specific-options"><a class="header" href="#ui-mode-specific-options">UI Mode Specific Options</a></h4>
 <p>There are also several options specific to each mode. Note that <code>dropdown</code> and <code>fullscreen</code> options are both applicable to the <code>auto</code> mode.</p>
 <div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Option</th><th>Default</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>auto</code></td><td><code>fsInputButtonText</code></td><td><code>undefined</code></td><td>Placeholder override when the fullscreen UI is in use (i.e. when the input functions like a button). By default, Morsels uses the original placeholder you’ve configured, but makes some minimal <a href="./search_configuration_styling.html#input-element-as-a-button">styling</a> changes to ensure keyboard accessibility.</td></tr>
-<tr><td><code>dropdown</code></td><td><code>dropdownAlignment</code></td><td><code>'bottom-end'</code></td><td><code>'bottom'</code> or <code>'bottom-start'</code> or <code>'bottom-end'</code>.<br><br>This is the side of the input element to align the dropdown results container and dropdown seperator against.<br><br>The alignment of the dropdown container will also be automatically flipped horizontally to ensure the most optimal placement (see <a href="https://floating-ui.com/docs/size#using-with-flip">floating-ui’s</a> docs for a demonstration).</td></tr>
+<tr><td><code>dropdown</code></td><td><code>dropdownAlignment</code></td><td><code>'bottom-end'</code></td><td><code>'bottom'</code> or <code>'bottom-start'</code> or <code>'bottom-end'</code>.<br><br>This is the side of the input element to align the dropdown results container and dropdown seperator against.<br><br>The alignment will also be automatically flipped horizontally to ensure the most optimal placement.</td></tr>
+<tr><td><code>auto</code></td><td><code>fsInputButtonText</code></td><td><code>undefined</code></td><td>Placeholder override for the <code>input</code> if the fullscreen UI is in use.<br><br>This is added for keyboard <a href="./search_configuration_styling.html#input-element-as-a-button">accessibility</a>.</td></tr>
 <tr><td><code>fullscreen</code></td><td><code>fsInputLabel</code></td><td><code>'Search'</code></td><td>Accessibility label for the original input element, when the fullscreen UI is in use.</td></tr>
 <tr><td><code>fullscreen</code></td><td><code>fsContainer</code></td><td><code>&lt;body&gt;</code> element</td><td><code>id</code> of the element, or an element reference to attach the separate root container to.</td></tr>
 <tr><td><code>fullscreen</code></td><td><code>fsPlaceholder</code></td><td><code>'Search this site...'</code></td><td>Placeholder of the input element in the fullscreen UI.</td></tr>
@@ -1529,7 +1556,9 @@ if (window.location.search) {
 <p>In all UI modes, an infinite scrolling intersection observer is attached to the last search result. When triggered, search result previews are fetched and generated for the next <code>resultsPerPage</code> number of results.</p>
 <h4 id="changing-the-mobile-device-detection-method"><a class="header" href="#changing-the-mobile-device-detection-method">Changing The Mobile Device Detection Method</a></h4>
 <p>If the client is a “mobile device”, the fullscreen version of the user interface is used for <code>mode='auto'</code>.</p>
-<p>This check is done through a simple <code>window.matchMedia('only screen and (max-width: 1024px)').matches</code> query, which may be inadequate for your use case.</p>
+<p>This check is done through a simple media query, which may not be adequate for your use case.</p>
+<pre><code class="language-js">window.matchMedia('only screen and (max-width: 1024px)').matches
+</code></pre>
 <p>Use the <code>isMobileDevice</code> option to the override this check:</p>
 <pre><code class="language-js">initMorsels({
     uiOptions: {
@@ -1571,7 +1600,7 @@ if (window.location.search) {
 <p><code>numberOfExpandedTerms = 3</code></p>
 <p>Stemming is turned off in the default <a href="./indexer/language.html#ascii-tokenizer">language module</a>. This does mean a bigger dictionary (but not too much usually), and lower recall, but much more precise searches.</p>
 <p>To provide a compromise for recall, query terms that are similar to the searched term are added to the query, although with a lower weight.</p>
-<p>For all <a href="./indexer/language.html">language modules</a> available currently, this is only applied for the last query term, and if the query string does not end with a whitespace. An implicit wildcard (suffix) search is performed on this term. (similar to Algolia Docsearch’s behaviour)</p>
+<p>For all <a href="./indexer/language.html">language modules</a> available currently, this is only applied for the last query term, and if the query string does not end with a whitespace. An implicit wildcard (suffix) search is performed on this term.</p>
 <h4 id="term-proximity-ranking"><a class="header" href="#term-proximity-ranking">Term Proximity Ranking</a></h4>
 <p><code>useQueryTermProximity = true</code></p>
 <p>If positions are indexed, document scores are also scaled by how close query expressions or terms are to each other. This is the more time consuming part of Morsels’ document ranking algorithm, but still incredibly fast.</p>
@@ -2204,114 +2233,77 @@ if (window.location.search) {
 /></p>
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
-<h1 id="field-configuration"><a class="header" href="#field-configuration">Field Configuration</a></h1>
-<p>Every document you index contains multiple fields. By default, Morsels comes baked in with the configurations needed for supporting static site search, so you don’t have to configure what fields are present.</p>
-<p>There are a few other parameters mentioned below however, which can be used to adjust response times, caching, and file bloat individually. </p>
-<p>This snippet shows the default values:</p>
+<h1 id="language-configuration"><a class="header" href="#language-configuration">Language Configuration</a></h1>
+<p>The snippet below shows the default values for language configuration. The main tokenizer module is specified by <code>lang</code>, while the <code>options</code> key supplies tokenization options unique to each language module.</p>
+<blockquote>
+<p>These options are also applied at search time, which is retrieved from a metadata file in the index output directory.</p>
+</blockquote>
 <pre><code class="language-json">{
-  &quot;fields_config&quot;: {
-    &quot;cache_all_field_stores&quot;: true,
-    &quot;field_store_block_size&quot;: 10000,
-    &quot;num_stores_per_dir&quot;: 1000,
-    &quot;fields&quot;: [
-      {
-        &quot;name&quot;: &quot;title&quot;,
-        &quot;do_store&quot;: false,
-        &quot;weight&quot;: 2.0,
-        &quot;k&quot;: 1.2,
-        &quot;b&quot;: 0.15
-      },
-      {
-        &quot;name&quot;: &quot;heading&quot;,
-        &quot;do_store&quot;: false,
-        &quot;weight&quot;: 1.5,
-        &quot;k&quot;: 1.2,
-        &quot;b&quot;: 0.25
-      },
-      {
-        &quot;name&quot;: &quot;body&quot;,
-        &quot;do_store&quot;: false,
-        &quot;weight&quot;: 1.0,
-        &quot;k&quot;: 1.2,
-        &quot;b&quot;: 0.75
-      },
-      {
-        &quot;name&quot;: &quot;headingLink&quot;,
-        &quot;do_store&quot;: false,
-        &quot;weight&quot;: 0.0,
-        &quot;k&quot;: 1.2,
-        &quot;b&quot;: 0.75
-      },
-      // Internal, hardcoded field (see &quot;Reserved Fields&quot;)
-      {
-        &quot;name&quot;: &quot;_relative_fp&quot;,
-        &quot;do_store&quot;: true,
-        &quot;weight&quot;: 0.0,
-        &quot;k&quot;: 1.2,
-        &quot;b&quot;: 0.75
-      }
-    ]
+  &quot;lang_config&quot;: {
+    &quot;lang&quot;: &quot;ascii&quot;,
+    &quot;options&quot;: {
+      // Language dependent
+    }
   }
 }
 </code></pre>
-<h2 id="default-field-configuration"><a class="header" href="#default-field-configuration">Default Field Configuration</a></h2>
-<p>The functions of the default fields for the user interface are as follows:</p>
-<img alt="annotation for fields" src="indexer/../images/fields_annotated.png" />
+<p>Only the following 3 tokenizers are supported for now:</p>
+<h2 id="ascii-tokenizer"><a class="header" href="#ascii-tokenizer">Ascii Tokenizer</a></h2>
+<p>The default tokenizer splits on sentences, then whitespaces to obtain tokens.</p>
+<p>An <a href="https://github.com/tantivy-search/tantivy/blob/main/src/tokenizer/ascii_folding_filter.rs">asciiFoldingFilter</a> is then applied to these tokens, followed by punctuation and non-word boundary removal.</p>
+<pre><code class="language-json">{
+  &quot;lang&quot;: &quot;ascii&quot;,
+  &quot;options&quot;: {
+    &quot;stop_words&quot;: [
+      &quot;a&quot;, &quot;an&quot;, &quot;and&quot;, &quot;are&quot;, &quot;as&quot;, &quot;at&quot;, &quot;be&quot;, &quot;but&quot;, &quot;by&quot;, &quot;for&quot;,
+      &quot;if&quot;, &quot;in&quot;, &quot;into&quot;, &quot;is&quot;, &quot;it&quot;, &quot;no&quot;, &quot;not&quot;, &quot;of&quot;, &quot;on&quot;, &quot;or&quot;,
+      &quot;such&quot;, &quot;that&quot;, &quot;the&quot;, &quot;their&quot;, &quot;then&quot;, &quot;there&quot;, &quot;these&quot;,
+      &quot;they&quot;, &quot;this&quot;, &quot;to&quot;, &quot;was&quot;, &quot;will&quot;, &quot;with&quot;
+    ],
+    &quot;ignore_stop_words&quot;: true,
+
+    // Hard limit = 250
+    &quot;max_term_len&quot;: 80
+  }
+}
+</code></pre>
+<h2 id="latin-tokenizer"><a class="header" href="#latin-tokenizer">Latin Tokenizer</a></h2>
+<p>This is essentially the same as the ascii tokenizer, but adds a <code>stemmer</code> option.</p>
+<pre><code class="language-json">{
+  &quot;lang&quot;: &quot;latin&quot;,
+  &quot;options&quot;: {
+    // ----------------------------------
+    // Ascii Tokenizer options also apply
+    // ...
+    // ----------------------------------
+
+    // Any of the languages here
+    // https://docs.rs/rust-stemmers/1.2.0/rust_stemmers/enum.Algorithm.html
+    // Languages other than &quot;english&quot; have not been extensively tested. Use with caution!
+    &quot;stemmer&quot;: &quot;english&quot;
+  }
+}
+</code></pre>
+<p>If you do not need stemming, use the <code>ascii</code> tokenizer, which has a smaller wasm binary.</p>
+<h2 id="chinese-tokenizer"><a class="header" href="#chinese-tokenizer">Chinese Tokenizer</a></h2>
+<p>A basic <code>chinese</code> tokenizer based on <a href="https://github.com/messense/jieba-rs">jieba-rs</a> is also available, although, it hasn’t been extensively tested. Use with caution!</p>
+<p>This tokenizer applies jieba’s <code>cut</code> method to obtain various tokens, then applies a punctuation filter to these tokens. Thereafter, tokens are grouped into sentences.</p>
+<pre><code class="language-json">{
+  &quot;lang&quot;: &quot;chinese&quot;,
+  &quot;options&quot;: {
+    &quot;stop_words&quot;: [],
+    &quot;ignore_stop_words&quot;: true
+  }
+}
+</code></pre>
+<h2 id="stop-words"><a class="header" href="#stop-words">Stop Words</a></h2>
+<p>All tokenizers support keeping or removing (default) stop words using the <code>ignore_stop_words</code> option.</p>
+<p>Keeping them enables the following:</p>
 <ul>
-<li>
-<p><code>title</code>: This is the header for a single document match, usually sourced from the HTML <code>&lt;title&gt;</code> tag. When unavailable, <code>_relative_fp</code> field is formatted into a breadcrumb format (e.g. <code>user guide » introduction</code>) instead.</p>
-</li>
-<li>
-<p><code>heading</code>: These are section headers which appear on the left of corresponding <code>body</code> field, sourced from <code>&lt;h1-6&gt;</code> tags.</p>
-</li>
-<li>
-<p><code>headingLink</code>: These are the <code>id</code> attributes of corresponding <code>&lt;h1-6&gt;</code> tags. When found, an <code>#anchor</code> is appended to the link.</p>
-</li>
-<li>
-<p><code>body</code>: This field is the text that appears to the right of headings (or on its own if there is no corresponding heading).</p>
-</li>
-<li>
-<p><code>_relative_fp</code> <strong>or</strong> <code>link</code>: If the <code>title</code> field is missing for any document, this field takes its place in the header. It is also used to link to the source document (in the <code>&lt;a /&gt;</code> tag) and (optionally) for generating result <a href="indexer/../search_configuration.html#default-rendering-output--purpose">previews</a>.</p>
-<ul>
-<li>Note: The <code>link</code> field is not setup by default; The combination of <code>sourceFilesUrl</code> + <code>_relative_fp</code> serves the same purpose. The <code>link</code> field serves to accomodate more custom data requirements (e.g. linking to another domain, or indexing a json document).</li>
+<li>Processing phrase queries such as <code>&quot;for tomorrow&quot;</code></li>
+<li>Boolean queries of stop words (e.g. <code>if AND forecast AND sunny</code>)</li>
+<li>More accurate ranking for free text queries, which employ an inverse document frequency heuristic to prune stop words only when their impact is small (far from always the case!). </li>
 </ul>
-</li>
-</ul>
-<h3 id="reserved-fields"><a class="header" href="#reserved-fields">Reserved Fields</a></h3>
-<p><strong><code>_relative_fp</code></strong></p>
-<p>This is a “hardcoded” field generated by the indexer, its value is fixed as the relative path from your source folder to the file.</p>
-<p>It is included in the default configuration to facilitate constructing a source file link, as illustrated in the above annotations.</p>
-<p><strong><code>_add_files</code></strong></p>
-<p>This is a field that allows you to <strong>index multiple files</strong> under <strong>a single document</strong> / result, which can be particularly useful for overriding data on a document-by-document basis.</p>
-<p>See <a href="indexer/./indexing.html">this section</a> under indexing for more details on using this.</p>
-<h3 id="mapping-file-data-to-fields"><a class="header" href="#mapping-file-data-to-fields">Mapping File Data to Fields</a></h3>
-<p>Defining fields is all good, but you may also need a way to map custom-formatted file data to each of these fields if the default mappings, which are setup for only HTML files, are insufficient. This is discussed later under <a href="indexer/./indexing.html#mapping-file-data-to-fields-loader_configs">indexing</a>.</p>
-<h3 id="adding-fields-advanced"><a class="header" href="#adding-fields-advanced">Adding Fields (advanced)</a></h3>
-<p>You can add your own fields to index as well, which will be factored into Morsels’ search algorithms. Note however, that the user interface only incorporates the default set of fields to generate result previews (e.g. for term highlighting). If you need to incorporate additional fields, e.g. a link to an icon, you will need to <a href="indexer/../search_configuration_renderers.html#1-rendering-a-single-result">alter</a> the result renderer.</p>
-<h2 id="field-specific-parameters"><a class="header" href="#field-specific-parameters">Field Specific Parameters</a></h2>
-<h4 id="storing-fields-do_store"><a class="header" href="#storing-fields-do_store">Storing Fields: <strong><code>do_store</code></strong></a></h4>
-<p>Morsels stores fields that have <code>do_store: true</code> specified in the field configuration into a json file.
-At search time, these fields are retrieved for result preview generation.</p>
-<h4 id="field-scoring-parameters"><a class="header" href="#field-scoring-parameters">Field Scoring Parameters</a></h4>
-<p><strong><code>weight</code></strong></p>
-<p>This parameter is a boost / penalty multiplied to a individual field’s score.</p>
-<p>Specifying <code>0.0</code> will result in the field not being indexed. Meaning, searching for it will not show up any results. The use case for this is to create a field that is only stored using the <code>do_store</code> option (e.g. the <code>_relative_fp</code> field).</p>
-<p><strong><code>k</code> &amp; <code>b</code></strong></p>
-<p>These are Okapi BM25 model parameters. The following <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/pluggable-similarites.html#bm25-tunability">article</a> provides a good overview on how to configure these if the defaults are unsuitable for your use case.</p>
-<h2 id="miscellaneous-parameters-advanced"><a class="header" href="#miscellaneous-parameters-advanced">Miscellaneous Parameters (advanced)</a></h2>
-<p>The 3 parameters below allow you to adjust response times, caching, and file bloat individually. However, you should mostly be well-served by the preconfigured <a href="indexer/./larger_collections.html">scaling presets</a> for such purposes.</p>
-<h4 id="field-store-granularity-field_store_block_size-num_stores_per_dir"><a class="header" href="#field-store-granularity-field_store_block_size-num_stores_per_dir">Field Store Granularity: <strong><code>field_store_block_size</code>, <code>num_stores_per_dir</code></strong></a></h4>
-<p>The <code>field_store_block_size</code> parameter controls how many documents to store in one json file. Batching multiple files together if the fields stored are small can lead to less files and better browser caching. The <code>num_stores_per_dir</code> parameter controls how many json files should be stored together in one directory.</p>
-<blockquote>
-<p>⚠️ Ensure <code>field_store_block_size</code> is a clean multiple or divisor of the <code>num_docs_per_block</code> parameter under <a href="indexer/./indexing.html">indexing</a> later.<br>
-This is a rather arbitiary limitation chosen to reduce the field store indexing scheme complexity,
-but should work well enough for most use cases.</p>
-</blockquote>
-<h4 id="field-store-caching-cache_all_field_stores"><a class="header" href="#field-store-caching-cache_all_field_stores">Field Store Caching: <strong><code>cache_all_field_stores</code></strong></a></h4>
-<p>This is the same option as the one under <a href="indexer/../search_configuration.html#search-functionality-options">search functionality options</a>.
-If both are specified, the value specified in the <code>initMorsels</code> call will take priority.</p>
-<p>All fields specified with <code>do_store=true</code> would be cached up front on initialisation of the search library.</p>
-<p>Its usage alongside other options is discussed in more detail under the chapter <a href="indexer/larger_collections.html">Larger Collections</a>.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -2496,77 +2488,114 @@ if (window.location.search) {
 /></p>
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
-<h1 id="language-configuration"><a class="header" href="#language-configuration">Language Configuration</a></h1>
-<p>The snippet below shows the default values for language configuration. The main tokenizer module is specified by <code>lang</code>, while the <code>options</code> key supplies tokenization options unique to each language module.</p>
-<blockquote>
-<p>These options are also applied at search time, which is retrieved from a metadata file in the index output directory.</p>
-</blockquote>
+<h1 id="field-configuration"><a class="header" href="#field-configuration">Field Configuration</a></h1>
+<p>Every document you index contains multiple fields. By default, Morsels comes baked in with the configurations needed for supporting static site search, so you don’t have to configure what fields are present.</p>
+<p>There are a few other parameters mentioned below however, which can be used to adjust response times, caching, and file bloat individually. </p>
+<p>This snippet shows the default values:</p>
 <pre><code class="language-json">{
-  &quot;lang_config&quot;: {
-    &quot;lang&quot;: &quot;ascii&quot;,
-    &quot;options&quot;: {
-      // Language dependent
-    }
+  &quot;fields_config&quot;: {
+    &quot;cache_all_field_stores&quot;: true,
+    &quot;field_store_block_size&quot;: 10000,
+    &quot;num_stores_per_dir&quot;: 1000,
+    &quot;fields&quot;: [
+      {
+        &quot;name&quot;: &quot;title&quot;,
+        &quot;do_store&quot;: false,
+        &quot;weight&quot;: 2.0,
+        &quot;k&quot;: 1.2,
+        &quot;b&quot;: 0.15
+      },
+      {
+        &quot;name&quot;: &quot;heading&quot;,
+        &quot;do_store&quot;: false,
+        &quot;weight&quot;: 1.5,
+        &quot;k&quot;: 1.2,
+        &quot;b&quot;: 0.25
+      },
+      {
+        &quot;name&quot;: &quot;body&quot;,
+        &quot;do_store&quot;: false,
+        &quot;weight&quot;: 1.0,
+        &quot;k&quot;: 1.2,
+        &quot;b&quot;: 0.75
+      },
+      {
+        &quot;name&quot;: &quot;headingLink&quot;,
+        &quot;do_store&quot;: false,
+        &quot;weight&quot;: 0.0,
+        &quot;k&quot;: 1.2,
+        &quot;b&quot;: 0.75
+      },
+      // Internal, hardcoded field (see &quot;Reserved Fields&quot;)
+      {
+        &quot;name&quot;: &quot;_relative_fp&quot;,
+        &quot;do_store&quot;: true,
+        &quot;weight&quot;: 0.0,
+        &quot;k&quot;: 1.2,
+        &quot;b&quot;: 0.75
+      }
+    ]
   }
 }
 </code></pre>
-<p>Only the following 3 tokenizers are supported for now:</p>
-<h2 id="ascii-tokenizer"><a class="header" href="#ascii-tokenizer">Ascii Tokenizer</a></h2>
-<p>The default tokenizer splits on sentences, then whitespaces to obtain tokens.</p>
-<p>An <a href="https://github.com/tantivy-search/tantivy/blob/main/src/tokenizer/ascii_folding_filter.rs">asciiFoldingFilter</a> is then applied to these tokens, followed by punctuation and non-word boundary removal.</p>
-<pre><code class="language-json">{
-  &quot;lang&quot;: &quot;ascii&quot;,
-  &quot;options&quot;: {
-    &quot;stop_words&quot;: [
-      &quot;a&quot;, &quot;an&quot;, &quot;and&quot;, &quot;are&quot;, &quot;as&quot;, &quot;at&quot;, &quot;be&quot;, &quot;but&quot;, &quot;by&quot;, &quot;for&quot;,
-      &quot;if&quot;, &quot;in&quot;, &quot;into&quot;, &quot;is&quot;, &quot;it&quot;, &quot;no&quot;, &quot;not&quot;, &quot;of&quot;, &quot;on&quot;, &quot;or&quot;,
-      &quot;such&quot;, &quot;that&quot;, &quot;the&quot;, &quot;their&quot;, &quot;then&quot;, &quot;there&quot;, &quot;these&quot;,
-      &quot;they&quot;, &quot;this&quot;, &quot;to&quot;, &quot;was&quot;, &quot;will&quot;, &quot;with&quot;
-    ],
-    &quot;ignore_stop_words&quot;: true,
-
-    // Hard limit = 250
-    &quot;max_term_len&quot;: 80
-  }
-}
-</code></pre>
-<h2 id="latin-tokenizer"><a class="header" href="#latin-tokenizer">Latin Tokenizer</a></h2>
-<p>This is essentially the same as the ascii tokenizer, but adds a <code>stemmer</code> option.</p>
-<pre><code class="language-json">{
-  &quot;lang&quot;: &quot;latin&quot;,
-  &quot;options&quot;: {
-    // ----------------------------------
-    // Ascii Tokenizer options also apply
-    // ...
-    // ----------------------------------
-
-    // Any of the languages here
-    // https://docs.rs/rust-stemmers/1.2.0/rust_stemmers/enum.Algorithm.html
-    // Languages other than &quot;english&quot; have not been extensively tested. Use with caution!
-    &quot;stemmer&quot;: &quot;english&quot;
-  }
-}
-</code></pre>
-<p>If you do not need stemming, use the <code>ascii</code> tokenizer, which has a smaller wasm binary.</p>
-<h2 id="chinese-tokenizer"><a class="header" href="#chinese-tokenizer">Chinese Tokenizer</a></h2>
-<p>A basic <code>chinese</code> tokenizer based on <a href="https://github.com/messense/jieba-rs">jieba-rs</a> is also available, although, it hasn’t been extensively tested. Use with caution!</p>
-<p>This tokenizer applies jieba’s <code>cut</code> method to obtain various tokens, then applies a punctuation filter to these tokens. Thereafter, tokens are grouped into sentences.</p>
-<pre><code class="language-json">{
-  &quot;lang&quot;: &quot;chinese&quot;,
-  &quot;options&quot;: {
-    &quot;stop_words&quot;: [],
-    &quot;ignore_stop_words&quot;: true
-  }
-}
-</code></pre>
-<h2 id="stop-words"><a class="header" href="#stop-words">Stop Words</a></h2>
-<p>All tokenizers support keeping or removing (default) stop words using the <code>ignore_stop_words</code> option.</p>
-<p>Keeping them enables the following:</p>
+<h2 id="default-field-configuration"><a class="header" href="#default-field-configuration">Default Field Configuration</a></h2>
+<p>The functions of the default fields for the user interface are as follows:</p>
+<img alt="annotation for fields" src="indexer/../images/fields_annotated.png" />
 <ul>
-<li>Processing phrase queries such as <code>&quot;for tomorrow&quot;</code></li>
-<li>Boolean queries of stop words (e.g. <code>if AND forecast AND sunny</code>)</li>
-<li>More accurate ranking for free text queries, which employ an inverse document frequency heuristic to prune stop words only when their impact is small (far from always the case!). </li>
+<li>
+<p><code>title</code>: This is the header for a single document match, usually sourced from the HTML <code>&lt;title&gt;</code> tag. When unavailable, <code>_relative_fp</code> field is formatted into a breadcrumb format (e.g. <code>user guide » introduction</code>) instead.</p>
+</li>
+<li>
+<p><code>heading</code>: These are section headers which appear on the left of corresponding <code>body</code> field, sourced from <code>&lt;h1-6&gt;</code> tags.</p>
+</li>
+<li>
+<p><code>headingLink</code>: These are the <code>id</code> attributes of corresponding <code>&lt;h1-6&gt;</code> tags. When found, an <code>#anchor</code> is appended to the link.</p>
+</li>
+<li>
+<p><code>body</code>: This field is the text that appears to the right of headings (or on its own if there is no corresponding heading).</p>
+</li>
+<li>
+<p><code>_relative_fp</code> <strong>or</strong> <code>link</code>: If the <code>title</code> field is missing for any document, this field takes its place in the header. It is also used to link to the source document (in the <code>&lt;a /&gt;</code> tag) and (optionally) for generating result <a href="indexer/../search_configuration.html#default-rendering-output--purpose">previews</a>.</p>
+<ul>
+<li>Note: The <code>link</code> field is not setup by default; The combination of <code>sourceFilesUrl</code> + <code>_relative_fp</code> serves the same purpose. The <code>link</code> field serves to accomodate more custom data requirements (e.g. linking to another domain, or indexing a json document).</li>
 </ul>
+</li>
+</ul>
+<h3 id="reserved-fields"><a class="header" href="#reserved-fields">Reserved Fields</a></h3>
+<p><strong><code>_relative_fp</code></strong></p>
+<p>This is a “hardcoded” field generated by the indexer, its value is fixed as the relative path from your source folder to the file.</p>
+<p>It is included in the default configuration to facilitate constructing a source file link, as illustrated in the above annotations.</p>
+<p><strong><code>_add_files</code></strong></p>
+<p>This is a field that allows you to <strong>index multiple files</strong> under <strong>a single document</strong> / result, which can be particularly useful for overriding data on a document-by-document basis.</p>
+<p>See <a href="indexer/./indexing.html">this section</a> under indexing for more details on using this.</p>
+<h3 id="mapping-file-data-to-fields"><a class="header" href="#mapping-file-data-to-fields">Mapping File Data to Fields</a></h3>
+<p>Defining fields is all good, but you may also need a way to map custom-formatted file data to each of these fields if the default mappings, which are setup for only HTML files, are insufficient. This is discussed later under <a href="indexer/./indexing.html#mapping-file-data-to-fields-loader_configs">indexing</a>.</p>
+<h3 id="adding-fields-advanced"><a class="header" href="#adding-fields-advanced">Adding Fields (advanced)</a></h3>
+<p>You can add your own fields to index as well, which will be factored into Morsels’ search algorithms. Note however, that the user interface only incorporates the default set of fields to generate result previews (e.g. for term highlighting). If you need to incorporate additional fields, e.g. a link to an icon, you will need to <a href="indexer/../search_configuration_renderers.html#1-rendering-a-single-result">alter</a> the result renderer.</p>
+<h2 id="field-specific-parameters"><a class="header" href="#field-specific-parameters">Field Specific Parameters</a></h2>
+<h4 id="storing-fields-do_store"><a class="header" href="#storing-fields-do_store">Storing Fields: <strong><code>do_store</code></strong></a></h4>
+<p>Morsels stores fields that have <code>do_store: true</code> specified in the field configuration into a json file.
+At search time, these fields are retrieved for result preview generation.</p>
+<h4 id="field-scoring-parameters"><a class="header" href="#field-scoring-parameters">Field Scoring Parameters</a></h4>
+<p><strong><code>weight</code></strong></p>
+<p>This parameter is a boost / penalty multiplied to a individual field’s score.</p>
+<p>Specifying <code>0.0</code> will result in the field not being indexed. Meaning, searching for it will not show up any results. The use case for this is to create a field that is only stored using the <code>do_store</code> option (e.g. the <code>_relative_fp</code> field).</p>
+<p><strong><code>k</code> &amp; <code>b</code></strong></p>
+<p>These are Okapi BM25 model parameters. The following <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/pluggable-similarites.html#bm25-tunability">article</a> provides a good overview on how to configure these if the defaults are unsuitable for your use case.</p>
+<h2 id="miscellaneous-parameters-advanced"><a class="header" href="#miscellaneous-parameters-advanced">Miscellaneous Parameters (advanced)</a></h2>
+<p>The 3 parameters below allow you to adjust response times, caching, and file bloat individually. However, you should mostly be well-served by the preconfigured <a href="indexer/./larger_collections.html">scaling presets</a> for such purposes.</p>
+<h4 id="field-store-granularity-field_store_block_size-num_stores_per_dir"><a class="header" href="#field-store-granularity-field_store_block_size-num_stores_per_dir">Field Store Granularity: <strong><code>field_store_block_size</code>, <code>num_stores_per_dir</code></strong></a></h4>
+<p>The <code>field_store_block_size</code> parameter controls how many documents to store in one json file. Batching multiple files together if the fields stored are small can lead to less files and better browser caching. The <code>num_stores_per_dir</code> parameter controls how many json files should be stored together in one directory.</p>
+<blockquote>
+<p>⚠️ Ensure <code>field_store_block_size</code> is a clean multiple or divisor of the <code>num_docs_per_block</code> parameter under <a href="indexer/./indexing.html">indexing</a> later.<br>
+This is a rather arbitiary limitation chosen to reduce the field store indexing scheme complexity,
+but should work well enough for most use cases.</p>
+</blockquote>
+<h4 id="field-store-caching-cache_all_field_stores"><a class="header" href="#field-store-caching-cache_all_field_stores">Field Store Caching: <strong><code>cache_all_field_stores</code></strong></a></h4>
+<p>This is the same option as the one under <a href="indexer/../search_configuration.html#search-functionality-options">search functionality options</a>.
+If both are specified, the value specified in the <code>initMorsels</code> call will take priority.</p>
+<p>All fields specified with <code>do_store=true</code> would be cached up front on initialisation of the search library.</p>
+<p>Its usage alongside other options is discussed in more detail under the chapter <a href="indexer/larger_collections.html">Larger Collections</a>.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -3727,14 +3756,15 @@ if (window.location.search) {
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
 <h1 id="larger-collections"><a class="header" href="#larger-collections">Larger Collections</a></h1>
 <p><em>Five</em> configuration presets are available for scaling this tool to larger collections. They are designed primarily for Morsels’ main intended use case of supporting static site search.</p>
-<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, and the number of rounds of <strong>network requests</strong> (<code>RTT</code>). Morsels also supports generating result previews from <a href="indexer/../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
+<p>Each preset primarily makes a tradeoff between the <strong>document collection size</strong> it can support, the number of rounds of <strong>network requests</strong> (<code>RTT</code>) and the <strong>number of files</strong> generated (if file bloat is of concern). Morsels also supports generating result previews from <a href="indexer/../search_configuration.html#1-from-source-documents">source files</a>, if it is preferable to reduce file bloat from additional field stores.</p>
 <p>The default preset is <code>small</code>, which generates a monolithic index and field store, much like other client side indexing tools.</p>
 <p>Specify the <code>preset</code> key in your configuration file to change this.</p>
 <pre><code class="language-json">{
     &quot;preset&quot;: &quot;small&quot; | &quot;medium&quot; | &quot;large&quot; | &quot;medium_source&quot; | &quot;large_source&quot;
 }
 </code></pre>
-<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<h2 id="presets"><a class="header" href="#presets">Presets</a></h2>
 <blockquote>
 <p><code>small</code>, <code>medium</code> and <code>large</code> corresponds to 0, 1, or 2 rounds of network requests in the table below.</p>
 </blockquote>
@@ -3748,8 +3778,16 @@ if (window.location.search) {
 </div>
 <h4 id="notes"><a class="header" href="#notes">Notes</a></h4>
 <ul>
-<li>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</li>
-<li>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</li>
+<li>
+<p>The 2 <code>large</code> presets do not remove stop words by default. This is because these options split up the index, which means that such commonly occuring words are likely to be separately placed into one file. (and never requested until necessary)</p>
+</li>
+<li>
+<p>The 2 <code>medium</code> presets do not index positions by default. Since positions take up a considerable proportion of the index size and a <em>sizeable</em> (at least, more so than <code>small</code>) monolithic index is assumed to be generated. The downside is that term proximity ranking and phrase queries will not be available.</p>
+</li>
+<li>
+<p>Note that scaling this tool for larger collections dosen’t come freely, and necessitates fragmenting the index and/or field stores, <strong>retrieving only what’s needed</strong>. This means extra network requests, but to a reasonable degree.</p>
+<p>This tool should be able to handle <code>800MB</code> (not counting things like HTML tags) collections with the full set of features enabled in the <code>large</code> preset.</p>
+</li>
 </ul>
 <h2 id="modified-properties"><a class="header" href="#modified-properties">Modified Properties</a></h2>
 <p>Presets modify the following properties:</p>
@@ -3971,146 +4009,36 @@ if (window.location.search) {
 /></p>
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
-<h1 id="tradeoffs"><a class="header" href="#tradeoffs">Tradeoffs</a></h1>
+<h1 id="incremental-indexing"><a class="header" href="#incremental-indexing">Incremental Indexing</a></h1>
+<p><em>Incremental</em> indexing is also supported by the indexer cli tool.</p>
+<p>Detecting <strong>deleted, changed, or added files</strong> is done by storing an <strong>internal file path –&gt; last modified timestamp</strong> map.</p>
+<p>To use it, simply pass the <code>--incremental</code> or <code>-i</code> option when running the indexer.</p>
 <blockquote>
-<p>This page goes <em>into detail</em> on how the various indexer presets (<code>small</code>, <code>medium</code>, …) are configured, what tradeoffs they make, and is a (mostly) optional read, especially if your collection isn’t too large.</p>
+<p>Again, you will most likely not need to dabble with incremental indexing, unless your collection is extremely large (e.g. &gt; 200MB).</p>
 </blockquote>
-<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
-<p>Each preset largely makes a tradeoff between your document collection size and the number of rounds of network requests to make. File bloat is also discussed, if it is of concern.</p>
-<blockquote>
-<p>The last column, <code>RTT=3</code>, is included only for hypothetical discussion but not present in any of the presets!</p>
-</blockquote>
-<p>The possible tradeoffs are marked with ✔️. Those that are likely impossible are marked ❌ (or in other words, you likely need a search server / SaaS for these options). Options that are possible but are relatively undesirable (for which better equivalent options exist) are marked ⚪. The default tradeoff is marked ⭐. Some roughly equivalent / adjacent options are marked ✔️ as it would depend on your collection, use case and some other factors elaborated below.</p>
-<p>Latency is labelled in terms of <code>RTT</code> (round trip time), the maximum of which is <code>3</code>. Also note that the labelled <code>RTT</code> times are <strong>maximums</strong>. (e.g. if files are served from cache instead)</p>
-<div class="table-wrapper"><table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
-<tr><td>Fair Scalability,<br><span style="color: green">Little</span> File bloat</td><td>⭐</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
-<tr><td>Fair Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
-<tr><td>Fair Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
-<tr><td>Good Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
-<tr><td>Good Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
-<tr><td>Good Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
-<tr><td>Excellent Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
-<tr><td>Excellent Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
-<tr><td>Excellent Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>❌</td><td>✔️</td><td>⚪</td></tr>
-<tr><td>Beyond Excellent Scalability<br>(consider running a<br>search server / SaaS)</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
-</tbody></table>
-</div>
-<h3 id="monolithic-index"><a class="header" href="#monolithic-index">Monolithic Index</a></h3>
-<p>Of particular note, the only possible option under <code>RTT=0</code> is equivalent to using some other existing client side search library and generating a monolithic prebuilt index <strong>and</strong> document/field store (used for generating result previews).</p>
-<p>You may still want to use morsels since it packages a search UI, or, if you prefer the simplicity of a cli indexer tool (e.g. for CI build tools).</p>
-<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
-<blockquote>
-<p>This section assumes some knowledge on the options listed below in chapters 4 (barring 4.1) and 5, which will be discussed in briefer detail here:</p>
-</blockquote>
+<h2 id="how-it-works-1"><a class="header" href="#how-it-works-1">How it Works</a></h2>
+<p>As the core idea of Morsels is to split up the index into many tiny parts, the incremental indexing feature works by “patching” only the files which were updated during the current run. This means that at search time, the same amount of index files are retrieved and searched through as before, to reduce the number of network requests.</p>
+<p>This is in contrast to a more traditional “segment” based approach you might find in search servers, whereby each incremental indexing run generates an entirely separate “segment”, and segments are merged together at runtime (during search). While this makes sense for traditional search tools, it may unfortunately generate too many network requests for index files and search overhead from merging files, something Morsels is trying to minimise.</p>
+<h2 id="content-based-hashing"><a class="header" href="#content-based-hashing">Content Based Hashing</a></h2>
+<p>The default change detection currently relies on the last modified time in file metadata. This may not always be guaranteed by the tools that generate the files Morsels indexes, or be an accurate reflection of whether a file’s contents were updated.</p>
+<p>If file metadata is <em>unavailable</em> for any given file, the file would always be re-indexed as well.</p>
+<p>You may specify the <code>--incremental-content-hash</code> option in such a case to opt into using a crc32 hash comparison for all files instead. This option should also be specified when running a full index and intending to run incremental indexing somewhere down the line.</p>
+<p>It should only be marginally more expensive for the majority of cases, and may be the default option in the future.</p>
+<h2 id="circumstances-that-trigger-a-full-reindex"><a class="header" href="#circumstances-that-trigger-a-full-reindex">Circumstances that Trigger a Full (Re)Index</a></h2>
+<p>Note also, that the following circumstances will forcibly trigger a <strong>full</strong> reindex:</p>
 <ul>
-<li>Search Configuration: 
-<ul>
-<li>⭐⭐ The method of <a href="search_configuration_advanced.html#default-rendering-output--purpose">result preview generation</a></li>
-<li><a href="search_configuration.html#search-functionality-options"><code>cacheAllFieldStores</code></a></li>
+<li>If the output folder path does not contain any files indexed by morsels</li>
+<li>It contains files indexed by a different version of morsels</li>
+<li>The configuration file (<code>morsels_config.json</code>) was changed in any way</li>
+<li>Usage of the <code>--incremental-content-hash</code> option changed</li>
 </ul>
-</li>
-<li>Indexing Configuration:
-<ul>
-<li>what <a href="./indexer/fields.html">fields</a> are stored (<code>do_store</code>)</li>
-<li><a href="./indexer/fields.html"><code>field_store_block_size</code></a></li>
-<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_limit</code></a></li>
-<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_cache_threshold</code></a></li>
-</ul>
-</li>
-</ul>
-<p>The following sections discusses some combinations of options that generate the tradeoff results in the table above.</p>
-<h3 id="1-rtt0-fair-scalability-little-file-bloat"><a class="header" href="#1-rtt0-fair-scalability-little-file-bloat">1. <code>RTT=0</code>, Fair Scalability, Little File Bloat</a></h3>
-<p>To achieve this result, you will need to ensure <strong>everything</strong> that is potentially needed is retrieved up front.</p>
-<ol>
-<li>Set <code>pl_limit</code> to an arbitrarily large number. This compresses the inverted index into just one or a few files.</li>
-<li>Ensure <code>pl_cache_threshold</code> is set to a very low number (or, at least smaller than the generated inverted index file size), so that all postings lists are loaded up front and cached in memory.</li>
-<li>You would also want to set <code>field_store_block_size</code> to a fairly high number, and correspondingly set <code>cacheAllFieldStores</code> to <code>true</code>. This allows morsels to load the few field stores during initilisation and persistently cache them.</li>
-</ol>
-<blockquote>
-<p>⭐ This is what’s being used by this documentation, since it is fairly small.<br><br>Nevertheless, <code>RTT=1/2</code> are still very acceptable settings under good network conditions. <code>RTT=3</code> may be slightly slow (<code>~600ms</code> assuming decent network conditions), but still quite acceptable depending on your use case since it reduces file bloat.<br><br></p>
-</blockquote>
-<h3 id="2-rtt12-good-scalability-moderate--heavy-file-bloat"><a class="header" href="#2-rtt12-good-scalability-moderate--heavy-file-bloat">2. <code>RTT=1/2</code>, Good Scalability, Moderate / Heavy File Bloat</a></h3>
-<p>The impacts of the two options here are discussed under the 2 main methods of result preview generation in the <a href="search_configuration_advanced.html">earlier chapter</a>.</p>
-<h4 id="21-generating-result-previews-from-source-files"><a class="header" href="#21-generating-result-previews-from-source-files">2.1. Generating Result Previews from Source Files</a></h4>
-<p>(<code>RTT=2</code>, Little-Moderate file bloat, Good scalability)</p>
-<p>Generating result previews from source files greatly reduces file bloat, but it does mean that an extra round (<code>RTT</code>) of network requests has to be made to retrieve said source files.</p>
-<p>However, it is also more feasible with this option to reduce a round of network requests by <strong>caching all field stores</strong> up front, as field stores here only store the <a href="indexer/fields.html#reserved-fields">relative file path / link</a> from which to retrieve the source files, and are therefore fairly small.</p>
-<blockquote>
-<p>For example, assuming each link takes an average of <code>25</code> bytes to encode (including json fluff), and <code>3MB</code> (ungzipped) is your comfort zone, you can store up to <code>120000</code> document links in a single, cached field store!</p>
-</blockquote>
-<p>The relevant options here are <code>field_store_block_size</code> and <code>cacheAllFieldStores</code> (simply configure them similar to the earlier <code>RTT=0</code> case).</p>
-<h4 id="22-generating-result-previews-from-field-stores"><a class="header" href="#22-generating-result-previews-from-field-stores">2.2. Generating Result Previews from Field Stores</a></h4>
-<p>(<code>RTT=2</code>, Moderate-Heavy file bloat, Good scalability)</p>
-<p>Generating result previews directly from field stores (using the <a href="./indexer/fields.html"><code>do_store</code></a> option) avoids having to make an extra round of network requests to retrieve said source files.</p>
-<p>This however requires fragmenting the field stores, increasing file bloat.</p>
-<p>You may want to use this option over <strong>2.1</strong> nevertheless if:</p>
-<ul>
-<li>Result previews cannot be generated from source files (<code>csv</code> files)</li>
-<li>You want to increase result preview generation performance (mentioned <a href="search_configuration.html#2-from-field-stores">here</a>)</li>
-</ul>
-<blockquote>
-<p>Refer <a href="https://morsels-search.com">here</a> for a demo of what <code>RTT=2</code> is like.</p>
-</blockquote>
-<h4 id="improving-21-or-22-to-rtt1"><a class="header" href="#improving-21-or-22-to-rtt1">Improving 2.1 or 2.2 to <code>RTT=1</code></a></h4>
-<p>For moderately sized collections, we may also surmise that the <strong>size of the index</strong> (a low-level, compressed inverted index) is often far smaller than the <strong>size of field stores</strong> (which contain the raw document texts).</p>
-<p>The idea here therefore is to additionally <strong>cache the index</strong> (using <code>pl_limit</code>, <code>pl_cache_threshold</code>), removing an entire round of network requests.</p>
-<p>This corresponds to the <code>medium</code> presets in the previous page.</p>
-<h3 id="3-excellent-scalability"><a class="header" href="#3-excellent-scalability">3. Excellent Scalability</a></h3>
-<p>The presets here follow from the section directly above, disregarding the assumptions. That is,</p>
-<h4 id="31-generating-result-previews-from-source-files"><a class="header" href="#31-generating-result-previews-from-source-files">3.1. Generating Result Previews from Source Files</a></h4>
-<p>(<code>RTT=3</code>, Little-Moderate File Bloat, Excellent Scalability)</p>
-<p>Per <strong>section 2.1</strong>, The <code>RTT</code> compromise is accepted as is in this case, without performing the caching of field stores mentioned.</p>
-<p>This is because as the collection grows, we cannot guarantee that document links are at a size that can be feasibly and monolithically cached, although, this is highly unlikely even for the most extreme intended use cases of Morsels (see the earlier example calculation of <code>120000</code> documents).</p>
-<h4 id="32-generating-result-previews-from-field-stores"><a class="header" href="#32-generating-result-previews-from-field-stores">3.2. Generating Result Previews from Field Stores</a></h4>
-<p>(<code>RTT=2</code>, Heavy File Bloat, Excellent Scalability)</p>
-<p>This follows <strong>section 2.2</strong>. No changes are needed here, as both the field stores and index are fragmented.</p>
-<p>As the collection size grows however, many fragmented files will inevitably be generated, which may be of concern for your use case.</p>
-<h2 id="other-performance-considerations"><a class="header" href="#other-performance-considerations">Other Performance Considerations</a></h2>
-<p>This section discusses some other numbers regarding scaling, and is a <em>really</em> optional read.</p>
-<h3 id="gzip"><a class="header" href="#gzip">Gzip</a></h3>
-<p>Gzip can work hand in hand with the morsels’ own compression schemes.</p>
-<p>With a monolithic index, expect about 3-4x compression ratios <strong>without positions</strong> indexed.</p>
-<p>Compression ratios with positions tends to be poorer from some empircal testing, likely since the number of unique positions is fairly large.</p>
-<p>When opting to fragment the index heavily however, also note gzip would serve little to no purpose as:</p>
-<ul>
-<li>The fragmented files are already very small</li>
-<li>Compression ratios for smaller files tends to be poorer</li>
-</ul>
-<blockquote>
-<p>⭐ Morsels’ binary output files are named <code>.json</code> by default, so you shouldn’t have to manually configure the relevant settings in your server.</p>
-</blockquote>
-<h3 id="limits-of-scalability"><a class="header" href="#limits-of-scalability">Limits of Scalability</a></h3>
-<p>Scaling the tool requires splitting the index into many chunks. Some of these chunks may however exceed the index fragment size limit (<code>pl_limit</code>), especially when the chunk contains a very common term (e.g. a stop word like “the”). While the information for this term could be further split into multiple chunks, this would be almost pointless as all such chunks would still have to be retrieved when the term is searched.</p>
-<p>This impacts (depending on the configuration):</p>
-<ul>
-<li>The total size of index chunks retrieved upfront and persistently cached, which exceed the defined <code>pl_cache_threshold</code>.</li>
-<li>The total size of the index chunks that need to be retrieved for the query, which is relevant when <code>pl_cache_threshold</code> is fairly high (such that no files are cached).</li>
-</ul>
-<h4 id="some-data--estimations"><a class="header" href="#some-data--estimations">Some Data &amp; Estimations</a></h4>
-<p>As a rough estimate from testing, this library should be able to handle text collections &lt; <code>800MB</code> with positional indexing and stop words kept.</p>
-<p>The following distribution of index chunk file sizes (before gzip) under the default <code>pl_limit</code> was produced with:</p>
-<ul>
-<li>A <code>380MB</code> <strong>csv</strong> corpus (no HTML soup!)</li>
-<li>Duplicated once to total about <code>760MB</code>, and 19088 documents</li>
-</ul>
-<pre><code># Counts
-[7335  219   76   13    7    14    4     1     1     1     0     0     0     1]
-# (Left) Bin Edges, in KB
-[0     100   250  500   750  1000  2000  3000  4000  5000  6000  7000  8000  9000]
-</code></pre>
-<p>Most of the index chunks are well below the default <code>pl_cache_threshold</code> of <code>1048576</code> bytes, while the select few above it totals roughly <code>45MB</code>. Therefore, on startup, <code>45MB</code> of index chunks are fetched and cached. The remaining bulk of index chunks are retrieved on-demand.</p>
-<h5 id="disabling-positions"><a class="header" href="#disabling-positions">Disabling Positions</a></h5>
-<p>Without positional indexing, the index shrinks <strong>3-4 fold</strong>, making it potentially possible to index collections <code>~2gb</code> in size, or even more.</p>
-<p>In addition, large postings lists are all but removed in this case:</p>
-<pre><code># Counts with positional information removed
-[4350    0    0    0    0    0    0    0    0    0    0    0    0    0]
-</code></pre>
-<h5 id="removing-stop-words"><a class="header" href="#removing-stop-words">Removing Stop Words</a></h5>
-<p>If disabling caching via setting a very high <code>pl_cache_threshold</code>, <a href="./indexer/language.html#note-on-stop-words">removing stop words</a> when indexing would have little to no effect as such terms are already separated into different postings lists and never retrieved unless necessary.</p>
-<p>On the other hand, removing stop words with a lower <code>pl_cache_threshold</code> would help to avoid caching the “outliers” on the right of the distribution up front, if initial network usage is a concern.</p>
-<pre><code># Counts with stop words removed
-[7234  209   65   11    5    1    0    0    0    0    0    0    0    0]
-</code></pre>
+<h2 id="caveats"><a class="header" href="#caveats">Caveats</a></h2>
+<p>There are some additional caveats to note when using this option. Whenever possible, try to run a full reindex of the documents, utilising incremental indexing only when indexing speed is of concern – for example, updating the index repeatedly when developing this documentation (although, the mdbook plugin this documentation is built on currently dosen’t do that).</p>
+<h3 id="collection-statistics"><a class="header" href="#collection-statistics">Collection Statistics</a></h3>
+<p>Collection statistics used to rank documents will tend to drift off when deleting documents (which also entails updating documents). This is because such documents may contain <strong>terms that were not encountered</strong> during the current run of incremental indexing (from added / updated documents). Detecting such terms is difficult, as there is no guarantee the deleted documents are available anymore. The alternative would be to store such information in a non-inverted index, but that again takes up extra space =(.</p>
+<p>As such, the information for these terms may not be “patched”. You <em>may</em> notice some slight drifting in the relative ranking of documents returned after some number of incremental indexing runs, until said terms are encountered again in some other document.</p>
+<h3 id="file-bloat"><a class="header" href="#file-bloat">File Bloat</a></h3>
+<p>When deleting documents or updating documents, old field stores are not removed. This may lead to file bloat after many incremental indexing runs.</p>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -4295,36 +4223,142 @@ if (window.location.search) {
 /></p>
 <p><span style="font-weight: 600;"><!--preload weight 600--></span></p>
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
-<h1 id="incremental-indexing"><a class="header" href="#incremental-indexing">Incremental Indexing</a></h1>
-<p><em>Incremental</em> indexing is also supported by the indexer cli tool.</p>
-<p>Detecting <strong>deleted, changed, or added files</strong> is done by storing an <strong>internal file path –&gt; last modified timestamp</strong> map.</p>
-<p>To use it, simply pass the <code>--incremental</code> or <code>-i</code> option when running the indexer.</p>
+<h1 id="tradeoffs"><a class="header" href="#tradeoffs">Tradeoffs</a></h1>
 <blockquote>
-<p>Again, you will most likely not need to dabble with incremental indexing, unless your collection is extremely large (e.g. &gt; 200MB).</p>
+<p>This page goes <em>into <strong>excruciating</strong> detail</em> on how the various indexer presets (<code>small</code>, <code>medium</code>, …) are configured for better understanding (if you need to know how to fine-tune the settings), and is an entirely optional read.</p>
 </blockquote>
-<h2 id="how-it-works-1"><a class="header" href="#how-it-works-1">How it Works</a></h2>
-<p>As the core idea of Morsels is to split up the index into many tiny parts, the incremental indexing feature works by “patching” only the files which were updated during the current run. This means that at search time, the same amount of index files are retrieved and searched through as before, to reduce the number of network requests.</p>
-<p>This is in contrast to a more traditional “segment” based approach you might find in search servers, whereby each incremental indexing run generates an entirely separate “segment”, and segments are merged together at runtime (during search). While this makes sense for traditional search tools, it may unfortunately generate too many network requests for index files and search overhead from merging files, something Morsels is trying to minimise.</p>
-<h2 id="content-based-hashing"><a class="header" href="#content-based-hashing">Content Based Hashing</a></h2>
-<p>The default change detection currently relies on the last modified time in file metadata. This may not always be guaranteed by the tools that generate the files Morsels indexes, or be an accurate reflection of whether a file’s contents were updated.</p>
-<p>If file metadata is <em>unavailable</em> for any given file, the file would always be re-indexed as well.</p>
-<p>You may specify the <code>--incremental-content-hash</code> option in such a case to opt into using a crc32 hash comparison for all files instead. This option should also be specified when running a full index and intending to run incremental indexing somewhere down the line.</p>
-<p>It should only be marginally more expensive for the majority of cases, and may be the default option in the future.</p>
-<h2 id="circumstances-that-trigger-a-full-reindex"><a class="header" href="#circumstances-that-trigger-a-full-reindex">Circumstances that Trigger a Full (Re)Index</a></h2>
-<p>Note also, that the following circumstances will forcibly trigger a <strong>full</strong> reindex:</p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The possible tradeoffs are marked with ✔️. Those that are likely impossible are marked ❌ (or in other words, you likely need a search server / SaaS for these options). Options that are possible but are relatively undesirable (for which better equivalent options exist) are marked ⚪. The default tradeoff is marked ⭐. Some roughly equivalent / adjacent options are marked ✔️ as it would depend on your collection, use case and some other factors elaborated below.</p>
+<p>Latency is labelled in terms of <code>RTT</code> (round trip time), the maximum of which is <code>3</code>. Also note that the labelled <code>RTT</code> times are <strong>maximums</strong>. (e.g. if files are served from cache instead)</p>
+<div class="table-wrapper"><table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
+<tr><td>Fair Scalability,<br><span style="color: green">Little</span> File bloat</td><td>⭐</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Fair Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Fair Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>⚪</td><td>⚪</td><td>⚪</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Good Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>✔️</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: green">Little</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: #ff8a0f">Moderate</span> File bloat</td><td>❌</td><td>❌</td><td>❌</td><td>✔️</td></tr>
+<tr><td>Excellent Scalability,<br><span style="color: red">Heavy</span> File bloat</td><td>❌</td><td>❌</td><td>✔️</td><td>⚪</td></tr>
+<tr><td>Beyond Excellent Scalability<br>(consider running a<br>search server / SaaS)</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>The last column, <code>RTT=3</code>, is included only for hypothetical discussion but not present in any of the presets!</p>
+</blockquote>
+<h3 id="monolithic-index"><a class="header" href="#monolithic-index">Monolithic Index</a></h3>
+<p>Of particular note, the only possible option under <code>RTT=0</code> is equivalent to using some other existing client side search library and generating a monolithic prebuilt index <strong>and</strong> document/field store (used for generating result previews).</p>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<blockquote>
+<p>This section assumes some knowledge on the options listed below in chapters 4 (barring 4.1) and 5, which will be discussed in briefer detail here:</p>
+</blockquote>
 <ul>
-<li>If the output folder path does not contain any files indexed by morsels</li>
-<li>It contains files indexed by a different version of morsels</li>
-<li>The configuration file (<code>morsels_config.json</code>) was changed in any way</li>
-<li>Usage of the <code>--incremental-content-hash</code> option changed</li>
+<li>Search Configuration: 
+<ul>
+<li>⭐⭐ The method of <a href="search_configuration_advanced.html#default-rendering-output--purpose">result preview generation</a></li>
+<li><a href="search_configuration.html#search-functionality-options"><code>cacheAllFieldStores</code></a></li>
 </ul>
-<h2 id="caveats"><a class="header" href="#caveats">Caveats</a></h2>
-<p>There are some additional caveats to note when using this option. Whenever possible, try to run a full reindex of the documents, utilising incremental indexing only when indexing speed is of concern – for example, updating the index repeatedly when developing this documentation (although, the mdbook plugin this documentation is built on currently dosen’t do that).</p>
-<h3 id="collection-statistics"><a class="header" href="#collection-statistics">Collection Statistics</a></h3>
-<p>Collection statistics used to rank documents will tend to drift off when deleting documents (which also entails updating documents). This is because such documents may contain <strong>terms that were not encountered</strong> during the current run of incremental indexing (from added / updated documents). Detecting such terms is difficult, as there is no guarantee the deleted documents are available anymore. The alternative would be to store such information in a non-inverted index, but that again takes up extra space =(.</p>
-<p>As such, the information for these terms may not be “patched”. You <em>may</em> notice some slight drifting in the relative ranking of documents returned after some number of incremental indexing runs, until said terms are encountered again in some other document.</p>
-<h3 id="file-bloat"><a class="header" href="#file-bloat">File Bloat</a></h3>
-<p>When deleting documents or updating documents, old field stores are not removed. This may lead to file bloat after many incremental indexing runs.</p>
+</li>
+<li>Indexing Configuration:
+<ul>
+<li>what <a href="./indexer/fields.html">fields</a> are stored (<code>do_store</code>)</li>
+<li><a href="./indexer/fields.html"><code>field_store_block_size</code></a></li>
+<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_limit</code></a></li>
+<li><a href="./indexer/indexing.html#indexing-and-search-scaling-advanced"><code>pl_cache_threshold</code></a></li>
+</ul>
+</li>
+</ul>
+<p>The following sections discusses some combinations of options that generate the tradeoff results in the table above.</p>
+<h3 id="1-rtt0-fair-scalability-little-file-bloat"><a class="header" href="#1-rtt0-fair-scalability-little-file-bloat">1. <code>RTT=0</code>, Fair Scalability, Little File Bloat</a></h3>
+<p>To achieve this result, you will need to ensure <strong>everything</strong> that is potentially needed is retrieved up front.</p>
+<ol>
+<li>Set <code>pl_limit</code> to an arbitrarily large number. This compresses the inverted index into just one or a few files.</li>
+<li>Ensure <code>pl_cache_threshold</code> is set to a very low number (or, at least smaller than the generated inverted index file size), so that all postings lists are loaded up front and cached in memory.</li>
+<li>You would also want to set <code>field_store_block_size</code> to a fairly high number, and correspondingly set <code>cacheAllFieldStores</code> to <code>true</code>. This allows morsels to load the few field stores during initilisation and persistently cache them.</li>
+</ol>
+<blockquote>
+<p>⭐ This is what’s being used by this documentation, since it is fairly small.<br><br>Nevertheless, <code>RTT=1/2</code> are still very acceptable settings under good network conditions. <code>RTT=3</code> may be slightly slow (<code>~600ms</code> assuming decent network conditions), but still quite acceptable depending on your use case since it reduces file bloat.<br><br></p>
+</blockquote>
+<h3 id="2-rtt12-good-scalability-moderate--heavy-file-bloat"><a class="header" href="#2-rtt12-good-scalability-moderate--heavy-file-bloat">2. <code>RTT=1/2</code>, Good Scalability, Moderate / Heavy File Bloat</a></h3>
+<p>The impacts of the two options here are discussed under the 2 main methods of result preview generation in the <a href="search_configuration_advanced.html">earlier chapter</a>.</p>
+<h4 id="21-generating-result-previews-from-source-files"><a class="header" href="#21-generating-result-previews-from-source-files">2.1. Generating Result Previews from Source Files</a></h4>
+<p>(<code>RTT=2</code>, Little-Moderate file bloat, Good scalability)</p>
+<p>Generating result previews from source files greatly reduces file bloat, but it does mean that an extra round (<code>RTT</code>) of network requests has to be made to retrieve said source files.</p>
+<p>However, it is also more feasible with this option to reduce a round of network requests by <strong>caching all field stores</strong> up front, as field stores here only store the <a href="indexer/fields.html#reserved-fields">relative file path / link</a> from which to retrieve the source files, and are therefore fairly small.</p>
+<blockquote>
+<p>For example, assuming each link takes an average of <code>25</code> bytes to encode (including json fluff), and <code>3MB</code> (ungzipped) is your comfort zone, you can store up to <code>120000</code> document links in a single, cached field store!</p>
+</blockquote>
+<p>The relevant options here are <code>field_store_block_size</code> and <code>cacheAllFieldStores</code> (simply configure them similar to the earlier <code>RTT=0</code> case).</p>
+<h4 id="22-generating-result-previews-from-field-stores"><a class="header" href="#22-generating-result-previews-from-field-stores">2.2. Generating Result Previews from Field Stores</a></h4>
+<p>(<code>RTT=2</code>, Moderate-Heavy file bloat, Good scalability)</p>
+<p>Generating result previews directly from field stores (using the <a href="./indexer/fields.html"><code>do_store</code></a> option) avoids having to make an extra round of network requests to retrieve said source files.</p>
+<p>This however requires fragmenting the field stores, increasing file bloat.</p>
+<p>You may want to use this option over <strong>2.1</strong> nevertheless if:</p>
+<ul>
+<li>Result previews cannot be generated from source files (<code>csv</code> files)</li>
+<li>You want to increase result preview generation performance (mentioned <a href="search_configuration.html#2-from-field-stores">here</a>)</li>
+</ul>
+<blockquote>
+<p>Refer <a href="https://morsels-search.com">here</a> for a demo of what <code>RTT=2</code> is like.</p>
+</blockquote>
+<h4 id="improving-21-or-22-to-rtt1"><a class="header" href="#improving-21-or-22-to-rtt1">Improving 2.1 or 2.2 to <code>RTT=1</code></a></h4>
+<p>For moderately sized collections, we may also surmise that the <strong>size of the index</strong> (a low-level, compressed inverted index) is often far smaller than the <strong>size of field stores</strong> (which contain the raw document texts).</p>
+<p>The idea here therefore is to additionally <strong>cache the index</strong> (using <code>pl_limit</code>, <code>pl_cache_threshold</code>), removing an entire round of network requests.</p>
+<p>This corresponds to the <code>medium</code> presets in the previous page.</p>
+<h3 id="3-excellent-scalability"><a class="header" href="#3-excellent-scalability">3. Excellent Scalability</a></h3>
+<p>The presets here follow from the section directly above, disregarding the assumptions. That is,</p>
+<h4 id="31-generating-result-previews-from-source-files"><a class="header" href="#31-generating-result-previews-from-source-files">3.1. Generating Result Previews from Source Files</a></h4>
+<p>(<code>RTT=3</code>, Little-Moderate File Bloat, Excellent Scalability)</p>
+<p>Per <strong>section 2.1</strong>, The <code>RTT</code> compromise is accepted as is in this case, without performing the caching of field stores mentioned.</p>
+<p>This is because as the collection grows, we cannot guarantee that document links are at a size that can be feasibly and monolithically cached, although, this is highly unlikely even for the most extreme intended use cases of Morsels (see the earlier example calculation of <code>120000</code> documents).</p>
+<h4 id="32-generating-result-previews-from-field-stores"><a class="header" href="#32-generating-result-previews-from-field-stores">3.2. Generating Result Previews from Field Stores</a></h4>
+<p>(<code>RTT=2</code>, Heavy File Bloat, Excellent Scalability)</p>
+<p>This follows <strong>section 2.2</strong>. No changes are needed here, as both the field stores and index are fragmented.</p>
+<p>As the collection size grows however, many fragmented files will inevitably be generated, which may be of concern for your use case.</p>
+<h2 id="other-performance-considerations"><a class="header" href="#other-performance-considerations">Other Performance Considerations</a></h2>
+<p>This section discusses some other numbers regarding scaling, and is a <em>really</em> optional read.</p>
+<h3 id="gzip"><a class="header" href="#gzip">Gzip</a></h3>
+<p>Gzip can work hand in hand with the morsels’ own compression schemes.</p>
+<p>With a monolithic index, expect about 3-4x compression ratios <strong>without positions</strong> indexed.</p>
+<p>Compression ratios with positions tends to be poorer from some empircal testing, likely since the number of unique positions is fairly large.</p>
+<p>When fragmenting the index heavily, gzip would also serve little to no purpose as compression ratios for smaller files tends to be poorer.</p>
+<blockquote>
+<p>⭐ Morsels’ binary output files are named <code>.json</code> by default, so you shouldn’t have to manually configure the relevant settings in your server.</p>
+</blockquote>
+<h3 id="limits-of-scalability"><a class="header" href="#limits-of-scalability">Limits of Scalability</a></h3>
+<p>Scaling the tool requires splitting the index into many chunks. Some of these chunks may however exceed the index fragment size limit (<code>pl_limit</code>), especially when the chunk contains a very common term (e.g. a stop word like “the”). Splitting such chunks further would be pointless as all such chunks would still have to be retrieved when the term is searched.</p>
+<p>This impacts (depending on the configuration):</p>
+<ul>
+<li>The total size of index chunks retrieved for caching during initialisation, that exceed the defined <code>pl_cache_threshold</code>.</li>
+<li>The total size of the index chunks that need to be retrieved for a particular query, which is relevant when <code>pl_cache_threshold</code> is fairly high (such that no files are cached).</li>
+</ul>
+<details>
+<summary>Some Data & Estimations</summary>
+<p>As a rough estimate from testing, this library should be able to handle text collections &lt; <code>800MB</code> with positional indexing and stop words kept.</p>
+<p>The following distribution of index chunk file sizes (before gzip) under the default <code>pl_limit</code> was produced with:</p>
+<ul>
+<li>A <code>380MB</code> <strong>csv</strong> corpus (no HTML soup!)</li>
+<li>Duplicated once to total about <code>760MB</code>, and 19088 documents</li>
+</ul>
+<pre><code># Counts
+[7335  219   76   13    7    14    4     1     1     1     0     0     0     1]
+# (Left) Bin Edges, in KB
+[0     100   250  500   750  1000  2000  3000  4000  5000  6000  7000  8000  9000]
+</code></pre>
+<p>Most of the index chunks are well below the default <code>pl_cache_threshold</code> of <code>1048576</code> bytes, while the select few above it totals roughly <code>45MB</code>. Therefore, on startup, <code>45MB</code> of index chunks are fetched and cached. The remaining bulk of index chunks are retrieved on-demand.</p>
+<h5 id="disabling-positions"><a class="header" href="#disabling-positions">Disabling Positions</a></h5>
+<p>Without positional indexing, the index shrinks <strong>3-4 fold</strong>, making it potentially possible to index collections <code>~2gb</code> in size, or even more.</p>
+<p>In addition, large postings lists are all but removed in this case:</p>
+<pre><code># Counts with positional information removed
+[4350    0    0    0    0    0    0    0    0    0    0    0    0    0]
+</code></pre>
+<h5 id="removing-stop-words"><a class="header" href="#removing-stop-words">Removing Stop Words</a></h5>
+<p>If disabling caching via setting a very high <code>pl_cache_threshold</code>, <a href="./indexer/language.html#note-on-stop-words">removing stop words</a> when indexing would have little to no effect as such terms are already separated into different postings lists and never retrieved unless necessary.</p>
+<p>On the other hand, removing stop words with a lower <code>pl_cache_threshold</code> would help to avoid caching the “outliers” on the right of the distribution up front, if initial network usage is a concern.</p>
+<pre><code># Counts with stop words removed
+[7234  209   65   11    5    1    0    0    0    0    0    0    0    0]
+</code></pre>
+</details>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>

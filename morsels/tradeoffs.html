@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.1.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.2.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tradeoffs.html" class="active"><strong aria-hidden="true">7.1.</strong> Tradeoffs</a></li><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.2.</strong> Incremental Indexing</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="search_features.html"><strong aria-hidden="true">2.</strong> Search Features</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started_mdbook.html"><strong aria-hidden="true">3.1.</strong> mdBook</a></li><li class="chapter-item expanded "><a href="getting_started_others.html"><strong aria-hidden="true">3.2.</strong> Others</a></li></ol></li><li class="chapter-item expanded "><a href="search_configuration.html"><strong aria-hidden="true">4.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_styling.html"><strong aria-hidden="true">4.1.</strong> Styling</a></li></ol></li><li class="chapter-item expanded "><a href="indexer_configuration.html"><strong aria-hidden="true">5.</strong> Indexer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="indexer/language.html"><strong aria-hidden="true">5.1.</strong> Language</a></li><li class="chapter-item expanded "><a href="indexer/fields.html"><strong aria-hidden="true">5.2.</strong> Fields</a></li><li class="chapter-item expanded "><a href="indexer/indexing.html"><strong aria-hidden="true">5.3.</strong> Indexing</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Advanced</li><li class="chapter-item expanded "><a href="search_configuration_advanced.html"><strong aria-hidden="true">6.</strong> Search UI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="search_configuration_renderers.html"><strong aria-hidden="true">6.1.</strong> Altering HTML outputs</a></li></ol></li><li class="chapter-item expanded "><a href="indexer/larger_collections.html"><strong aria-hidden="true">7.</strong> Larger Collections</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="incremental_indexing.html"><strong aria-hidden="true">7.1.</strong> Incremental Indexing</a></li><li class="chapter-item expanded "><a href="tradeoffs.html" class="active"><strong aria-hidden="true">7.2.</strong> Tradeoffs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -258,13 +258,9 @@
 <ul class="morsels-root" id="morsels-mdbook-target"></ul>
 <h1 id="tradeoffs"><a class="header" href="#tradeoffs">Tradeoffs</a></h1>
 <blockquote>
-<p>This page goes <em>into detail</em> on how the various indexer presets (<code>small</code>, <code>medium</code>, …) are configured, what tradeoffs they make, and is a (mostly) optional read, especially if your collection isn’t too large.</p>
+<p>This page goes <em>into <strong>excruciating</strong> detail</em> on how the various indexer presets (<code>small</code>, <code>medium</code>, …) are configured for better understanding (if you need to know how to fine-tune the settings), and is an entirely optional read.</p>
 </blockquote>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>Each preset largely makes a tradeoff between your document collection size and the number of rounds of network requests to make. File bloat is also discussed, if it is of concern.</p>
-<blockquote>
-<p>The last column, <code>RTT=3</code>, is included only for hypothetical discussion but not present in any of the presets!</p>
-</blockquote>
 <p>The possible tradeoffs are marked with ✔️. Those that are likely impossible are marked ❌ (or in other words, you likely need a search server / SaaS for these options). Options that are possible but are relatively undesirable (for which better equivalent options exist) are marked ⚪. The default tradeoff is marked ⭐. Some roughly equivalent / adjacent options are marked ✔️ as it would depend on your collection, use case and some other factors elaborated below.</p>
 <p>Latency is labelled in terms of <code>RTT</code> (round trip time), the maximum of which is <code>3</code>. Also note that the labelled <code>RTT</code> times are <strong>maximums</strong>. (e.g. if files are served from cache instead)</p>
 <div class="table-wrapper"><table><thead><tr><th>Factor</th><th><code>RTT=0</code></th><th><code>RTT=1</code></th><th><code>RTT=2</code></th><th><code>RTT=3</code></th></tr></thead><tbody>
@@ -280,9 +276,11 @@
 <tr><td>Beyond Excellent Scalability<br>(consider running a<br>search server / SaaS)</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
 </tbody></table>
 </div>
+<blockquote>
+<p>The last column, <code>RTT=3</code>, is included only for hypothetical discussion but not present in any of the presets!</p>
+</blockquote>
 <h3 id="monolithic-index"><a class="header" href="#monolithic-index">Monolithic Index</a></h3>
 <p>Of particular note, the only possible option under <code>RTT=0</code> is equivalent to using some other existing client side search library and generating a monolithic prebuilt index <strong>and</strong> document/field store (used for generating result previews).</p>
-<p>You may still want to use morsels since it packages a search UI, or, if you prefer the simplicity of a cli indexer tool (e.g. for CI build tools).</p>
 <h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
 <blockquote>
 <p>This section assumes some knowledge on the options listed below in chapters 4 (barring 4.1) and 5, which will be discussed in briefer detail here:</p>
@@ -356,22 +354,19 @@
 <p>Gzip can work hand in hand with the morsels’ own compression schemes.</p>
 <p>With a monolithic index, expect about 3-4x compression ratios <strong>without positions</strong> indexed.</p>
 <p>Compression ratios with positions tends to be poorer from some empircal testing, likely since the number of unique positions is fairly large.</p>
-<p>When opting to fragment the index heavily however, also note gzip would serve little to no purpose as:</p>
-<ul>
-<li>The fragmented files are already very small</li>
-<li>Compression ratios for smaller files tends to be poorer</li>
-</ul>
+<p>When fragmenting the index heavily, gzip would also serve little to no purpose as compression ratios for smaller files tends to be poorer.</p>
 <blockquote>
 <p>⭐ Morsels’ binary output files are named <code>.json</code> by default, so you shouldn’t have to manually configure the relevant settings in your server.</p>
 </blockquote>
 <h3 id="limits-of-scalability"><a class="header" href="#limits-of-scalability">Limits of Scalability</a></h3>
-<p>Scaling the tool requires splitting the index into many chunks. Some of these chunks may however exceed the index fragment size limit (<code>pl_limit</code>), especially when the chunk contains a very common term (e.g. a stop word like “the”). While the information for this term could be further split into multiple chunks, this would be almost pointless as all such chunks would still have to be retrieved when the term is searched.</p>
+<p>Scaling the tool requires splitting the index into many chunks. Some of these chunks may however exceed the index fragment size limit (<code>pl_limit</code>), especially when the chunk contains a very common term (e.g. a stop word like “the”). Splitting such chunks further would be pointless as all such chunks would still have to be retrieved when the term is searched.</p>
 <p>This impacts (depending on the configuration):</p>
 <ul>
-<li>The total size of index chunks retrieved upfront and persistently cached, which exceed the defined <code>pl_cache_threshold</code>.</li>
-<li>The total size of the index chunks that need to be retrieved for the query, which is relevant when <code>pl_cache_threshold</code> is fairly high (such that no files are cached).</li>
+<li>The total size of index chunks retrieved for caching during initialisation, that exceed the defined <code>pl_cache_threshold</code>.</li>
+<li>The total size of the index chunks that need to be retrieved for a particular query, which is relevant when <code>pl_cache_threshold</code> is fairly high (such that no files are cached).</li>
 </ul>
-<h4 id="some-data--estimations"><a class="header" href="#some-data--estimations">Some Data &amp; Estimations</a></h4>
+<details>
+<summary>Some Data & Estimations</summary>
 <p>As a rough estimate from testing, this library should be able to handle text collections &lt; <code>800MB</code> with positional indexing and stop words kept.</p>
 <p>The following distribution of index chunk file sizes (before gzip) under the default <code>pl_limit</code> was produced with:</p>
 <ul>
@@ -396,6 +391,7 @@
 <pre><code># Counts with stop words removed
 [7234  209   65   11    5    1    0    0    0    0    0    0    0    0]
 </code></pre>
+</details>
 <script src="/morsels/morsels_assets/search-ui.bundle.js" type="text/javascript" charset="utf-8"></script>
 <script src="/morsels/morsels_assets/mark.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -462,13 +458,10 @@ if (window.location.search) {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="indexer/larger_collections.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="incremental_indexing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="incremental_indexing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -476,13 +469,10 @@ if (window.location.search) {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="indexer/larger_collections.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="incremental_indexing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="incremental_indexing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
